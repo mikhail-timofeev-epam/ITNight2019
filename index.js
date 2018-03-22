@@ -2,7 +2,7 @@
  * CatchTheFox game.
  */
 
-import App from './app/containers/App';
+import App from './app';
 import { AppRegistry } from 'react-native';
 
 AppRegistry.registerComponent('CatchTheAsteroid', () => App);

@@ -13,29 +13,29 @@ export default class LoginScreen extends Component {
                 <TextInput
                     style={styles.inputField}
                     onChangeText={(text) => this.setState({text})}
-                    placeholder='NickName'
+                    placeholder='Ваш логин'
                 />
                 <TextInput
                     style={styles.inputField}
                     onChangeText={(text) => this.setState({text})}
-                    placeholder='Email'
+                    placeholder='Ваша электронная почта'
                 />
                 <TouchableOpacity
                     style={styles.button}
                     onPress={this.onLogin()}
                 >
-                    <Text style={styles.buttonLabel}>Login</Text>
+                    <Text style={styles.buttonLabel}>Залогиниться</Text>
                 </TouchableOpacity>
                 <TouchableOpacity
                     style={[styles.button, styles.googleSignInButton]}
                     onPress={this.onLoginViaGoogle()}
                 >
-                    <Text style={styles.buttonLabel}>Login via Google</Text>
+                    <Text style={styles.buttonLabel}>Зайти через Google</Text>
                 </TouchableOpacity>
                 <TouchableOpacity
                     style={[styles.button, styles.vkSignInButton]}
                     onPress={this.onLoginViaVK()}>
-                    <Text style={styles.buttonLabel}>Login via VK</Text>
+                    <Text style={styles.buttonLabel}>Зайти через VK</Text>
                 </TouchableOpacity>
             </View>
         );
