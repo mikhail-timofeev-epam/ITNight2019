@@ -24,8 +24,9 @@ export default class LoginScreen extends Component {
                     style={styles.button}
                     onPress={this.onLogin()}
                 >
-                    <Text style={styles.buttonLabel}>Залогиниться</Text>
+                    <Text style={styles.buttonLabel}>Войти</Text>
                 </TouchableOpacity>
+                <Text style={styles.separator}>------------или ------------</Text>
                 <TouchableOpacity
                     style={[styles.button, styles.googleSignInButton]}
                     onPress={this.onLoginViaGoogle()}
@@ -90,5 +91,10 @@ const styles = StyleSheet.create({
         margin: 10,
         padding: 5,
         borderBottomWidth: 1
+    },
+
+    separator: {
+        alignSelf: 'center',
+        margin: 10
     }
 });
