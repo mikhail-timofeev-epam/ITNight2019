@@ -26,17 +26,17 @@ export default class LoginScreen extends Component {
                 >
                     <Text style={styles.buttonLabel}>Войти</Text>
                 </TouchableOpacity>
-                <Text style={styles.separator}>------------или ------------</Text>
+                <Text style={styles.separator}>------------ или ------------</Text>
                 <TouchableOpacity
                     style={[styles.button, styles.googleSignInButton]}
                     onPress={this.onLoginViaGoogle()}
                 >
-                    <Text style={styles.buttonLabel}>Зайти через Google</Text>
+                    <Text style={styles.buttonLabel}>Войти через Google</Text>
                 </TouchableOpacity>
                 <TouchableOpacity
                     style={[styles.button, styles.vkSignInButton]}
                     onPress={this.onLoginViaVK()}>
-                    <Text style={styles.buttonLabel}>Зайти через VK</Text>
+                    <Text style={styles.buttonLabel}>Войти через VK</Text>
                 </TouchableOpacity>
             </View>
         );
