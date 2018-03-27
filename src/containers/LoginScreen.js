@@ -1,7 +1,11 @@
 import React, {Component} from 'react';
 import {AppRegistry, TextInput, StyleSheet, Text, View, TouchableOpacity} from 'react-native'
+import {connect} from "react-redux";
+import {bindActionCreators} from "redux";
 
-export default class LoginScreen extends Component {
+import {googleSignIn} from "../actions/GoogleSignInAction";
+
+class LoginScreen extends Component {
 
     constructor(props) {
         super(props);
@@ -29,13 +33,13 @@ export default class LoginScreen extends Component {
                 <Text style={styles.separator}>------------ или ------------</Text>
                 <TouchableOpacity
                     style={[styles.button, styles.googleSignInButton]}
-                    onPress={this.onLoginViaGoogle()}
+                    onPress={this.onLoginViaGoogle}
                 >
                     <Text style={styles.buttonLabel}>Войти через Google</Text>
                 </TouchableOpacity>
                 <TouchableOpacity
                     style={[styles.button, styles.vkSignInButton]}
-                    onPress={this.onLoginViaVK()}>
+                    onPress={this.onLoginViaVK}>
                     <Text style={styles.buttonLabel}>Войти через VK</Text>
                 </TouchableOpacity>
             </View>
@@ -47,13 +51,25 @@ export default class LoginScreen extends Component {
     };
 
     onLoginViaGoogle = () => {
-
+        this.props.googleSignIn();
     };
 
     onLoginViaVK = () => {
 
     };
 }
+
+function mapDispatchToProps(dispatch) {
+    return {
+        googleSignIn: bindActionCreators(googleSignIn, dispatch),
+    }
+}
+
+function mapStateToProps() {
+    return {}
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(LoginScreen);
 
 AppRegistry.registerComponent('LoginScreen', () => LoginScreen);
 

@@ -13,14 +13,18 @@
 		00C302E91ABCBA2D00DB3ED1 /* libRCTNetwork.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 00C302DC1ABCB9D200DB3ED1 /* libRCTNetwork.a */; };
 		00C302EA1ABCBA2D00DB3ED1 /* libRCTVibration.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 00C302E41ABCB9EE00DB3ED1 /* libRCTVibration.a */; };
 		00E356F31AD99517003FC87E /* CatchTheAsteroidTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 00E356F21AD99517003FC87E /* CatchTheAsteroidTests.m */; };
-		0E0FF40B206545980029C3AC /* File.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E0FF40A206545980029C3AC /* File.swift */; };
 		0E0FF40D2065461B0029C3AC /* GoogleSignIn.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0E0FF40C2065461B0029C3AC /* GoogleSignIn.framework */; };
 		0E0FF40F206546290029C3AC /* GoogleSignIn.bundle in Frameworks */ = {isa = PBXBuildFile; fileRef = 0E0FF40E206546290029C3AC /* GoogleSignIn.bundle */; };
 		0E0FF4112065464C0029C3AC /* GoogleSignInDependencies.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0E0FF4102065464C0029C3AC /* GoogleSignInDependencies.framework */; };
 		0E0FF4132065465A0029C3AC /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0E0FF4122065465A0029C3AC /* SystemConfiguration.framework */; };
 		0E0FF4152065466A0029C3AC /* SafariServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0E0FF4142065466A0029C3AC /* SafariServices.framework */; };
 		0E0FF4172065468D0029C3AC /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 0E0FF4162065468D0029C3AC /* GoogleService-Info.plist */; };
-		0E0FF419206547450029C3AC /* RNGoogleSignIn in Resources */ = {isa = PBXBuildFile; fileRef = 0E0FF418206547450029C3AC /* RNGoogleSignIn */; };
+		0E0FF498206A40930029C3AC /* File.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E0FF497206A40930029C3AC /* File.swift */; };
+		0E0FF4A0206A75780029C3AC /* RNGoogleSignIn-Bridging-Header.h in Sources */ = {isa = PBXBuildFile; fileRef = 0E0FF49F206A75780029C3AC /* RNGoogleSignIn-Bridging-Header.h */; };
+		0E0FF4A2206A75870029C3AC /* RNGoogleSignIn.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E0FF4A1206A75870029C3AC /* RNGoogleSignIn.swift */; };
+		0E0FF4A4206A75950029C3AC /* RNGoogleSignInBridge.m in Sources */ = {isa = PBXBuildFile; fileRef = 0E0FF4A3206A75950029C3AC /* RNGoogleSignInBridge.m */; };
+		0E0FF4A6206A75A30029C3AC /* RNGoogleSignInEvents.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E0FF4A5206A75A30029C3AC /* RNGoogleSignInEvents.swift */; };
+		0E0FF4A8206A75B00029C3AC /* RNGoogleSignInEventsBridge.m in Sources */ = {isa = PBXBuildFile; fileRef = 0E0FF4A7206A75B00029C3AC /* RNGoogleSignInEventsBridge.m */; };
 		133E29F31AD74F7200F7D852 /* libRCTLinking.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 78C398B91ACF4ADC00677621 /* libRCTLinking.a */; };
 		139105C61AF99C1200B5F7CC /* libRCTSettings.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 139105C11AF99BAD00B5F7CC /* libRCTSettings.a */; };
 		139FDEF61B0652A700C62182 /* libRCTWebSocket.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 139FDEF41B06529B00C62182 /* libRCTWebSocket.a */; };
@@ -341,14 +345,19 @@
 		00E356EE1AD99517003FC87E /* CatchTheAsteroidTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = CatchTheAsteroidTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		00E356F11AD99517003FC87E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		00E356F21AD99517003FC87E /* CatchTheAsteroidTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CatchTheAsteroidTests.m; sourceTree = "<group>"; };
-		0E0FF40A206545980029C3AC /* File.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = File.swift; sourceTree = "<group>"; };
 		0E0FF40C2065461B0029C3AC /* GoogleSignIn.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = GoogleSignIn.framework; path = CatchTheAsteroid/google_signin_sdk_4_1_0/GoogleSignIn.framework; sourceTree = "<group>"; };
 		0E0FF40E206546290029C3AC /* GoogleSignIn.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; name = GoogleSignIn.bundle; path = CatchTheAsteroid/google_signin_sdk_4_1_0/GoogleSignIn.bundle; sourceTree = "<group>"; };
 		0E0FF4102065464C0029C3AC /* GoogleSignInDependencies.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = GoogleSignInDependencies.framework; path = CatchTheAsteroid/google_signin_sdk_4_1_0/GoogleSignInDependencies.framework; sourceTree = "<group>"; };
 		0E0FF4122065465A0029C3AC /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
 		0E0FF4142065466A0029C3AC /* SafariServices.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SafariServices.framework; path = System/Library/Frameworks/SafariServices.framework; sourceTree = SDKROOT; };
 		0E0FF4162065468D0029C3AC /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = "GoogleService-Info.plist"; path = "CatchTheAsteroid/GoogleService-Info.plist"; sourceTree = "<group>"; };
-		0E0FF418206547450029C3AC /* RNGoogleSignIn */ = {isa = PBXFileReference; lastKnownFileType = folder; name = RNGoogleSignIn; path = "../node_modules/react-native-google-sign-in/ios/RNGoogleSignIn"; sourceTree = "<group>"; };
+		0E0FF496206A40930029C3AC /* CatchTheAsteroid-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "CatchTheAsteroid-Bridging-Header.h"; sourceTree = "<group>"; };
+		0E0FF497206A40930029C3AC /* File.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = File.swift; sourceTree = "<group>"; };
+		0E0FF49F206A75780029C3AC /* RNGoogleSignIn-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = "RNGoogleSignIn-Bridging-Header.h"; path = "CatchTheAsteroid/RNGoogleSignIn/RNGoogleSignIn-Bridging-Header.h"; sourceTree = "<group>"; };
+		0E0FF4A1206A75870029C3AC /* RNGoogleSignIn.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = RNGoogleSignIn.swift; path = CatchTheAsteroid/RNGoogleSignIn/RNGoogleSignIn.swift; sourceTree = "<group>"; };
+		0E0FF4A3206A75950029C3AC /* RNGoogleSignInBridge.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; name = RNGoogleSignInBridge.m; path = CatchTheAsteroid/RNGoogleSignIn/RNGoogleSignInBridge.m; sourceTree = "<group>"; };
+		0E0FF4A5206A75A30029C3AC /* RNGoogleSignInEvents.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = RNGoogleSignInEvents.swift; path = CatchTheAsteroid/RNGoogleSignIn/RNGoogleSignInEvents.swift; sourceTree = "<group>"; };
+		0E0FF4A7206A75B00029C3AC /* RNGoogleSignInEventsBridge.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; name = RNGoogleSignInEventsBridge.m; path = CatchTheAsteroid/RNGoogleSignIn/RNGoogleSignInEventsBridge.m; sourceTree = "<group>"; };
 		139105B61AF99BAD00B5F7CC /* RCTSettings.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RCTSettings.xcodeproj; path = "../node_modules/react-native/Libraries/Settings/RCTSettings.xcodeproj"; sourceTree = "<group>"; };
 		139FDEE61B06529A00C62182 /* RCTWebSocket.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RCTWebSocket.xcodeproj; path = "../node_modules/react-native/Libraries/WebSocket/RCTWebSocket.xcodeproj"; sourceTree = "<group>"; };
 		13B07F961A680F5B00A75B9A /* CatchTheAsteroid.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = CatchTheAsteroid.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -535,6 +544,8 @@
 				13B07FB61A68108700A75B9A /* Info.plist */,
 				13B07FB11A68108700A75B9A /* LaunchScreen.xib */,
 				13B07FB71A68108700A75B9A /* main.m */,
+				0E0FF497206A40930029C3AC /* File.swift */,
+				0E0FF496206A40930029C3AC /* CatchTheAsteroid-Bridging-Header.h */,
 			);
 			name = CatchTheAsteroid;
 			sourceTree = "<group>";
@@ -625,9 +636,12 @@
 		83CBB9F61A601CBA00E9B192 = {
 			isa = PBXGroup;
 			children = (
-				0E0FF418206547450029C3AC /* RNGoogleSignIn */,
+				0E0FF4A7206A75B00029C3AC /* RNGoogleSignInEventsBridge.m */,
+				0E0FF4A5206A75A30029C3AC /* RNGoogleSignInEvents.swift */,
+				0E0FF4A3206A75950029C3AC /* RNGoogleSignInBridge.m */,
+				0E0FF4A1206A75870029C3AC /* RNGoogleSignIn.swift */,
+				0E0FF49F206A75780029C3AC /* RNGoogleSignIn-Bridging-Header.h */,
 				0E0FF4162065468D0029C3AC /* GoogleService-Info.plist */,
-				0E0FF40A206545980029C3AC /* File.swift */,
 				13B07FAE1A68108700A75B9A /* CatchTheAsteroid */,
 				832341AE1AAA6A7D00B99B32 /* Libraries */,
 				00E356EF1AD99517003FC87E /* CatchTheAsteroidTests */,
@@ -1121,7 +1135,6 @@
 				13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */,
 				13B07FBD1A68108700A75B9A /* LaunchScreen.xib in Resources */,
 				0E0FF4172065468D0029C3AC /* GoogleService-Info.plist in Resources */,
-				0E0FF419206547450029C3AC /* RNGoogleSignIn in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1186,8 +1199,13 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				0E0FF4A8206A75B00029C3AC /* RNGoogleSignInEventsBridge.m in Sources */,
+				0E0FF4A6206A75A30029C3AC /* RNGoogleSignInEvents.swift in Sources */,
+				0E0FF4A4206A75950029C3AC /* RNGoogleSignInBridge.m in Sources */,
+				0E0FF4A2206A75870029C3AC /* RNGoogleSignIn.swift in Sources */,
+				0E0FF4A0206A75780029C3AC /* RNGoogleSignIn-Bridging-Header.h in Sources */,
 				13B07FBC1A68108700A75B9A /* AppDelegate.m in Sources */,
-				0E0FF40B206545980029C3AC /* File.swift in Sources */,
+				0E0FF498206A40930029C3AC /* File.swift in Sources */,
 				13B07FC11A68108700A75B9A /* main.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -1301,15 +1319,12 @@
 				DEAD_CODE_STRIPPING = NO;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
-					"$(PROJECT_DIR)/CatchTheAsteroid/google_signin_sdk_4_1_0",
+					"$(PROJECT_DIR)/CatchTheAsteroid/google_signin_sdk_4_1_0/**",
 				);
 				HEADER_SEARCH_PATHS = (
+					"$(PROJECT_DIR)/CatchTheAsteroid/google_signin_sdk_4_1_0/GoogleSignIn.framework/**",
 					"$(inherited)",
-					"$(SRCROOT)..",
-					ode_modules,
-					"eact-native-beacons-manageriosRNiBeaconRNiBeacon",
-					"$(PROJECT_DIR)/CatchTheAsteroid/google_signin_sdk_4_1_0/GoogleSignIn.framework",
-					"$(SRCROOT)/../node_modules/react-native-google-sign-in/ios/RNGoogleSignIn",
+					"$(SRCROOT)/../node_modules/react-native-beacons-manager/ios/RNiBeacon/RNiBeacon",
 				);
 				INFOPLIST_FILE = CatchTheAsteroid/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
@@ -1319,8 +1334,7 @@
 					"-lc++",
 				);
 				PRODUCT_NAME = CatchTheAsteroid;
-				SWIFT_OBJC_BRIDGING_HEADER = "CatchTheAsteroid/CatchTheAsteroid-Bridging-Header.h";
-				SWIFT_OBJC_INTERFACE_HEADER_NAME = "CatchTheAsteroid-Bridging-Header.h";
+				SWIFT_OBJC_BRIDGING_HEADER = "CatchTheAsteroid-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 3.0;
 				VERSIONING_SYSTEM = "apple-generic";
@@ -1335,15 +1349,12 @@
 				CURRENT_PROJECT_VERSION = 1;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
-					"$(PROJECT_DIR)/CatchTheAsteroid/google_signin_sdk_4_1_0",
+					"$(PROJECT_DIR)/CatchTheAsteroid/google_signin_sdk_4_1_0/**",
 				);
 				HEADER_SEARCH_PATHS = (
+					"$(PROJECT_DIR)/CatchTheAsteroid/google_signin_sdk_4_1_0/GoogleSignIn.framework/**",
 					"$(inherited)",
-					"$(SRCROOT)..",
-					ode_modules,
-					"eact-native-beacons-manageriosRNiBeaconRNiBeacon",
-					"$(PROJECT_DIR)/CatchTheAsteroid/google_signin_sdk_4_1_0/GoogleSignIn.framework",
-					"$(SRCROOT)/../node_modules/react-native-google-sign-in/ios/RNGoogleSignIn",
+					"$(SRCROOT)/../node_modules/react-native-beacons-manager/ios/RNiBeacon/RNiBeacon",
 				);
 				INFOPLIST_FILE = CatchTheAsteroid/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
@@ -1353,8 +1364,7 @@
 					"-lc++",
 				);
 				PRODUCT_NAME = CatchTheAsteroid;
-				SWIFT_OBJC_BRIDGING_HEADER = "CatchTheAsteroid/CatchTheAsteroid-Bridging-Header.h";
-				SWIFT_OBJC_INTERFACE_HEADER_NAME = "CatchTheAsteroid-Bridging-Header.h";
+				SWIFT_OBJC_BRIDGING_HEADER = "CatchTheAsteroid-Bridging-Header.h";
 				SWIFT_VERSION = 3.0;
 				VERSIONING_SYSTEM = "apple-generic";
 			};
