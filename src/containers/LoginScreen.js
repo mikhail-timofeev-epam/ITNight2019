@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import {AppRegistry, TextInput, StyleSheet, Text, View, TouchableOpacity} from 'react-native'
+import {Platform, AppRegistry, TextInput, StyleSheet, Text, View, TouchableOpacity} from 'react-native'
 import {connect} from "react-redux";
 import {bindActionCreators} from "redux";
 
@@ -106,7 +106,7 @@ const styles = StyleSheet.create({
         borderColor: 'gray',
         margin: 10,
         padding: 5,
-        borderBottomWidth: 1
+        borderBottomWidth: Platform.OS === 'ios' ? 1 : 0
     },
 
     separator: {

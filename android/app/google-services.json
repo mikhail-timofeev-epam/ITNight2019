@@ -1,33 +1,33 @@
 {
   "project_info": {
-    "project_number": "474687684049",
-    "project_id": "asteroid-157ca"
+    "project_number": "184855726947",
+    "project_id": "firebase-asteroidandroid"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:474687684049:android:8c6fb8da23c8dc2a",
+        "mobilesdk_app_id": "1:184855726947:android:8c6fb8da23c8dc2a",
         "android_client_info": {
           "package_name": "com.catchtheasteroid"
         }
       },
       "oauth_client": [
         {
-          "client_id": "474687684049-14u3hcni88p1n5j8rqdeeag3kvo93bdf.apps.googleusercontent.com",
+          "client_id": "184855726947-60t82jcb2lp3b5mcm3rt1k20qoeaa2gq.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
             "package_name": "com.catchtheasteroid",
-            "certificate_hash": "6de8097da3bc35ac5262807ce0ec0cc23a656757"
+            "certificate_hash": "85da6a559a986874eb3b505f449b8cbb5c416347"
           }
         },
         {
-          "client_id": "474687684049-7nmc9h4vqb7tmd939rtug0218skh9v16.apps.googleusercontent.com",
+          "client_id": "184855726947-ac4921b4h1prk6fb14o6ih88ln51vjkr.apps.googleusercontent.com",
           "client_type": 3
         }
       ],
       "api_key": [
         {
-          "current_key": "AIzaSyD-os1eZ7UwKGaf-XmMdpq1B8zHqQpHzP0"
+          "current_key": "AIzaSyCvQLz8NZNq1x8GElegEbF_M8Y_cejDOZQ"
         }
       ],
       "services": {

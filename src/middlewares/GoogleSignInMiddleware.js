@@ -12,12 +12,10 @@ export default (store) => {
                     clientID: '474687684049-gje5siv602tc07ubks6rqvi54bcsq62q.apps.googleusercontent.com',
 
                     // iOS, Android
-                    // https://developers.google.com/identity/sign-in/ios/api/interface_g_i_d_sign_in.html#ae214ed831bb93a06d8d9c3692d5b35f9
-                    serverClientID: '474687684049-gje5siv602tc07ubks6rqvi54bcsq62q.apps.googleusercontent.com',
-
-                    // iOS, Android
                     // https://developers.google.com/identity/protocols/googlescopes
-                    scopes: ['profile', 'email']
+                    scopes: ['profile', 'email'],
+
+                    shouldFetchBasicProfile: true
                 });
 
                 GoogleSignIn.signInPromise().then((result) => {
