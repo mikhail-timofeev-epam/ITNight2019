@@ -47,8 +47,11 @@
 		2D16E6881FA4F8E400B85C8A /* libReact.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 2D16E6891FA4F8E400B85C8A /* libReact.a */; };
 		2DCD954D1E0B4F2C00145EB5 /* CatchTheAsteroidTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 00E356F21AD99517003FC87E /* CatchTheAsteroidTests.m */; };
 		5E9157361DD0AC6A00FF2AA8 /* libRCTAnimation.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 5E9157331DD0AC6500FF2AA8 /* libRCTAnimation.a */; };
+		743EAC75C9EF4DC1B2096D31 /* VKSdkFramework.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = D4F11909BA2C43468701F1C5 /* VKSdkFramework.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, ); }; };
 		832341BD1AAA6AB300B99B32 /* libRCTText.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 832341B51AAA6A8300B99B32 /* libRCTText.a */; };
+		983DA67B9B0B438691DE946C /* libRNVkontakteLogin.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 47BA776AE2A0499982A069D1 /* libRNVkontakteLogin.a */; };
 		ADBDB9381DFEBF1600ED6528 /* libRCTBlob.a in Frameworks */ = {isa = PBXBuildFile; fileRef = ADBDB9271DFEBF0700ED6528 /* libRCTBlob.a */; };
+		C9472EC8B8DD41509160B0C9 /* VKSdkFramework.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D4F11909BA2C43468701F1C5 /* VKSdkFramework.framework */; };
 		D577AC858728409AAA49F57D /* libRNiBeacon.a in Frameworks */ = {isa = PBXBuildFile; fileRef = FF8DD6F89446498A91C8B3F8 /* libRNiBeacon.a */; };
 /* End PBXBuildFile section */
 
@@ -157,6 +160,13 @@
 			proxyType = 2;
 			remoteGlobalIDString = 0D03EBDE1E56B1E700C55E6B;
 			remoteInfo = RNiBeacon;
+		};
+		0EB93E28206E14DE004CFD20 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = CFB8D7BB3CDC41CE945F5C2A /* RNVkontakteLogin.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 134814201AA4EA6300B7C361;
+			remoteInfo = RNVkontakteLogin;
 		};
 		139105C01AF99BAD00B5F7CC /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
@@ -335,6 +345,20 @@
 		};
 /* End PBXContainerItemProxy section */
 
+/* Begin PBXCopyFilesBuildPhase section */
+		2D23A25A0D284820A508BF8A /* Embed Frameworks */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+				743EAC75C9EF4DC1B2096D31 /* VKSdkFramework.framework in Embed Frameworks */,
+			);
+			name = "Embed Frameworks";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
+
 /* Begin PBXFileReference section */
 		008F07F21AC5B25A0029DE68 /* main.jsbundle */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = main.jsbundle; sourceTree = "<group>"; };
 		00C302A71ABCB8CE00DB3ED1 /* RCTActionSheet.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RCTActionSheet.xcodeproj; path = "../node_modules/react-native/Libraries/ActionSheetIOS/RCTActionSheet.xcodeproj"; sourceTree = "<group>"; };
@@ -371,11 +395,14 @@
 		2D02E47B1E0B4A5D006451C7 /* CatchTheAsteroid-tvOS.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "CatchTheAsteroid-tvOS.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		2D02E4901E0B4A5D006451C7 /* CatchTheAsteroid-tvOSTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "CatchTheAsteroid-tvOSTests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		2D16E6891FA4F8E400B85C8A /* libReact.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; path = libReact.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		47BA776AE2A0499982A069D1 /* libRNVkontakteLogin.a */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = archive.ar; path = libRNVkontakteLogin.a; sourceTree = "<group>"; };
 		5E91572D1DD0AC6500FF2AA8 /* RCTAnimation.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RCTAnimation.xcodeproj; path = "../node_modules/react-native/Libraries/NativeAnimation/RCTAnimation.xcodeproj"; sourceTree = "<group>"; };
 		78C398B01ACF4ADC00677621 /* RCTLinking.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RCTLinking.xcodeproj; path = "../node_modules/react-native/Libraries/LinkingIOS/RCTLinking.xcodeproj"; sourceTree = "<group>"; };
 		832341B01AAA6A8300B99B32 /* RCTText.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RCTText.xcodeproj; path = "../node_modules/react-native/Libraries/Text/RCTText.xcodeproj"; sourceTree = "<group>"; };
 		ADBDB91F1DFEBF0600ED6528 /* RCTBlob.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RCTBlob.xcodeproj; path = "../node_modules/react-native/Libraries/Blob/RCTBlob.xcodeproj"; sourceTree = "<group>"; };
+		CFB8D7BB3CDC41CE945F5C2A /* RNVkontakteLogin.xcodeproj */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = "wrapper.pb-project"; name = RNVkontakteLogin.xcodeproj; path = "../node_modules/react-native-vkontakte-login/ios/RNVkontakteLogin.xcodeproj"; sourceTree = "<group>"; };
 		D25AA2597081410E9098C2C6 /* RNiBeacon.xcodeproj */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = "wrapper.pb-project"; name = RNiBeacon.xcodeproj; path = "../node_modules/react-native-beacons-manager/ios/RNiBeacon/RNiBeacon.xcodeproj"; sourceTree = "<group>"; };
+		D4F11909BA2C43468701F1C5 /* VKSdkFramework.framework */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = wrapper.framework; path = VKSdkFramework.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		FF8DD6F89446498A91C8B3F8 /* libRNiBeacon.a */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = archive.ar; path = libRNiBeacon.a; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -411,6 +438,8 @@
 				00C302EA1ABCBA2D00DB3ED1 /* libRCTVibration.a in Frameworks */,
 				139FDEF61B0652A700C62182 /* libRCTWebSocket.a in Frameworks */,
 				D577AC858728409AAA49F57D /* libRNiBeacon.a in Frameworks */,
+				983DA67B9B0B438691DE946C /* libRNVkontakteLogin.a in Frameworks */,
+				C9472EC8B8DD41509160B0C9 /* VKSdkFramework.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -502,6 +531,7 @@
 			isa = PBXGroup;
 			children = (
 				FF8DD6F89446498A91C8B3F8 /* libRNiBeacon.a */,
+				47BA776AE2A0499982A069D1 /* libRNVkontakteLogin.a */,
 			);
 			name = "Recovered References";
 			sourceTree = "<group>";
@@ -510,6 +540,14 @@
 			isa = PBXGroup;
 			children = (
 				0E0FF409206545100029C3AC /* libRNiBeacon.a */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		0EB93E25206E14DE004CFD20 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				0EB93E29206E14DE004CFD20 /* libRNVkontakteLogin.a */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -582,6 +620,7 @@
 				0E0FF40E206546290029C3AC /* GoogleSignIn.bundle */,
 				0E0FF40C2065461B0029C3AC /* GoogleSignIn.framework */,
 				2D16E6891FA4F8E400B85C8A /* libReact.a */,
+				D4F11909BA2C43468701F1C5 /* VKSdkFramework.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -620,6 +659,7 @@
 				00C302DF1ABCB9EE00DB3ED1 /* RCTVibration.xcodeproj */,
 				139FDEE61B06529A00C62182 /* RCTWebSocket.xcodeproj */,
 				D25AA2597081410E9098C2C6 /* RNiBeacon.xcodeproj */,
+				CFB8D7BB3CDC41CE945F5C2A /* RNVkontakteLogin.xcodeproj */,
 			);
 			name = Libraries;
 			sourceTree = "<group>";
@@ -703,6 +743,7 @@
 				13B07F8C1A680F5B00A75B9A /* Frameworks */,
 				13B07F8E1A680F5B00A75B9A /* Resources */,
 				00DD1BFF1BD5951E006B06BC /* Bundle React Native code and images */,
+				2D23A25A0D284820A508BF8A /* Embed Frameworks */,
 			);
 			buildRules = (
 			);
@@ -763,7 +804,7 @@
 						TestTargetID = 13B07F861A680F5B00A75B9A;
 					};
 					13B07F861A680F5B00A75B9A = {
-						LastSwiftMigration = 0900;
+						LastSwiftMigration = 900;
 					};
 					2D02E47A1E0B4A5D006451C7 = {
 						CreatedOnToolsVersion = 8.2.1;
@@ -839,6 +880,10 @@
 				{
 					ProductGroup = 0E0FF405206545100029C3AC /* Products */;
 					ProjectRef = D25AA2597081410E9098C2C6 /* RNiBeacon.xcodeproj */;
+				},
+				{
+					ProductGroup = 0EB93E25206E14DE004CFD20 /* Products */;
+					ProjectRef = CFB8D7BB3CDC41CE945F5C2A /* RNVkontakteLogin.xcodeproj */;
 				},
 			);
 			projectRoot = "";
@@ -948,6 +993,13 @@
 			fileType = archive.ar;
 			path = libRNiBeacon.a;
 			remoteRef = 0E0FF408206545100029C3AC /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		0EB93E29206E14DE004CFD20 /* libRNVkontakteLogin.a */ = {
+			isa = PBXReferenceProxy;
+			fileType = archive.ar;
+			path = libRNVkontakteLogin.a;
+			remoteRef = 0EB93E28206E14DE004CFD20 /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
 		139105C11AF99BAD00B5F7CC /* libRCTSettings.a */ = {
@@ -1260,6 +1312,10 @@
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				BUNDLE_LOADER = "$(TEST_HOST)";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"\".\"",
+				);
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"DEBUG=1",
 					"$(inherited)",
@@ -1267,12 +1323,14 @@
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(SRCROOT)..\node_modules\neact-native-beacons-manageriosRNiBeaconRNiBeacon",
+					"$(SRCROOT)/../node_modules/react-native-vkontakte-login/ios/**",
 				);
 				INFOPLIST_FILE = CatchTheAsteroidTests/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
+					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 				);
 				OTHER_LDFLAGS = (
@@ -1290,15 +1348,21 @@
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				COPY_PHASE_STRIP = NO;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"\".\"",
+				);
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(SRCROOT)..\node_modules\neact-native-beacons-manageriosRNiBeaconRNiBeacon",
+					"$(SRCROOT)/../node_modules/react-native-vkontakte-login/ios/**",
 				);
 				INFOPLIST_FILE = CatchTheAsteroidTests/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
+					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 				);
 				OTHER_LDFLAGS = (
@@ -1325,6 +1389,7 @@
 					"$(PROJECT_DIR)/CatchTheAsteroid/google_signin_sdk_4_1_0/GoogleSignIn.framework/**",
 					"$(inherited)",
 					"$(SRCROOT)/../node_modules/react-native-beacons-manager/ios/RNiBeacon/RNiBeacon",
+					"$(SRCROOT)/../node_modules/react-native-vkontakte-login/ios/**",
 				);
 				INFOPLIST_FILE = CatchTheAsteroid/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
@@ -1355,6 +1420,7 @@
 					"$(PROJECT_DIR)/CatchTheAsteroid/google_signin_sdk_4_1_0/GoogleSignIn.framework/**",
 					"$(inherited)",
 					"$(SRCROOT)/../node_modules/react-native-beacons-manager/ios/RNiBeacon/RNiBeacon",
+					"$(SRCROOT)/../node_modules/react-native-vkontakte-login/ios/**",
 				);
 				INFOPLIST_FILE = CatchTheAsteroid/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
@@ -1381,15 +1447,21 @@
 				CLANG_WARN_SUSPICIOUS_MOVE = YES;
 				DEBUG_INFORMATION_FORMAT = dwarf;
 				ENABLE_TESTABILITY = YES;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"\".\"",
+				);
 				GCC_NO_COMMON_BLOCKS = YES;
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(SRCROOT)..\node_modules\neact-native-beacons-manageriosRNiBeaconRNiBeacon",
+					"$(SRCROOT)/../node_modules/react-native-vkontakte-login/ios/**",
 				);
 				INFOPLIST_FILE = "CatchTheAsteroid-tvOS/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
+					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 				);
 				OTHER_LDFLAGS = (
@@ -1415,15 +1487,21 @@
 				CLANG_WARN_SUSPICIOUS_MOVE = YES;
 				COPY_PHASE_STRIP = NO;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"\".\"",
+				);
 				GCC_NO_COMMON_BLOCKS = YES;
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(SRCROOT)..\node_modules\neact-native-beacons-manageriosRNiBeaconRNiBeacon",
+					"$(SRCROOT)/../node_modules/react-native-vkontakte-login/ios/**",
 				);
 				INFOPLIST_FILE = "CatchTheAsteroid-tvOS/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
+					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 				);
 				OTHER_LDFLAGS = (
@@ -1448,11 +1526,16 @@
 				CLANG_WARN_SUSPICIOUS_MOVE = YES;
 				DEBUG_INFORMATION_FORMAT = dwarf;
 				ENABLE_TESTABILITY = YES;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"\".\"",
+				);
 				GCC_NO_COMMON_BLOCKS = YES;
 				INFOPLIST_FILE = "CatchTheAsteroid-tvOSTests/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
+					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = "com.facebook.REACT.CatchTheAsteroid-tvOSTests";
@@ -1473,11 +1556,16 @@
 				CLANG_WARN_SUSPICIOUS_MOVE = YES;
 				COPY_PHASE_STRIP = NO;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"\".\"",
+				);
 				GCC_NO_COMMON_BLOCKS = YES;
 				INFOPLIST_FILE = "CatchTheAsteroid-tvOSTests/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
+					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = "com.facebook.REACT.CatchTheAsteroid-tvOSTests";

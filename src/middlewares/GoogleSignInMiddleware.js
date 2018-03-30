@@ -38,6 +38,8 @@ export default (store) => {
                     )
                 });
                 break;
+            default:
+                next(action);
         }
     };
 };
