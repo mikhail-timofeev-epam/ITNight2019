@@ -5,7 +5,7 @@ import Beacons from 'react-native-beacons-manager'
 import { beaconsChanged, searching } from '../actions/BeaconActions';
 import * as BeaconActionTypes from '../actions/BeaconActionTypes';
 
-const REGION = 'CATCH_THE_FOX_REGION';
+const REGION = 'CATCH_THE_ASTEROID_REGION';
 
 const debouncedCleanFunction = _.debounce((dispatch) => dispatch(beaconsChanged([])),
   10000, {
@@ -19,7 +19,7 @@ export default (store) => {
       case BeaconActionTypes.ACTION_START_RANGING:
         Beacons.detectIBeacons();
 
-        Beacons.startRangingBeaconsInRegion(REGION, action.payload)
+        Beacons.startRangingBeaconsInRegion(REGION)
           .then(()=> console.log('Beacons ranging started successfully!'))
           .catch((err) => console.log(`Beacon ranging not started, error ${err}`));
 
@@ -36,7 +36,7 @@ export default (store) => {
       case BeaconActionTypes.ACTION_STOP_RANGING:
         DeviceEventEmitter.removeListener('beaconsDidRange');
 
-        Beacons.stopRangingBeaconsInRegion(REGION, action.payload)
+        Beacons.stopRangingBeaconsInRegion(REGION)
           .then(()=> console.log('Beacons ranging stopped successfully!'))
           .catch((err) => console.log(`Beacon ranging not stopped, error ${err}`));
         break;

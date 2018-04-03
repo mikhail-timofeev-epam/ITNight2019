@@ -3,12 +3,18 @@
  */
 import _ from 'lodash';
 import * as BeaconActionTypes from '../actions/BeaconActionTypes';
+import { DEFAULT_UUID } from '../constants';
 
 const initialState = {
   items: [],
   isSearching: true,
-  aliases: {}
+  aliases: {},
+  counter: 0,
 };
+
+function filterBeacons(beacons) { 
+  return beacons.filter((beacon)=>beacon.uuid === DEFAULT_UUID);
+}
 
 export default function reducer(state = initialState, action = {}) {
   switch (action.type) {
@@ -22,13 +28,15 @@ export default function reducer(state = initialState, action = {}) {
       });
       return {
         ...state,
-        items: _.sortBy(action.payload, ['uuid', 'major', 'minor']),
-        aliases
+        items: _.sortBy(filterBeacons(action.payload), ['uuid', 'major', 'minor']),
+        aliases,
+        counter: state.counter + 1
       };
     case BeaconActionTypes.ACTION_BEACON_SEARCHING:
       return {
         ...state,
-        isSearching: action.payload && (!state.items || state.items.length == 0)
+        isSearching: action.payload && (!state.items || state.items.length == 0),
+        counter: state.counter + 1
       };
     default:
       return state;

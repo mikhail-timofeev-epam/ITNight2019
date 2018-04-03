@@ -1,11 +1,12 @@
 import _ from 'lodash';
 import { DeviceEventEmitter } from 'react-native'
 import Beacons from 'react-native-beacons-manager'
+import { DEFAULT_UUID } from "../constants"
 
 import { beaconsChanged, searching } from '../actions/BeaconActions';
 import * as BeaconActionTypes from '../actions/BeaconActionTypes';
 
-const REGION = 'CATCH_THE_FOX_REGION';
+const REGION = 'CATCH_THE_ASTEROID_REGION';
 
 const debouncedCleanFunction = _.debounce((dispatch) => dispatch(beaconsChanged([])),
   10000, {
@@ -25,10 +26,7 @@ export default (store) => {
 
         Beacons.requestWhenInUseAuthorization();
 
-        let region = {identifier: REGION, uuid: 'f7826da6-4fa2-4e98-8024-bc5b71e0893e'};
-        if (action.payload) {
-          region.uuid = action.payload;
-        }
+        const region = {identifier: REGION, uuid: action.payload || DEFAULT_UUID};
         Beacons.startRangingBeaconsInRegion(region);
 
         DeviceEventEmitter.addListener('beaconsDidRange', (data) => {
@@ -45,7 +43,7 @@ export default (store) => {
       {
         DeviceEventEmitter.removeListener('beaconsDidRange');
 
-        let region = {identifier: REGION, uuid: 'f7826da6-4fa2-4e98-8024-bc5b71e0893e'};
+        let region = {identifier: REGION, uuid: DEFAULT_UUID};
         if (action.payload) {
           region.uuid = action.payload;
         }
