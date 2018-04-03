@@ -12,8 +12,11 @@ const initialState = {
   counter: 0,
 };
 
-function filterBeacons(beacons) { 
-  return beacons.filter((beacon)=>beacon.uuid === DEFAULT_UUID);
+function processBeacons(beacons) {
+  return beacons.map(item => {
+    return  { uuid: item.uuid.toLowerCase(), major: item.major, minor: item.minor, distance: item.distance || item.accuracy}
+  })
+  .filter(beacon => beacon.uuid === DEFAULT_UUID);
 }
 
 export default function reducer(state = initialState, action = {}) {
@@ -28,7 +31,7 @@ export default function reducer(state = initialState, action = {}) {
       });
       return {
         ...state,
-        items: _.sortBy(filterBeacons(action.payload), ['uuid', 'major', 'minor']),
+        items: processBeacons(action.payload),
         aliases,
         counter: state.counter + 1
       };

@@ -14,7 +14,7 @@ const logger = createLogger({
 
 const store = createStore(
     rootReducer,
-    applyMiddleware(thunkMiddleware, BeaconsMiddleware)
+    applyMiddleware(thunkMiddleware, BeaconsMiddleware, logger)
 );
 
 export { store };
