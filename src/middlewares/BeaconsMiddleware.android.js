@@ -1,46 +1,43 @@
-import _ from 'lodash';
-import { DeviceEventEmitter } from 'react-native'
-import Beacons from 'react-native-beacons-manager'
+import _ from "lodash";
+import { DeviceEventEmitter } from "react-native";
+import Beacons from "react-native-beacons-manager";
+import { searching, beaconsChanged } from "../actions";
+import { BeaconActionTypes } from "../actions/actionsTypes";
+import { REGION } from "../constants";
 
-import { beaconsChanged, searching } from '../actions/BeaconActions';
-import * as BeaconActionTypes from '../actions/BeaconActionTypes';
+const debouncedCleanFunction = _.debounce(dispatch => dispatch(beaconsChanged([])), 10000, {
+    leading: false,
+    trailing: true,
+});
 
-const REGION = 'CATCH_THE_ASTEROID_REGION';
+export default store => {
+    return next => action => {
+        switch (action.type) {
+            case BeaconActionTypes.ACTION_START_RANGING:
+                Beacons.detectIBeacons();
 
-const debouncedCleanFunction = _.debounce((dispatch) => dispatch(beaconsChanged([])),
-  10000, {
-    'leading': false,
-    'trailing': true
-  });
+                Beacons.startRangingBeaconsInRegion(REGION)
+                    .then(() => console.log("Beacons ranging started successfully!"))
+                    .catch(err => console.log(`Beacon ranging not started, error ${err}`));
 
-export default (store) => {
-  return (next) => (action) => {
-    switch (action.type) {
-      case BeaconActionTypes.ACTION_START_RANGING:
-        Beacons.detectIBeacons();
+                DeviceEventEmitter.addListener("beaconsDidRange", data => {
+                    console.log("Found beacons!", data.beacons);
+                    if (data.beacons && data.beacons.length != 0) {
+                        store.dispatch(beaconsChanged(data.beacons));
+                        debouncedCleanFunction(store.dispatch);
+                    }
+                    store.dispatch(searching(!data.beacons || data.beacons.length == 0));
+                });
 
-        Beacons.startRangingBeaconsInRegion(REGION)
-          .then(()=> console.log('Beacons ranging started successfully!'))
-          .catch((err) => console.log(`Beacon ranging not started, error ${err}`));
+                break;
+            case BeaconActionTypes.ACTION_STOP_RANGING:
+                DeviceEventEmitter.removeListener("beaconsDidRange");
 
-        DeviceEventEmitter.addListener('beaconsDidRange', (data) => {
-          console.log('Found beacons!', data.beacons);
-          if (data.beacons && data.beacons.length != 0) {
-            store.dispatch(beaconsChanged(data.beacons));
-            debouncedCleanFunction(store.dispatch);
-          }
-          store.dispatch(searching(!data.beacons || data.beacons.length == 0));
-        });
-
-        break;
-      case BeaconActionTypes.ACTION_STOP_RANGING:
-        DeviceEventEmitter.removeListener('beaconsDidRange');
-
-        Beacons.stopRangingBeaconsInRegion(REGION)
-          .then(()=> console.log('Beacons ranging stopped successfully!'))
-          .catch((err) => console.log(`Beacon ranging not stopped, error ${err}`));
-        break;
-    }
-    next(action);
-  };
+                Beacons.stopRangingBeaconsInRegion(REGION)
+                    .then(() => console.log("Beacons ranging stopped successfully!"))
+                    .catch(err => console.log(`Beacon ranging not stopped, error ${err}`));
+                break;
+        }
+        next(action);
+    };
 };
