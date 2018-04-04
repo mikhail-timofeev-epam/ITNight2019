@@ -6,7 +6,7 @@ import Main from "./containers/Main";
 import keymirror from "keymirror";
 
 export const Routes = keymirror({
-    Main: true
+    Main: true,
 });
 
 const routeConfigMap = {

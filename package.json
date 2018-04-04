@@ -4,17 +4,20 @@
   "private": true,
   "scripts": {
     "start": "node node_modules/react-native/local-cli/cli.js start",
-    "test": "jest"
+    "test": "jest",
+    "prettier": "prettier --write **/src/**/{*.js,*.jsx}"
   },
   "dependencies": {
     "keymirror": "^0.1.1",
     "lodash": "^4.17.5",
+    "prettier": "^1.11.1",
     "react": "16.2.0",
     "react-native": "0.53.3",
     "react-native-beacons-manager": "^1.0.7",
     "react-navigation": "^1.5.8",
     "react-redux": "^5.0.7",
     "redux": "^3.7.2",
+    "redux-actions": "^2.3.0",
     "redux-logger": "^3.0.6",
     "redux-thunk": "^2.2.0"
   },
