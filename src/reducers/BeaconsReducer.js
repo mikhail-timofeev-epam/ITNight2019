@@ -6,19 +6,27 @@ import { DEFAULT_UUID } from "../constants";
 const initialState = {
     beacons: [],
     isSearching: true,
-    stations: [],
+    stations: {},
     errors: {
         stationsRequest: false,
     },
 };
 
+const mapBeaconToSingleId = (uuid, major, minor) => `${uuid.toLowerCase()}(${major}/${minor})`;
+
+/**
+ * Beacon: {
+ *  uuid: string,
+ *  major: number,
+ *  minor: number,
+ *  distance: number
+ * }
+ */
 function processBeacons(beacons) {
     return beacons
         .map(item => {
             return {
-                uuid: item.uuid.toLowerCase(),
-                major: item.major,
-                minor: item.minor,
+                id: mapBeaconToSingleId(beacon.uuid, beacon.major, beacon.minor),
                 distance: item.distance || item.accuracy,
             };
         })
@@ -51,9 +59,15 @@ function handleGetStationsRequest(state) {
 }
 
 function handleGetStationsSuccess(state, action) {
+    const stations = {};
+    for (const station of action.payload) {
+        stations[
+            mapBeaconToSingleId(station.beacon.uid, station.beacon.major, station.beacon.minor)
+        ] = station;
+    }
     return {
         ...state,
-        stations: action.payload,
+        stations,
     };
 }
 
