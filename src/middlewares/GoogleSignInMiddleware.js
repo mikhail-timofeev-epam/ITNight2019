@@ -13,7 +13,7 @@ export default (store) => {
 
                     // iOS, Android
                     // https://developers.google.com/identity/protocols/googlescopes
-                    scopes: ['profile', 'email'],
+                    scopes: ['profile', 'email', 'https://www.googleapis.com/auth/user.phonenumbers.read'],
 
                     shouldFetchBasicProfile: true
                 });
@@ -27,7 +27,6 @@ export default (store) => {
                         }
                     });
                 }).catch((error) => {
-                    console.log(error);
                     Alert.alert(
                         'Ошибка входа через Google',
                         'Произошла ошибка входа через Google. Попробуйте еще раз или воспользуйтесь другим методом входа',

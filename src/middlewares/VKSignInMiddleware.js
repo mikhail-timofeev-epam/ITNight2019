@@ -8,19 +8,24 @@ export default (store) => {
         console.log('middle');
         switch (action.type) {
             case ACTION_VK_SIGN_IN:
-                VKLogin.login(['friends', 'photos', 'email']).then((result)=>{
-                        console.log(result);
-                    }).catch((error)=>{
-                        console.log(error);
-                        Alert.alert(
-                            'Ошибка входа через VK',
-                            'Произошла ошибка входа через VK. Попробуйте еще раз или воспользуйтесь другим методом входа',
-                            [
-                                {text: 'OK'}
-                            ],
-                            { cancelable: true }
-                        );
+                VKLogin.login(['friends', 'photos', 'email']).then((result) => {
+                    return next({
+                        type: ACTION_VK_SIGN_IN,
+                        payload: {
+                            userId: result.user_id,
+                            email: result.email
+                        }
                     });
+                }).catch((error) => {
+                    Alert.alert(
+                        'Ошибка входа через VK',
+                        'Произошла ошибка входа через VK. Попробуйте еще раз или воспользуйтесь другим методом входа',
+                        [
+                            {text: 'OK'}
+                        ],
+                        {cancelable: true}
+                    );
+                });
                 break;
             default:
                 next(action);

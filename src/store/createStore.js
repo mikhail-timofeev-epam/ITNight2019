@@ -2,7 +2,6 @@ import { applyMiddleware, createStore, combineReducers } from "redux";
 import thunkMiddleware from "redux-thunk";
 import { createLogger } from "redux-logger";
 import BeaconsReducer from "../reducers/BeaconsReducer";
-import BeaconsMiddleware from '../middlewares/BeaconsMiddleware';
 import GoogleSignInMiddleware from "../middlewares/GoogleSignInMiddleware";
 import GoogleSignInReducer from "../reducers/GoogleSignInReducer";
 import VKSignInMiddleware from "../middlewares/VKSignInMiddleware";
@@ -15,14 +14,13 @@ const rootReducer = combineReducers({
     vkSignIn: VKSignInReducer
 });
 
-const store = createStore(
-    rootReducer,
-    applyMiddleware(thunkMiddleware, BeaconsMiddleware, GoogleSignInMiddleware, VKSignInMiddleware)
-);
 const logger = createLogger({
     duration: true,
 });
 
-const store = createStore(rootReducer, applyMiddleware(thunkMiddleware, BeaconsMiddleware, logger));
+const store = createStore(
+    rootReducer,
+    applyMiddleware(thunkMiddleware, BeaconsMiddleware, GoogleSignInMiddleware, VKSignInMiddleware, logger)
+);
 
 export { store };
