@@ -1,21 +1,22 @@
-import { MAX_DISTANCE } from "../constants";
-
-export const getVisibleStations = state => {
+export const getVisibleStations = (state, maxDistance) => {
     const { beacons, stations } = state.beacons;
     const locatedStations = [];
-    const locatedBeacons = beacons.filter(beacon => beacon.distance < MAX_DISTANCE);
+    const locatedBeacons = beacons.filter(
+        beacon =>
+            !Number.isNaN(beacon.distance) && beacon.distance >= 0 && beacon.distance <= maxDistance
+    );
 
-    // TODO: Uncomment next lines then server beacons will same as devices
+    // TODO: remove after sync server uuids and beacons
+    for (const key in stations) {
+        locatedStations.push(stations[key]);
+    }
+
+    // TODO: uncomment after sync server uuids and beacons
     // for (const beacon of locatedBeacons) {
     //     if (stations[beacon.id]) {
     //         locatedStations.push(stations[beacon.id]);
     //     }
     // }
-
-    // TODO: Remove next lines then server beacons will same as devices
-    for (const key in stations) {
-        locatedStations.push(stations[key]);
-    }
 
     return locatedStations;
 };

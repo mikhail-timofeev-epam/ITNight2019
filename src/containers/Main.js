@@ -3,7 +3,7 @@ import { View, Text } from "react-native";
 import { connect } from "react-redux";
 import actions from "../actions";
 import { getVisibleStations } from "../selectors";
-import { STATION_TYPES } from "../constants";
+import { STATION_TYPES, MAX_DISTANCE } from "../constants";
 
 class Main extends Component {
     componentDidMount() {
@@ -41,7 +41,7 @@ function mapStateToProps(state) {
     return {
         beacons: state.beacons.beacons,
         isSearching: state.beacons.isSearching,
-        stations: getVisibleStations(state),
+        stations: getVisibleStations(state, MAX_DISTANCE),
     };
 }
 

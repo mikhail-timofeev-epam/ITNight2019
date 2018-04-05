@@ -12,7 +12,12 @@ const initialState = {
     },
 };
 
-const mapBeaconToSingleId = (uuid, major, minor) => `${uuid.toLowerCase()}(${major}/${minor})`;
+const mapBeaconToId = (uuid, major, minor) => {
+    // TODO: use real UUID instead default. See next commented line
+    // return `${uuid.toLowerCase()}(${major}/${minor})`
+    // TODO: remove then server uuids will be synchronized with local
+    return `${uuid.toLowerCase()}|${major}|${minor}`;
+};
 
 /**
  * Beacon: {
@@ -23,14 +28,12 @@ const mapBeaconToSingleId = (uuid, major, minor) => `${uuid.toLowerCase()}(${maj
  * }
  */
 function processBeacons(beacons) {
-    return beacons
-        .map(item => {
-            return {
-                id: mapBeaconToSingleId(beacon.uuid, beacon.major, beacon.minor),
-                distance: item.distance || item.accuracy,
-            };
-        })
-        .filter(beacon => beacon.uuid === DEFAULT_UUID);
+    return beacons.map(beacon => {
+        return {
+            id: mapBeaconToId(beacon.uuid, beacon.major, beacon.minor),
+            distance: beacon.distance || beacon.accuracy,
+        };
+    });
 }
 
 function handleBeaconsChanged(state, action) {
@@ -61,9 +64,8 @@ function handleGetStationsRequest(state) {
 function handleGetStationsSuccess(state, action) {
     const stations = {};
     for (const station of action.payload) {
-        stations[
-            mapBeaconToSingleId(station.beacon.uid, station.beacon.major, station.beacon.minor)
-        ] = station;
+        const id = mapBeaconToId(station.beacon.uid, station.beacon.major, station.beacon.minor);
+        stations[id] = station;
     }
     return {
         ...state,
