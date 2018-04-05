@@ -3,6 +3,10 @@
 # CatchTheAsteroid
 Application for IT Night 2018 (Izhevsk)
 
+Currently works only with uuid "2f234454-cf6d-4a0f-adf2-f4911ba9ffa6". 
+
+For testing application with beacons simulator, put "2f234454-cf6d-4a0f-adf2-f4911ba9ffa6" to proximity  UUID.
+
 Draft scheme:
 
 ![Draft scheme](/resources/scheme.png)

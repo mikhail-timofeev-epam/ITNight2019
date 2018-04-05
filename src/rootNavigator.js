@@ -7,7 +7,7 @@ import LoginScreen from "./containers/LoginScreen";
 import keymirror from "keymirror";
 
 export const Routes = keymirror({
-    Main: true
+    Main: true,
 });
 
 const routeConfigMap = {

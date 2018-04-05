@@ -1,29 +1,14 @@
-import * as BeaconActionTypes from './BeaconActionTypes';
+import { createAction } from "redux-actions";
+import { BeaconActionTypes } from "./actionsTypes";
 
-export function beaconsChanged(beacons) {
-  return {
-    type: BeaconActionTypes.ACTION_BEACON_DID_RANGE,
-    payload: beacons
-  }
-}
+const beaconsChanged = createAction(BeaconActionTypes.ACTION_BEACON_DID_RANGE);
+const startRanging = createAction(BeaconActionTypes.ACTION_START_RANGING);
+const stopRanging = createAction(BeaconActionTypes.ACTION_STOP_RANGING);
+const searching = createAction(BeaconActionTypes.ACTION_BEACON_SEARCHING);
 
-export function startRanging(uuid) {
-  return {
-    type: BeaconActionTypes.ACTION_START_RANGING,
-    payload: uuid
-  }
-}
-
-export function stopRanging(uuid) {
-  return {
-    type: BeaconActionTypes.ACTION_STOP_RANGING,
-    payload: uuid
-  }
-}
-
-export function searching(isSearching) {
-  return {
-    type: BeaconActionTypes.ACTION_BEACON_SEARCHING,
-    payload: isSearching
-  }
-}
+export default {
+    beaconsChanged,
+    startRanging,
+    stopRanging,
+    searching,
+};
