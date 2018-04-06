@@ -30,8 +30,7 @@ public class MainApplication extends Application implements ReactApplication {
           new MainReactPackage(),
             new BeaconsAndroidPackage(),
             new VKAuthPackage(),
-              new RNGoogleSignInPackage(),
-            new BeaconsAndroidPackage()
+              new RNGoogleSignInPackage()
       );
     }
 

@@ -1,4 +1,4 @@
-import {ACTION_VK_SIGN_IN} from './VKSignInActionTypes';
+import {ACTION_VK_SIGN_IN} from './SignInActionTypes';
 
 export function vkSignIn() {
     console.log('action');
