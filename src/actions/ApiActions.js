@@ -10,6 +10,18 @@ import { SIGN_IN } from "./SignInActionTypes";
 const ENDPOINT = "http://ecsc00a017ee.epam.com:8090";
 const ALL_STATIONS = ENDPOINT + "/station";
 
+const _openMainScreenAction = userName => {
+    return NavigationActions.reset({
+        index: 0,
+        actions: [
+            NavigationActions.navigate({
+                routeName: Routes.Main,
+                params: { userName },
+            }),
+        ],
+    });
+};
+
 const getAllStations = () => dispatch => {
     dispatch(createAction(ApiActionTypes.GET_ALL_STATIONS_REQUEST));
     return fetch(ALL_STATIONS)
@@ -74,7 +86,7 @@ const registerUser = (payload, metaInfo) => dispatch => {
             if (!response.name) {
                 dispatch(NavigationActions.navigate({ routeName: Routes.SetUserName }));
             } else {
-                dispatch(NavigationActions.navigate({ routeName: Routes.Main }));
+                dispatch(__openMainScreenAction(response.name));
             }
         })
         .catch(error => {
@@ -96,12 +108,7 @@ const saveUserName = (id, name) => dispatch => {
         .then(response => response.json())
         .then(response => {
             dispatch(createAction(ApiActionTypes.SAVE_USER_NAME_SUCCESS)(response));
-            dispatch(
-                NavigationActions.reset({
-                    index: 0,
-                    actions: [NavigationActions.navigate({ routeName: Routes.Main })],
-                })
-            );
+            dispatch(__openMainScreenAction(name));
         })
         .catch(error => dispatch(createAction(ApiActionTypes.SAVE_USER_NAME_FAILURE)(error)));
 };

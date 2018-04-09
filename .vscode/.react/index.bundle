@@ -81365,9 +81365,13 @@ __d(function (global, require, module, exports, _dependencyMap) {
 
     var _SetUserName2 = _interopRequireDefault(_SetUserName);
 
-    var _navigationMiddleware = require(_dependencyMap[7], "./middlewares/navigationMiddleware");
+    var _WebViewHosting = require(_dependencyMap[7], "./containers/WebViewHosting");
 
-    var _keymirror = require(_dependencyMap[8], "keymirror");
+    var _WebViewHosting2 = _interopRequireDefault(_WebViewHosting);
+
+    var _navigationMiddleware = require(_dependencyMap[8], "./middlewares/navigationMiddleware");
+
+    var _keymirror = require(_dependencyMap[9], "keymirror");
 
     var _keymirror2 = _interopRequireDefault(_keymirror);
 
@@ -81405,17 +81409,27 @@ __d(function (global, require, module, exports, _dependencyMap) {
     var Routes = exports.Routes = (0, _keymirror2.default)({
         Main: true,
         Login: true,
-        SetUserName: true
+        SetUserName: true,
+        WebViewHosting: true
     });
     var routeConfigMap = (_routeConfigMap = {}, _defineProperty(_routeConfigMap, Routes.Login, {
         path: "/login",
         screen: _LoginScreen2.default
     }), _defineProperty(_routeConfigMap, Routes.Main, {
         path: "/main",
-        screen: _Main2.default
+        screen: _Main2.default,
+        navigationOptions: function navigationOptions(_ref) {
+            var navigation = _ref.navigation;
+            return {
+                title: "" + (navigation.state.params.userName || "")
+            };
+        }
     }), _defineProperty(_routeConfigMap, Routes.SetUserName, {
         path: "/setUserName",
         screen: _SetUserName2.default
+    }), _defineProperty(_routeConfigMap, Routes.WebViewHosting, {
+        path: "/webViewHosting",
+        screen: _WebViewHosting2.default
     }), _routeConfigMap);
     var stackConfig = {
         initialRouteName: Routes.Login,
@@ -81444,7 +81458,7 @@ __d(function (global, require, module, exports, _dependencyMap) {
                     navigation: navigation,
                     __source: {
                         fileName: _jsxFileName,
-                        lineNumber: 39
+                        lineNumber: 50
                     }
                 });
             }
@@ -81462,7 +81476,7 @@ __d(function (global, require, module, exports, _dependencyMap) {
     var RootNavigatorContainer = (0, _reactRedux.connect)(mapStateToProps)(RootNavigatorComponent);
     exports.RootNavigatorContainer = RootNavigatorContainer;
     exports.RootNavigator = RootNavigator;
-},622,[13,23,240,177,623,628,707,708,237],"CatchTheAsteroid/src/rootNavigator.js");
+},622,[13,23,240,177,623,628,707,723,708,237],"CatchTheAsteroid/src/rootNavigator.js");
 __d(function (global, require, module, exports, _dependencyMap) {
     Object.defineProperty(exports, "__esModule", {
         value: true
@@ -81482,15 +81496,19 @@ __d(function (global, require, module, exports, _dependencyMap) {
 
     var _reactNative = require(_dependencyMap[2], "react-native");
 
-    var _reactRedux = require(_dependencyMap[3], "react-redux");
+    var _reactNavigation = require(_dependencyMap[3], "react-navigation");
 
-    var _actions = require(_dependencyMap[4], "../actions");
+    var _reactRedux = require(_dependencyMap[4], "react-redux");
+
+    var _actions = require(_dependencyMap[5], "../actions");
 
     var _actions2 = _interopRequireDefault(_actions);
 
-    var _selectors = require(_dependencyMap[5], "../selectors");
+    var _selectors = require(_dependencyMap[6], "../selectors");
 
-    var _constants = require(_dependencyMap[6], "../constants");
+    var _constants = require(_dependencyMap[7], "../constants");
+
+    var _rootNavigator = require(_dependencyMap[8], "../rootNavigator");
 
     function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -81523,9 +81541,24 @@ __d(function (global, require, module, exports, _dependencyMap) {
         _inherits(Main, _Component);
 
         function Main() {
+            var _ref;
+
+            var _temp, _this, _ret;
+
             _classCallCheck(this, Main);
 
-            return _possibleConstructorReturn(this, (Main.__proto__ || Object.getPrototypeOf(Main)).apply(this, arguments));
+            for (var _len = arguments.length, args = Array(_len), _key = 0; _key < _len; _key++) {
+                args[_key] = arguments[_key];
+            }
+
+            return _ret = (_temp = (_this = _possibleConstructorReturn(this, (_ref = Main.__proto__ || Object.getPrototypeOf(Main)).call.apply(_ref, [this].concat(args))), _this), _this.moveToDashboard = function () {
+                _this.props.navigation.dispatch(_reactNavigation.NavigationActions.navigate({
+                    routeName: _rootNavigator.Routes.WebViewHosting,
+                    params: {
+                        uri: "http://bash.im"
+                    }
+                }));
+            }, _temp), _possibleConstructorReturn(_this, _ret);
         }
 
         _createClass(Main, [{
@@ -81545,69 +81578,88 @@ __d(function (global, require, module, exports, _dependencyMap) {
                 return _react3.default.createElement(
                     _reactNative.View,
                     {
+                        style: styles.container,
                         __source: {
                             fileName: _jsxFileName,
-                            lineNumber: 20
+                            lineNumber: 31
                         }
                     },
                     _react3.default.createElement(
-                        _reactNative.Text,
+                        _reactNative.View,
                         {
+                            style: styles.mapContainer,
                             __source: {
                                 fileName: _jsxFileName,
-                                lineNumber: 21
+                                lineNumber: 32
                             }
                         },
-                        this.props.isSearching ? "Searching..." : "Found:"
-                    ),
-                    _react3.default.createElement(
-                        _reactNative.Text,
-                        {
-                            __source: {
-                                fileName: _jsxFileName,
-                                lineNumber: 22
-                            }
-                        },
-                        "Beacons"
-                    ),
-                    this.props.beacons.map(function (beacon) {
-                        var beaconsInfo = beacon.id + " - " + Math.ceil(beacon.distance * 100) / 100;
-                        return _react3.default.createElement(
+                        _react3.default.createElement(
                             _reactNative.Text,
                             {
-                                key: beacon.uuid,
-                                __source: {
-                                    fileName: _jsxFileName,
-                                    lineNumber: 25
-                                }
-                            },
-                            beaconsInfo
-                        );
-                    }),
-                    _react3.default.createElement(
-                        _reactNative.Text,
-                        {
-                            __source: {
-                                fileName: _jsxFileName,
-                                lineNumber: 27
-                            }
-                        },
-                        "Stations"
-                    ),
-                    this.props.stations.map(function (station) {
-                        var type = station.type === _constants.STATION_TYPES.MASTER ? "M" : "S";
-                        var stationInfo = station.name + "(" + type + "): " + station.beacon.uid + " (" + station.beacon.major + "/" + station.beacon.minor + ")";
-                        return _react3.default.createElement(
-                            _reactNative.Text,
-                            {
-                                key: station.beacon.uid,
                                 __source: {
                                     fileName: _jsxFileName,
                                     lineNumber: 33
                                 }
                             },
-                            stationInfo
-                        );
+                            this.props.isSearching ? "Searching..." : "Found:"
+                        ),
+                        _react3.default.createElement(
+                            _reactNative.Text,
+                            {
+                                __source: {
+                                    fileName: _jsxFileName,
+                                    lineNumber: 34
+                                }
+                            },
+                            "Beacons"
+                        ),
+                        this.props.beacons.map(function (beacon) {
+                            var beaconsInfo = beacon.id + " - " + Math.ceil(beacon.distance * 100) / 100;
+                            return _react3.default.createElement(
+                                _reactNative.Text,
+                                {
+                                    key: beacon.uuid,
+                                    __source: {
+                                        fileName: _jsxFileName,
+                                        lineNumber: 38
+                                    }
+                                },
+                                beaconsInfo
+                            );
+                        }),
+                        _react3.default.createElement(
+                            _reactNative.Text,
+                            {
+                                __source: {
+                                    fileName: _jsxFileName,
+                                    lineNumber: 40
+                                }
+                            },
+                            "Stations"
+                        ),
+                        this.props.stations.map(function (station) {
+                            var type = station.type === _constants.STATION_TYPES.MASTER ? "M" : "S";
+                            var stationInfo = station.name + "(" + type + "): " + station.beacon.uid + " (" + station.beacon.major + "/" + station.beacon.minor + ")";
+                            return _react3.default.createElement(
+                                _reactNative.Text,
+                                {
+                                    key: station.beacon.uid,
+                                    __source: {
+                                        fileName: _jsxFileName,
+                                        lineNumber: 46
+                                    }
+                                },
+                                stationInfo
+                            );
+                        })
+                    ),
+                    _react3.default.createElement(_reactNative.Button, {
+                        title: "Go to dashboard",
+                        onPress: this.moveToDashboard,
+                        __source: {
+                            fileName: _jsxFileName,
+                            lineNumber: 49
+                        }
                     })
                 );
             }
@@ -81615,6 +81667,15 @@ __d(function (global, require, module, exports, _dependencyMap) {
 
         return Main;
     }(_react2.Component));
+
+    var styles = _reactNative.StyleSheet.create({
+        container: {
+            flex: 1
+        },
+        mapContainer: {
+            flex: 1
+        }
+    });
 
     function mapStateToProps(state) {
         return {
@@ -81625,7 +81686,7 @@ __d(function (global, require, module, exports, _dependencyMap) {
     }
 
     exports.default = (0, _reactRedux.connect)(mapStateToProps, _actions2.default)(Main);
-},623,[13,23,242,177,624,627,238],"CatchTheAsteroid/src/containers/Main.js");
+},623,[13,23,242,240,177,624,627,238,622],"CatchTheAsteroid/src/containers/Main.js");
 __d(function (global, require, module, exports, _dependencyMap) {
     Object.defineProperty(exports, "__esModule", {
         value: true
@@ -81760,8 +81821,14 @@ __d(function (global, require, module, exports, _dependencyMap) {
                         routeName: _rootNavigator.Routes.SetUserName
                     }));
                 } else {
-                    dispatch(_reactNavigation.NavigationActions.navigate({
-                        routeName: _rootNavigator.Routes.Main
+                    dispatch(_reactNavigation.NavigationActions.reset({
+                        index: 0,
+                        actions: [_reactNavigation.NavigationActions.navigate({
+                            routeName: _rootNavigator.Routes.Main,
+                            params: {
+                                userName: response.name
+                            }
+                        })]
                     }));
                 }
             }).catch(function (error) {
@@ -81788,7 +81855,10 @@ __d(function (global, require, module, exports, _dependencyMap) {
                 dispatch(_reactNavigation.NavigationActions.reset({
                     index: 0,
                     actions: [_reactNavigation.NavigationActions.navigate({
-                        routeName: _rootNavigator.Routes.Main
+                        routeName: _rootNavigator.Routes.Main,
+                        params: {
+                            userName: name
+                        }
                     })]
                 }));
             }).catch(function (error) {
@@ -86489,6 +86559,97 @@ __d(function (global, require, module, exports, _dependencyMap) {
   var EDDYSTONE_URL = exports.EDDYSTONE_URL = 's:0-1=feaa,m:2-2=10,p:3-3:-41,i:4-20v';
   var transmissionSupport = exports.transmissionSupport = ['SUPPORTED', 'NOT_SUPPORTED_MIN_SDK', 'NOT_SUPPORTED_BLE', 'DEPRECATED_NOT_SUPPORTED_MULTIPLE_ADVERTISEMENTS', 'NOT_SUPPORTED_CANNOT_GET_ADVERTISER', 'NOT_SUPPORTED_CANNOT_GET_ADVERTISER_MULTIPLE_ADVERTISEMENTS'];
 },721,[],"react-native-beacons-manager/lib/next/module.types.js");
+__d(function (global, require, module, exports, _dependencyMap) {
+    Object.defineProperty(exports, "__esModule", {
+        value: true
+    });
+
+    var _react2 = require(_dependencyMap[0], "react");
+
+    var _react3 = _interopRequireDefault(_react2);
+
+    var _index = require(_dependencyMap[1], "./../../node_modules/react-transform-hmr/lib/index.js");
+
+    var _index2 = _interopRequireDefault(_index);
+
+    var _jsxFileName = "/Users/Aleksei_Ivshin/Development/Projects/CatchTheAsteroid/src/containers/WebViewHosting.js";
+
+    var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+    var _reactNative = require(_dependencyMap[2], "react-native");
+
+    var _reactRedux = require(_dependencyMap[3], "react-redux");
+
+    var _actions = require(_dependencyMap[4], "../actions");
+
+    var _actions2 = _interopRequireDefault(_actions);
+
+    var _selectors = require(_dependencyMap[5], "../selectors");
+
+    var _constants = require(_dependencyMap[6], "../constants");
+
+    function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+    function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+    function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+    function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+    var _components = {
+        WebViewHosting: {
+            displayName: "WebViewHosting"
+        }
+    };
+
+    var _node_modulesReactTransformHmrLibIndexJs2 = (0, _index2.default)({
+        filename: "/Users/Aleksei_Ivshin/Development/Projects/CatchTheAsteroid/src/containers/WebViewHosting.js",
+        components: _components,
+        locals: [module],
+        imports: [_react3.default]
+    });
+
+    function _wrapComponent(id) {
+        return function (Component) {
+            return _node_modulesReactTransformHmrLibIndexJs2(Component, id);
+        };
+    }
+
+    var WebViewHosting = _wrapComponent("WebViewHosting")(function (_PureComponent) {
+        _inherits(WebViewHosting, _PureComponent);
+
+        function WebViewHosting() {
+            _classCallCheck(this, WebViewHosting);
+
+            return _possibleConstructorReturn(this, (WebViewHosting.__proto__ || Object.getPrototypeOf(WebViewHosting)).apply(this, arguments));
+        }
+
+        _createClass(WebViewHosting, [{
+            key: "render",
+            value: function render() {
+                return _react3.default.createElement(_reactNative.WebView, {
+                    source: {
+                        uri: this.props.uri
+                    },
+                    __source: {
+                        fileName: _jsxFileName,
+                        lineNumber: 11
+                    }
+                });
+            }
+        }]);
+
+        return WebViewHosting;
+    }(_react2.PureComponent));
+
+    function mapStateToProps(state, props) {
+        return {
+            uri: props.navigation.state.params.uri
+        };
+    }
+
+    exports.default = (0, _reactRedux.connect)(mapStateToProps, _actions2.default)(WebViewHosting);
+},723,[13,23,242,177,624,627,238],"CatchTheAsteroid/src/containers/WebViewHosting.js");
 require(252);
 require(11);
 //# sourceMappingURL=index.map

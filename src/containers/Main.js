@@ -1,9 +1,11 @@
 import React, { Component } from "react";
-import { View, Text } from "react-native";
+import { View, Text, Button, StyleSheet } from "react-native";
+import { NavigationActions } from "react-navigation";
 import { connect } from "react-redux";
 import actions from "../actions";
 import { getVisibleStations } from "../selectors";
 import { STATION_TYPES, MAX_DISTANCE } from "../constants";
+import { Routes } from "../rootNavigator";
 
 class Main extends Component {
     componentDidMount() {
@@ -15,27 +17,49 @@ class Main extends Component {
         this.props.stopRanging(null);
     }
 
+    moveToDashboard = () => {
+        this.props.navigation.dispatch(
+            NavigationActions.navigate({
+                routeName: Routes.WebViewHosting,
+                params: { uri: "http://bash.im" },
+            })
+        );
+    };
+
     render() {
         return (
-            <View>
-                <Text>{this.props.isSearching ? "Searching..." : "Found:"}</Text>
-                <Text>Beacons</Text>
-                {this.props.beacons.map(beacon => {
-                    const beaconsInfo = `${beacon.id} - ${Math.ceil(beacon.distance * 100) / 100}`;
-                    return <Text key={beacon.uuid}>{beaconsInfo}</Text>;
-                })}
-                <Text>Stations</Text>
-                {this.props.stations.map(station => {
-                    const type = station.type === STATION_TYPES.MASTER ? "M" : "S";
-                    const stationInfo = `${station.name}(${type}): ${station.beacon.uid} (${
-                        station.beacon.major
-                    }/${station.beacon.minor})`;
-                    return <Text key={station.beacon.uid}>{stationInfo}</Text>;
-                })}
+            <View style={styles.container}>
+                <View style={styles.mapContainer}>
+                    <Text>{this.props.isSearching ? "Searching..." : "Found:"}</Text>
+                    <Text>Beacons</Text>
+                    {this.props.beacons.map(beacon => {
+                        const beaconsInfo = `${beacon.id} - ${Math.ceil(beacon.distance * 100) /
+                            100}`;
+                        return <Text key={beacon.uuid}>{beaconsInfo}</Text>;
+                    })}
+                    <Text>Stations</Text>
+                    {this.props.stations.map(station => {
+                        const type = station.type === STATION_TYPES.MASTER ? "M" : "S";
+                        const stationInfo = `${station.name}(${type}): ${station.beacon.uid} (${
+                            station.beacon.major
+                        }/${station.beacon.minor})`;
+                        return <Text key={station.beacon.uid}>{stationInfo}</Text>;
+                    })}
+                </View>
+                <Button title="Go to dashboard" onPress={this.moveToDashboard} />
             </View>
         );
     }
 }
+
+const styles = StyleSheet.create({
+    container: {
+        flex: 1,
+    },
+    mapContainer: {
+        flex: 1,
+    },
+});
 
 function mapStateToProps(state) {
     return {
