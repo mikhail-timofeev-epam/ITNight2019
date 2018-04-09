@@ -2,7 +2,7 @@ import _ from "lodash";
 import { DeviceEventEmitter } from "react-native";
 import Beacons from "react-native-beacons-manager";
 import { DEFAULT_UUID, REGION } from "../constants";
-import { searching, beaconsChanged } from "../actions";
+import beaconActions from "../actions/BeaconActions";
 import { BeaconActionTypes } from "../actions/actionsTypes";
 
 const debouncedCleanFunction = _.debounce(dispatch => dispatch(beaconsChanged([])), 10000, {
@@ -26,10 +26,10 @@ export default store => next => action => {
                 DeviceEventEmitter.addListener("beaconsDidRange", data => {
                     console.log("Found beacons!", data.beacons);
                     if (data.beacons && data.beacons.length != 0) {
-                        store.dispatch(beaconsChanged(data.beacons));
+                        store.dispatch(beaconActions.beaconsChanged(data.beacons));
                         debouncedCleanFunction(store.dispatch);
                     }
-                    store.dispatch(searching(!data.beacons || data.beacons.length == 0));
+                    store.dispatch(beaconActions.searching(!data.beacons || data.beacons.length == 0));
                 });
             }
             break;
