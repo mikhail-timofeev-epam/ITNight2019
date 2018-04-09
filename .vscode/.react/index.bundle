@@ -81785,8 +81785,11 @@ __d(function (global, require, module, exports, _dependencyMap) {
                 return response.json();
             }).then(function (response) {
                 dispatch((0, _reduxActions.createAction)(_actionsTypes.ApiActionTypes.SAVE_USER_NAME_SUCCESS)(response));
-                dispatch(_reactNavigation.NavigationActions.navigate({
-                    routeName: _rootNavigator.Routes.Main
+                dispatch(_reactNavigation.NavigationActions.reset({
+                    index: 0,
+                    actions: [_reactNavigation.NavigationActions.navigate({
+                        routeName: _rootNavigator.Routes.Main
+                    })]
                 }));
             }).catch(function (error) {
                 return dispatch((0, _reduxActions.createAction)(_actionsTypes.ApiActionTypes.SAVE_USER_NAME_FAILURE)(error));

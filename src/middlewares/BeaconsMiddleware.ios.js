@@ -29,7 +29,9 @@ export default store => next => action => {
                         store.dispatch(beaconActions.beaconsChanged(data.beacons));
                         debouncedCleanFunction(store.dispatch);
                     }
-                    store.dispatch(beaconActions.searching(!data.beacons || data.beacons.length == 0));
+                    store.dispatch(
+                        beaconActions.searching(!data.beacons || data.beacons.length == 0)
+                    );
                 });
             }
             break;

@@ -96,7 +96,12 @@ const saveUserName = (id, name) => dispatch => {
         .then(response => response.json())
         .then(response => {
             dispatch(createAction(ApiActionTypes.SAVE_USER_NAME_SUCCESS)(response));
-            dispatch(NavigationActions.navigate({ routeName: Routes.Main }));
+            dispatch(
+                NavigationActions.reset({
+                    index: 0,
+                    actions: [NavigationActions.navigate({ routeName: Routes.Main })],
+                })
+            );
         })
         .catch(error => dispatch(createAction(ApiActionTypes.SAVE_USER_NAME_FAILURE)(error)));
 };
