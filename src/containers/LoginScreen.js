@@ -7,6 +7,7 @@ import VKLogin from 'react-native-vkontakte-login';
 
 import {googleSignIn} from "../actions/GoogleSignInAction";
 import {vkSignIn} from "../actions/VKSignInAction";
+import {simpleSignIn} from "../actions/SimpleSignInAction";
 
 class LoginScreen extends Component {
 
@@ -14,7 +15,6 @@ class LoginScreen extends Component {
         super(props);
 
         this.state = {
-            login: '',
             email: '',
             phone: '',
             isEmailValid: true,
@@ -24,27 +24,20 @@ class LoginScreen extends Component {
     }
 
     componentDidMount() {
-        //TODO change id if you use this app on your pc
         VKLogin.initialize(6430395);
+    }
+
+    componentWillReceiveProps(props) {
+
+        if(props.userId){
+            //TODO set here next after authorization component
+            this.props.navigation.navigate('Main')
+        }
     }
 
     render() {
         return (
             <View style={styles.container}>
-                <TextInput
-                    style={styles.inputField}
-                    onChangeText={(text) => this.setState({login: text})}
-                    placeholder='Ваш логин'
-                />
-                {
-                    this.state.isLoginValid
-                        ?
-                        null
-                        :
-                        (<Text style={styles.alertLabel}>
-                            *Логин должен содержать только буквы и цифры
-                        </Text>)
-                }
                 <TextInput
                     style={styles.inputField}
                     onChangeText={(text) => this.setState({email: text})}
@@ -98,7 +91,12 @@ class LoginScreen extends Component {
     onLogin = () => {
         this.setState({isEmailValid: validator.isEmail(this.state.email)});
         this.setState({isPhoneValid: validator.isMobilePhone(this.state.phone, 'ru-RU')});
-        this.setState({isLoginValid: validator.isAlphanumeric(this.state.login)});
+        if(validator.isEmail(this.state.email) && validator.isMobilePhone(this.state.phone, 'ru-RU')){
+            this.props.simpleSignIn({
+                email: this.state.email,
+                phone: this.state.phone
+            })
+        }
     };
 
     onLoginViaGoogle = () => {
@@ -113,12 +111,15 @@ class LoginScreen extends Component {
 function mapDispatchToProps(dispatch) {
     return {
         googleSignIn: bindActionCreators(googleSignIn, dispatch),
-        vkSignIn: bindActionCreators(vkSignIn, dispatch)
+        vkSignIn: bindActionCreators(vkSignIn, dispatch),
+        simpleSignIn: bindActionCreators(simpleSignIn, dispatch)
     }
 }
 
-function mapStateToProps() {
-    return {}
+function mapStateToProps(state) {
+    return {
+        userId: state.authorization.userId
+    }
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(LoginScreen);

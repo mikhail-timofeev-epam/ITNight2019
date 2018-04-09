@@ -3,15 +3,14 @@ import thunkMiddleware from "redux-thunk";
 import { createLogger } from "redux-logger";
 import BeaconsReducer from "../reducers/BeaconsReducer";
 import GoogleSignInMiddleware from "../middlewares/GoogleSignInMiddleware";
-import GoogleSignInReducer from "../reducers/GoogleSignInReducer";
 import VKSignInMiddleware from "../middlewares/VKSignInMiddleware";
-import VKSignInReducer from "../reducers/VKSignInReducer";
+import SimpleSignInMiddleware from "../middlewares/SimpleSignInMiddleware";
+import AuthorizationReducer from "../reducers/AuthorizationReducer";
 import BeaconsMiddleware from "../middlewares/BeaconsMiddleware";
 
 const rootReducer = combineReducers({
     beacons: BeaconsReducer,
-    googleSignIn: GoogleSignInReducer,
-    vkSignIn: VKSignInReducer
+    authorization: AuthorizationReducer
 });
 
 const logger = createLogger({
@@ -20,7 +19,7 @@ const logger = createLogger({
 
 const store = createStore(
     rootReducer,
-    applyMiddleware(thunkMiddleware, BeaconsMiddleware, GoogleSignInMiddleware, VKSignInMiddleware, logger)
+    applyMiddleware(thunkMiddleware, BeaconsMiddleware, GoogleSignInMiddleware, VKSignInMiddleware, SimpleSignInMiddleware, logger)
 );
 
 export { store };

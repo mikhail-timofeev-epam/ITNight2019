@@ -8,3 +8,7 @@ export const STATION_TYPES = keymirror({
     MASTER: true,
     STATION: true,
 });
+
+export const AUTH_TYPES = {
+    EMAIL: 'EMAIL', VK: 'VK', GOOGLE: 'GOOGLE'
+};

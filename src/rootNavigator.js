@@ -11,11 +11,12 @@ export const Routes = keymirror({
 });
 
 const routeConfigMap = {
-    [Routes.Main]: { path: "/main", screen: LoginScreen },
+    [Routes.Login]: { path: "/login", screen: LoginScreen },
+    [Routes.Main]: { path: "/main", screen: Main },
 };
 
 const stackConfig = {
-    initialRouteName: Routes.Main,
+    initialRouteName: Routes.Login,
     initialRouteParams: {},
 };
 

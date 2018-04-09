@@ -1,7 +1,8 @@
 import GoogleSignIn from 'react-native-google-sign-in';
 
-import {ACTION_GOOGLE_SIGN_IN, ACTION_GOOGLE_SIGN_IN_ERROR} from '../actions/GoogleSignInActionTypes';
+import {ACTION_GOOGLE_SIGN_IN, SIGN_IN} from '../actions/SignInActionTypes';
 import {Alert} from "react-native";
+import {AUTH_TYPES} from "../constants/index";
 
 export default (store) => {
     return (next) => (action) => {
@@ -13,19 +14,53 @@ export default (store) => {
 
                     // iOS, Android
                     // https://developers.google.com/identity/protocols/googlescopes
-                    scopes: ['profile', 'email', 'https://www.googleapis.com/auth/user.phonenumbers.read'],
+                    scopes: ['profile', 'email'],
 
                     shouldFetchBasicProfile: true
                 });
 
-                GoogleSignIn.signInPromise().then((result) => {
-                    return next({
-                        type: ACTION_GOOGLE_SIGN_IN,
-                        payload: {
-                            name: result.name,
-                            email: result.email
+                GoogleSignIn.signInPromise().then((googleAuthData) => {
+                    fetch(
+                        'http://ecsc00a017ee.epam.com:8090/user',
+                        {
+                            method: 'POST',
+                            headers: {
+                                'Accept': 'application/json',
+                                'Content-Type': 'application/json'
+                            },
+                            body: JSON.stringify({
+                                email: googleAuthData.email,
+                                phone: '',
+                                source: AUTH_TYPES.GOOGLE
+                            })
                         }
-                    });
+                    )
+                        .then((epamAuthData) => { return epamAuthData.json(); })
+                        .then((epamAuthData) => {
+                            return next({
+                                type: SIGN_IN,
+                                payload: {
+                                    name: googleAuthData.name,
+                                    email: googleAuthData.email,
+                                    typeAuthorization: '',
+                                    phone: '',
+                                    idVK: googleAuthData.user_id,
+                                    userId: epamAuthData.userId,
+                                    newUser: epamAuthData.newUser
+                                }
+                            });
+                        })
+                        .catch((error) => {
+                            console.log(error);
+                            Alert.alert(
+                                'Ошибка входа',
+                                'Произошла ошибка входа. Повторите позже.',
+                                [
+                                    {text: 'OK'}
+                                ],
+                                {cancelable: true}
+                            )
+                        });
                 }).catch((error) => {
                     Alert.alert(
                         'Ошибка входа через Google',
@@ -33,7 +68,7 @@ export default (store) => {
                         [
                             {text: 'OK'}
                         ],
-                        { cancelable: true }
+                        {cancelable: true}
                     )
                 });
                 break;
