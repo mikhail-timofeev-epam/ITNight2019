@@ -10,5 +10,7 @@ export const STATION_TYPES = keymirror({
 });
 
 export const AUTH_TYPES = {
-    EMAIL: 'EMAIL', VK: 'VK', GOOGLE: 'GOOGLE'
+    EMAIL: "EMAIL",
+    VK: "VK",
+    GOOGLE: "GOOGLE",
 };

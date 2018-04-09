@@ -1,8 +1,20 @@
-import {ACTION_SIMPLE_SIGN_IN} from './SignInActionTypes';
+import { ACTION_SIMPLE_SIGN_IN } from "./SignInActionTypes";
+import { NavigationActions } from "react-navigation";
+import apiAction from "./ApiActions";
+import { AUTH_TYPES } from "../constants/index";
 
-export function simpleSignIn(authData) {
-    return {
-        type: ACTION_SIMPLE_SIGN_IN,
-        payload: authData
-    }
-}
+export const simpleSignIn = authData => dispatch => {
+    const payload = {
+        email: authData.email,
+        phone: authData.phone,
+        source: AUTH_TYPES.EMAIL,
+    };
+    const metaInfo = {
+        name: "",
+        email: authData.email,
+        typeAuthorization: "",
+        phone: authData.phone,
+        idVK: "",
+    };
+    dispatch(apiAction.registerUser(payload, metaInfo));
+};

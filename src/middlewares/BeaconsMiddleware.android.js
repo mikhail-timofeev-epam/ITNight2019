@@ -1,7 +1,7 @@
 import _ from "lodash";
 import { DeviceEventEmitter } from "react-native";
 import Beacons from "react-native-beacons-manager";
-import { searching, beaconsChanged } from "../actions";
+import beaconActions from "../actions/BeaconActions";
 import { BeaconActionTypes } from "../actions/actionsTypes";
 import { REGION } from "../constants";
 
@@ -21,12 +21,13 @@ export default store => {
                     .catch(err => console.log(`Beacon ranging not started, error ${err}`));
 
                 DeviceEventEmitter.addListener("beaconsDidRange", data => {
-                    console.log("Found beacons!", data.beacons);
                     if (data.beacons && data.beacons.length != 0) {
-                        store.dispatch(beaconsChanged(data.beacons));
+                        store.dispatch(beaconActions.beaconsChanged(data.beacons));
                         debouncedCleanFunction(store.dispatch);
                     }
-                    store.dispatch(searching(!data.beacons || data.beacons.length == 0));
+                    store.dispatch(
+                        beaconActions.searching(!data.beacons || data.beacons.length == 0)
+                    );
                 });
 
                 break;
