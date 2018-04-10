@@ -6,67 +6,79 @@ import actions from "../actions";
 import { getVisibleStations } from "../selectors";
 import { STATION_TYPES, MAX_DISTANCE } from "../constants";
 import { Routes } from "../rootNavigator";
+import Cosmo from "../components/cosmo/Cosmo";
 
 class Main extends Component {
-    componentDidMount() {
-        this.props.startRanging(null);
-        this.props.getAllStations();
-    }
+  state = {
+    beaconStations: []
+  };
 
-    componentWillUnmount() {
-        this.props.stopRanging(null);
-    }
+  componentDidMount() {
+    this.props.startRanging(null);
+    this.props.getAllStations();
+  }
 
-    moveToDashboard = () => {
-        this.props.navigation.dispatch(
-            NavigationActions.navigate({
-                routeName: Routes.WebViewHosting,
-                params: { uri: "http://bash.im" },
-            })
-        );
-    };
+  componentWillUnmount() {
+    this.props.stopRanging(null);
+  }
 
-    render() {
-        return (
-            <View style={styles.container}>
-                <View style={styles.mapContainer}>
-                    <Text>{this.props.isSearching ? "Searching..." : "Found:"}</Text>
-                    <Text>Beacons</Text>
-                    {this.props.beacons.map(beacon => {
-                        const beaconsInfo = `${beacon.id} - ${Math.ceil(beacon.distance * 100) /
-                            100}`;
-                        return <Text key={beacon.uuid}>{beaconsInfo}</Text>;
-                    })}
-                    <Text>Stations</Text>
-                    {this.props.stations.map(station => {
-                        const type = station.type === STATION_TYPES.MASTER ? "M" : "S";
-                        const stationInfo = `${station.name}(${type}): ${station.beacon.uid} (${
-                            station.beacon.major
-                        }/${station.beacon.minor})`;
-                        return <Text key={station.beacon.uid}>{stationInfo}</Text>;
-                    })}
-                </View>
-                <Button title="Go to dashboard" onPress={this.moveToDashboard} />
-            </View>
-        );
-    }
+  componentWillReceiveProps(nextProps) {
+    this.syncBeaconStations(nextProps);
+  }
+
+  syncBeaconStations = (props) => {
+    let beaconStations = [];
+    props.beacons.forEach((beacon) => {
+      const index = props.stations.findIndex((station) =>
+        `${station.beacon.uid}|${station.beacon.major}|${station.beacon.minor}` === beacon.id);
+      const station = props.stations[index];
+      beaconStations.push({ ...beacon, name: station && station.name });
+    });
+    this.setState({ beaconStations })
+  };
+
+  moveToDashboard = () => {
+    this.props.navigation.dispatch(
+      NavigationActions.navigate({
+        routeName: Routes.WebViewHosting,
+        params: { uri: "http://bash.im" },
+      })
+    );
+  };
+
+  handleObjectCapture = (object) => {
+    console.warn('Go to ' + object.name);
+  };
+
+  render() {
+    return (
+      <View style={styles.container}>
+        <Cosmo
+          objects={this.state.beaconStations}
+          maxDistance={MAX_DISTANCE}
+          onObjectCapture={this.handleObjectCapture}
+        />
+        <Button
+          title="Go to dashboard"
+          onPress={this.moveToDashboard}
+        />
+      </View>
+    );
+  }
 }
 
 const styles = StyleSheet.create({
-    container: {
-        flex: 1,
-    },
-    mapContainer: {
-        flex: 1,
-    },
+  container: {
+    flex: 1,
+  },
 });
 
 function mapStateToProps(state) {
-    return {
-        beacons: state.beacons.beacons,
-        isSearching: state.beacons.isSearching,
-        stations: getVisibleStations(state, MAX_DISTANCE),
-    };
+  return {
+    beacons: state.beacons.beacons,
+    isSearching: state.beacons.isSearching,
+    stations: getVisibleStations(state, MAX_DISTANCE),
+  };
 }
 
 export default connect(mapStateToProps, actions)(Main);
