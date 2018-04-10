@@ -1,6 +1,6 @@
 import GoogleSignIn from "react-native-google-sign-in";
 
-import { registerUser } from "./ApiActions";
+import apiAction from "./ApiActions";
 import { ACTION_GOOGLE_SIGN_IN, SIGN_IN } from "../actions/SignInActionTypes";
 import { Alert } from "react-native";
 import { AUTH_TYPES } from "../constants/index";
@@ -16,9 +16,11 @@ export const googleSignIn = () => dispatch => {
 
         shouldFetchBasicProfile: true,
     });
+    console.log(">>>>> FUCK" );
 
     GoogleSignIn.signInPromise()
         .then(googleAuthData => {
+            console.log(">>>>>", googleAuthData);
             const payload = {
                 email: googleAuthData.email,
                 phone: "",
@@ -31,9 +33,10 @@ export const googleSignIn = () => dispatch => {
                 phone: "",
                 idVK: googleAuthData.user_id,
             };
-            dispatch(registerUser(payload, userMetaInfo));
+            dispatch(apiAction.registerUser(payload, userMetaInfo));
         })
         .catch(error => {
+            console.log(error);
             Alert.alert(
                 "Ошибка входа через Google",
                 "Произошла ошибка входа через Google. Попробуйте еще раз или воспользуйтесь другим методом входа",

@@ -86,7 +86,7 @@ const registerUser = (payload, metaInfo) => dispatch => {
             if (!response.name) {
                 dispatch(NavigationActions.navigate({ routeName: Routes.SetUserName }));
             } else {
-                dispatch(__openMainScreenAction(response.name));
+                dispatch(_openMainScreenAction(response.name));
             }
         })
         .catch(error => {
@@ -108,7 +108,7 @@ const saveUserName = (id, name) => dispatch => {
         .then(response => response.json())
         .then(response => {
             dispatch(createAction(ApiActionTypes.SAVE_USER_NAME_SUCCESS)(response));
-            dispatch(__openMainScreenAction(name));
+            dispatch(_openMainScreenAction(name));
         })
         .catch(error => dispatch(createAction(ApiActionTypes.SAVE_USER_NAME_FAILURE)(error)));
 };

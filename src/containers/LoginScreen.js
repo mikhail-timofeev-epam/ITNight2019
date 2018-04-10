@@ -94,6 +94,7 @@ class LoginScreen extends Component {
     };
 
     onLoginViaGoogle = () => {
+        console.log("TESTSTATET")
         this.props.googleSignIn();
     };
 

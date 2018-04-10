@@ -8865,7 +8865,7 @@ __d(function (global, require, module, exports, _dependencyMap) {
     });
     var store = (0, _redux.createStore)(rootReducer, (0, _redux.applyMiddleware)(_reduxThunk2.default, _navigationMiddleware.RootNavMiddleware, _BeaconsMiddleware2.default, logger));
     exports.store = store;
-},208,[191,209,210,211,239,716,717,708],"CatchTheAsteroid/src/store/createStore.js");
+},208,[191,209,210,211,239,714,715,709],"CatchTheAsteroid/src/store/createStore.js");
 __d(function (global, require, module, exports, _dependencyMap) {
   'use strict';
 
@@ -81476,7 +81476,7 @@ __d(function (global, require, module, exports, _dependencyMap) {
     var RootNavigatorContainer = (0, _reactRedux.connect)(mapStateToProps)(RootNavigatorComponent);
     exports.RootNavigatorContainer = RootNavigatorContainer;
     exports.RootNavigator = RootNavigator;
-},622,[13,23,240,177,623,628,707,723,708,237],"CatchTheAsteroid/src/rootNavigator.js");
+},622,[13,23,240,177,623,629,707,708,709,237],"CatchTheAsteroid/src/rootNavigator.js");
 __d(function (global, require, module, exports, _dependencyMap) {
     Object.defineProperty(exports, "__esModule", {
         value: true
@@ -81686,7 +81686,7 @@ __d(function (global, require, module, exports, _dependencyMap) {
     }
 
     exports.default = (0, _reactRedux.connect)(mapStateToProps, _actions2.default)(Main);
-},623,[13,23,242,240,177,624,627,238,622],"CatchTheAsteroid/src/containers/Main.js");
+},623,[13,23,242,240,177,624,628,238,622],"CatchTheAsteroid/src/containers/Main.js");
 __d(function (global, require, module, exports, _dependencyMap) {
     Object.defineProperty(exports, "__esModule", {
         value: true
@@ -81747,6 +81747,18 @@ __d(function (global, require, module, exports, _dependencyMap) {
 
     var ENDPOINT = "http://ecsc00a017ee.epam.com:8090";
     var ALL_STATIONS = ENDPOINT + "/station";
+
+    var _openMainScreenAction = function _openMainScreenAction(userName) {
+        return _reactNavigation.NavigationActions.reset({
+            index: 0,
+            actions: [_reactNavigation.NavigationActions.navigate({
+                routeName: _rootNavigator.Routes.Main,
+                params: {
+                    userName: userName
+                }
+            })]
+        });
+    };
 
     var getAllStations = function getAllStations() {
         return function (dispatch) {
@@ -81821,15 +81833,7 @@ __d(function (global, require, module, exports, _dependencyMap) {
                         routeName: _rootNavigator.Routes.SetUserName
                     }));
                 } else {
-                    dispatch(_reactNavigation.NavigationActions.reset({
-                        index: 0,
-                        actions: [_reactNavigation.NavigationActions.navigate({
-                            routeName: _rootNavigator.Routes.Main,
-                            params: {
-                                userName: response.name
-                            }
-                        })]
-                    }));
+                    dispatch(__openMainScreenAction(response.name));
                 }
             }).catch(function (error) {
                 dispatch((0, _reduxActions.createAction)(_actionsTypes.ApiActionTypes.GET_USER_FAILURE)(error));
@@ -81852,15 +81856,7 @@ __d(function (global, require, module, exports, _dependencyMap) {
                 return response.json();
             }).then(function (response) {
                 dispatch((0, _reduxActions.createAction)(_actionsTypes.ApiActionTypes.SAVE_USER_NAME_SUCCESS)(response));
-                dispatch(_reactNavigation.NavigationActions.reset({
-                    index: 0,
-                    actions: [_reactNavigation.NavigationActions.navigate({
-                        routeName: _rootNavigator.Routes.Main,
-                        params: {
-                            userName: name
-                        }
-                    })]
-                }));
+                dispatch(__openMainScreenAction(name));
             }).catch(function (error) {
                 return dispatch((0, _reduxActions.createAction)(_actionsTypes.ApiActionTypes.SAVE_USER_NAME_FAILURE)(error));
             });
@@ -81872,7 +81868,7 @@ __d(function (global, require, module, exports, _dependencyMap) {
         saveUserName: saveUserName,
         registerUser: registerUser
     };
-},626,[212,236,240,622,242,704],"CatchTheAsteroid/src/actions/ApiActions.js");
+},626,[212,236,240,622,242,627],"CatchTheAsteroid/src/actions/ApiActions.js");
 __d(function (global, require, module, exports, _dependencyMap) {
   Object.defineProperty(exports, "__esModule", {
     value: true
@@ -81883,7 +81879,7 @@ __d(function (global, require, module, exports, _dependencyMap) {
   var ACTION_VK_SIGN_IN_ERROR = exports.ACTION_VK_SIGN_IN_ERROR = "ACTION_VK_SIGN_IN_ERROR";
   var ACTION_SIMPLE_SIGN_IN = exports.ACTION_SIMPLE_SIGN_IN = "ACTION_SIMPLE_SIGN_IN";
   var SIGN_IN = exports.SIGN_IN = "SIGN_IN";
-},704,[],"CatchTheAsteroid/src/actions/SignInActionTypes.js");
+},627,[],"CatchTheAsteroid/src/actions/SignInActionTypes.js");
 __d(function (global, require, module, exports, _dependencyMap) {
     Object.defineProperty(exports, "__esModule", {
         value: true
@@ -81904,7 +81900,7 @@ __d(function (global, require, module, exports, _dependencyMap) {
 
         return locatedStations;
     };
-},627,[],"CatchTheAsteroid/src/selectors/index.js");
+},628,[],"CatchTheAsteroid/src/selectors/index.js");
 __d(function (global, require, module, exports, _dependencyMap) {
     Object.defineProperty(exports, "__esModule", {
         value: true
@@ -81997,6 +81993,8 @@ __d(function (global, require, module, exports, _dependencyMap) {
             };
 
             _this.onLoginViaGoogle = function () {
+                console.log("TESTSTATET");
+
                 _this.props.googleSignIn();
             };
 
@@ -82224,7 +82222,7 @@ __d(function (global, require, module, exports, _dependencyMap) {
             fontSize: 11
         }
     });
-},628,[13,23,242,177,191,629,700,622,701,705,706],"CatchTheAsteroid/src/containers/LoginScreen.js");
+},629,[13,23,242,177,191,630,701,622,702,705,706],"CatchTheAsteroid/src/containers/LoginScreen.js");
 __d(function (global, require, module, exports, _dependencyMap) {
   'use strict';
 
@@ -82579,7 +82577,7 @@ __d(function (global, require, module, exports, _dependencyMap) {
   };
   exports.default = validator;
   module.exports = exports['default'];
-},629,[630,632,633,634,635,636,638,639,643,645,644,642,646,647,649,650,651,653,654,655,656,657,658,659,660,652,661,662,663,664,665,666,667,668,669,670,671,641,672,673,674,675,676,677,678,679,680,681,682,683,684,685,686,687,688,689,690,691,692,693,694,695,697,696,698,699,637],"validator/index.js");
+},630,[631,633,634,635,636,637,639,640,644,646,645,643,647,648,650,651,652,654,655,656,657,658,659,660,661,653,662,663,664,665,666,667,668,669,670,671,672,642,673,674,675,676,677,678,679,680,681,682,683,684,685,686,687,688,689,690,691,692,693,694,695,696,698,697,699,700,638],"validator/index.js");
 __d(function (global, require, module, exports, _dependencyMap) {
   'use strict';
 
@@ -82605,7 +82603,7 @@ __d(function (global, require, module, exports, _dependencyMap) {
   }
 
   module.exports = exports['default'];
-},630,[631],"validator/lib/toDate.js");
+},631,[632],"validator/lib/toDate.js");
 __d(function (global, require, module, exports, _dependencyMap) {
   'use strict';
 
@@ -82623,7 +82621,7 @@ __d(function (global, require, module, exports, _dependencyMap) {
   }
 
   module.exports = exports['default'];
-},631,[],"validator/lib/util/assertString.js");
+},632,[],"validator/lib/util/assertString.js");
 __d(function (global, require, module, exports, _dependencyMap) {
   'use strict';
 
@@ -82648,7 +82646,7 @@ __d(function (global, require, module, exports, _dependencyMap) {
   }
 
   module.exports = exports['default'];
-},632,[631],"validator/lib/toFloat.js");
+},633,[632],"validator/lib/toFloat.js");
 __d(function (global, require, module, exports, _dependencyMap) {
   'use strict';
 
@@ -82673,7 +82671,7 @@ __d(function (global, require, module, exports, _dependencyMap) {
   }
 
   module.exports = exports['default'];
-},633,[631],"validator/lib/toInt.js");
+},634,[632],"validator/lib/toInt.js");
 __d(function (global, require, module, exports, _dependencyMap) {
   'use strict';
 
@@ -82703,7 +82701,7 @@ __d(function (global, require, module, exports, _dependencyMap) {
   }
 
   module.exports = exports['default'];
-},634,[631],"validator/lib/toBoolean.js");
+},635,[632],"validator/lib/toBoolean.js");
 __d(function (global, require, module, exports, _dependencyMap) {
   'use strict';
 
@@ -82728,7 +82726,7 @@ __d(function (global, require, module, exports, _dependencyMap) {
   }
 
   module.exports = exports['default'];
-},635,[631],"validator/lib/equals.js");
+},636,[632],"validator/lib/equals.js");
 __d(function (global, require, module, exports, _dependencyMap) {
   'use strict';
 
@@ -82757,7 +82755,7 @@ __d(function (global, require, module, exports, _dependencyMap) {
   }
 
   module.exports = exports['default'];
-},636,[631,637],"validator/lib/contains.js");
+},637,[632,638],"validator/lib/contains.js");
 __d(function (global, require, module, exports, _dependencyMap) {
   'use strict';
 
@@ -82788,7 +82786,7 @@ __d(function (global, require, module, exports, _dependencyMap) {
   }
 
   module.exports = exports['default'];
-},637,[],"validator/lib/util/toString.js");
+},638,[],"validator/lib/util/toString.js");
 __d(function (global, require, module, exports, _dependencyMap) {
   'use strict';
 
@@ -82818,7 +82816,7 @@ __d(function (global, require, module, exports, _dependencyMap) {
   }
 
   module.exports = exports['default'];
-},638,[631],"validator/lib/matches.js");
+},639,[632],"validator/lib/matches.js");
 __d(function (global, require, module, exports, _dependencyMap) {
   'use strict';
 
@@ -82916,7 +82914,7 @@ __d(function (global, require, module, exports, _dependencyMap) {
   }
 
   module.exports = exports['default'];
-},639,[631,640,641,642],"validator/lib/isEmail.js");
+},640,[632,641,642,643],"validator/lib/isEmail.js");
 __d(function (global, require, module, exports, _dependencyMap) {
   'use strict';
 
@@ -82939,7 +82937,7 @@ __d(function (global, require, module, exports, _dependencyMap) {
   }
 
   module.exports = exports['default'];
-},640,[],"validator/lib/util/merge.js");
+},641,[],"validator/lib/util/merge.js");
 __d(function (global, require, module, exports, _dependencyMap) {
   'use strict';
 
@@ -82983,7 +82981,7 @@ __d(function (global, require, module, exports, _dependencyMap) {
   }
 
   module.exports = exports['default'];
-},641,[631],"validator/lib/isByteLength.js");
+},642,[632],"validator/lib/isByteLength.js");
 __d(function (global, require, module, exports, _dependencyMap) {
   'use strict';
 
@@ -83058,7 +83056,7 @@ __d(function (global, require, module, exports, _dependencyMap) {
   }
 
   module.exports = exports['default'];
-},642,[631,640],"validator/lib/isFQDN.js");
+},643,[632,641],"validator/lib/isFQDN.js");
 __d(function (global, require, module, exports, _dependencyMap) {
   'use strict';
 
@@ -83222,7 +83220,7 @@ __d(function (global, require, module, exports, _dependencyMap) {
   }
 
   module.exports = exports['default'];
-},643,[631,642,644,640],"validator/lib/isURL.js");
+},644,[632,643,645,641],"validator/lib/isURL.js");
 __d(function (global, require, module, exports, _dependencyMap) {
   'use strict';
 
@@ -83305,7 +83303,7 @@ __d(function (global, require, module, exports, _dependencyMap) {
   }
 
   module.exports = exports['default'];
-},644,[631],"validator/lib/isIP.js");
+},645,[632],"validator/lib/isIP.js");
 __d(function (global, require, module, exports, _dependencyMap) {
   'use strict';
 
@@ -83332,7 +83330,7 @@ __d(function (global, require, module, exports, _dependencyMap) {
   }
 
   module.exports = exports['default'];
-},645,[631],"validator/lib/isMACAddress.js");
+},646,[632],"validator/lib/isMACAddress.js");
 __d(function (global, require, module, exports, _dependencyMap) {
   'use strict';
 
@@ -83357,7 +83355,7 @@ __d(function (global, require, module, exports, _dependencyMap) {
   }
 
   module.exports = exports['default'];
-},646,[631],"validator/lib/isBoolean.js");
+},647,[632],"validator/lib/isBoolean.js");
 __d(function (global, require, module, exports, _dependencyMap) {
   'use strict';
 
@@ -83390,7 +83388,7 @@ __d(function (global, require, module, exports, _dependencyMap) {
   }
 
   module.exports = exports['default'];
-},647,[631,648],"validator/lib/isAlpha.js");
+},648,[632,649],"validator/lib/isAlpha.js");
 __d(function (global, require, module, exports, _dependencyMap) {
   'use strict';
 
@@ -83483,7 +83481,7 @@ __d(function (global, require, module, exports, _dependencyMap) {
   alpha['pt-BR'] = alpha['pt-PT'];
   alphanumeric['pt-BR'] = alphanumeric['pt-PT'];
   decimal['pt-BR'] = decimal['pt-PT'];
-},648,[],"validator/lib/alpha.js");
+},649,[],"validator/lib/alpha.js");
 __d(function (global, require, module, exports, _dependencyMap) {
   'use strict';
 
@@ -83516,7 +83514,7 @@ __d(function (global, require, module, exports, _dependencyMap) {
   }
 
   module.exports = exports['default'];
-},649,[631,648],"validator/lib/isAlphanumeric.js");
+},650,[632,649],"validator/lib/isAlphanumeric.js");
 __d(function (global, require, module, exports, _dependencyMap) {
   'use strict';
 
@@ -83543,7 +83541,7 @@ __d(function (global, require, module, exports, _dependencyMap) {
   }
 
   module.exports = exports['default'];
-},650,[631],"validator/lib/isNumeric.js");
+},651,[632],"validator/lib/isNumeric.js");
 __d(function (global, require, module, exports, _dependencyMap) {
   'use strict';
 
@@ -83570,7 +83568,7 @@ __d(function (global, require, module, exports, _dependencyMap) {
   }
 
   module.exports = exports['default'];
-},651,[652],"validator/lib/isPort.js");
+},652,[653],"validator/lib/isPort.js");
 __d(function (global, require, module, exports, _dependencyMap) {
   'use strict';
 
@@ -83604,7 +83602,7 @@ __d(function (global, require, module, exports, _dependencyMap) {
   }
 
   module.exports = exports['default'];
-},652,[631],"validator/lib/isInt.js");
+},653,[632],"validator/lib/isInt.js");
 __d(function (global, require, module, exports, _dependencyMap) {
   'use strict';
 
@@ -83629,7 +83627,7 @@ __d(function (global, require, module, exports, _dependencyMap) {
   }
 
   module.exports = exports['default'];
-},653,[631],"validator/lib/isLowercase.js");
+},654,[632],"validator/lib/isLowercase.js");
 __d(function (global, require, module, exports, _dependencyMap) {
   'use strict';
 
@@ -83654,7 +83652,7 @@ __d(function (global, require, module, exports, _dependencyMap) {
   }
 
   module.exports = exports['default'];
-},654,[631],"validator/lib/isUppercase.js");
+},655,[632],"validator/lib/isUppercase.js");
 __d(function (global, require, module, exports, _dependencyMap) {
   'use strict';
 
@@ -83681,7 +83679,7 @@ __d(function (global, require, module, exports, _dependencyMap) {
   }
 
   module.exports = exports['default'];
-},655,[631],"validator/lib/isAscii.js");
+},656,[632],"validator/lib/isAscii.js");
 __d(function (global, require, module, exports, _dependencyMap) {
   'use strict';
 
@@ -83707,7 +83705,7 @@ __d(function (global, require, module, exports, _dependencyMap) {
     (0, _assertString2.default)(str);
     return fullWidth.test(str);
   }
-},656,[631],"validator/lib/isFullWidth.js");
+},657,[632],"validator/lib/isFullWidth.js");
 __d(function (global, require, module, exports, _dependencyMap) {
   'use strict';
 
@@ -83733,7 +83731,7 @@ __d(function (global, require, module, exports, _dependencyMap) {
     (0, _assertString2.default)(str);
     return halfWidth.test(str);
   }
-},657,[631],"validator/lib/isHalfWidth.js");
+},658,[632],"validator/lib/isHalfWidth.js");
 __d(function (global, require, module, exports, _dependencyMap) {
   'use strict';
 
@@ -83762,7 +83760,7 @@ __d(function (global, require, module, exports, _dependencyMap) {
   }
 
   module.exports = exports['default'];
-},658,[631,656,657],"validator/lib/isVariableWidth.js");
+},659,[632,657,658],"validator/lib/isVariableWidth.js");
 __d(function (global, require, module, exports, _dependencyMap) {
   'use strict';
 
@@ -83789,7 +83787,7 @@ __d(function (global, require, module, exports, _dependencyMap) {
   }
 
   module.exports = exports['default'];
-},659,[631],"validator/lib/isMultibyte.js");
+},660,[632],"validator/lib/isMultibyte.js");
 __d(function (global, require, module, exports, _dependencyMap) {
   'use strict';
 
@@ -83816,7 +83814,7 @@ __d(function (global, require, module, exports, _dependencyMap) {
   }
 
   module.exports = exports['default'];
-},660,[631],"validator/lib/isSurrogatePair.js");
+},661,[632],"validator/lib/isSurrogatePair.js");
 __d(function (global, require, module, exports, _dependencyMap) {
   'use strict';
 
@@ -83850,7 +83848,7 @@ __d(function (global, require, module, exports, _dependencyMap) {
   }
 
   module.exports = exports['default'];
-},661,[631,648],"validator/lib/isFloat.js");
+},662,[632,649],"validator/lib/isFloat.js");
 __d(function (global, require, module, exports, _dependencyMap) {
   'use strict';
 
@@ -83899,7 +83897,7 @@ __d(function (global, require, module, exports, _dependencyMap) {
   }
 
   module.exports = exports['default'];
-},662,[640,631,648],"validator/lib/isDecimal.js");
+},663,[641,632,649],"validator/lib/isDecimal.js");
 __d(function (global, require, module, exports, _dependencyMap) {
   'use strict';
 
@@ -83926,7 +83924,7 @@ __d(function (global, require, module, exports, _dependencyMap) {
   }
 
   module.exports = exports['default'];
-},663,[631],"validator/lib/isHexadecimal.js");
+},664,[632],"validator/lib/isHexadecimal.js");
 __d(function (global, require, module, exports, _dependencyMap) {
   'use strict';
 
@@ -83955,7 +83953,7 @@ __d(function (global, require, module, exports, _dependencyMap) {
   }
 
   module.exports = exports['default'];
-},664,[631,632],"validator/lib/isDivisibleBy.js");
+},665,[632,633],"validator/lib/isDivisibleBy.js");
 __d(function (global, require, module, exports, _dependencyMap) {
   'use strict';
 
@@ -83982,7 +83980,7 @@ __d(function (global, require, module, exports, _dependencyMap) {
   }
 
   module.exports = exports['default'];
-},665,[631],"validator/lib/isHexColor.js");
+},666,[632],"validator/lib/isHexColor.js");
 __d(function (global, require, module, exports, _dependencyMap) {
   'use strict';
 
@@ -84009,7 +84007,7 @@ __d(function (global, require, module, exports, _dependencyMap) {
   }
 
   module.exports = exports['default'];
-},666,[631],"validator/lib/isISRC.js");
+},667,[632],"validator/lib/isISRC.js");
 __d(function (global, require, module, exports, _dependencyMap) {
   'use strict';
 
@@ -84036,7 +84034,7 @@ __d(function (global, require, module, exports, _dependencyMap) {
   }
 
   module.exports = exports['default'];
-},667,[631],"validator/lib/isMD5.js");
+},668,[632],"validator/lib/isMD5.js");
 __d(function (global, require, module, exports, _dependencyMap) {
   'use strict';
 
@@ -84078,7 +84076,7 @@ __d(function (global, require, module, exports, _dependencyMap) {
   }
 
   module.exports = exports['default'];
-},668,[631],"validator/lib/isHash.js");
+},669,[632],"validator/lib/isHash.js");
 __d(function (global, require, module, exports, _dependencyMap) {
   'use strict';
 
@@ -84116,7 +84114,7 @@ __d(function (global, require, module, exports, _dependencyMap) {
   }
 
   module.exports = exports['default'];
-},669,[631],"validator/lib/isJSON.js");
+},670,[632],"validator/lib/isJSON.js");
 __d(function (global, require, module, exports, _dependencyMap) {
   'use strict';
 
@@ -84141,7 +84139,7 @@ __d(function (global, require, module, exports, _dependencyMap) {
   }
 
   module.exports = exports['default'];
-},670,[631],"validator/lib/isEmpty.js");
+},671,[632],"validator/lib/isEmpty.js");
 __d(function (global, require, module, exports, _dependencyMap) {
   'use strict';
 
@@ -84186,7 +84184,7 @@ __d(function (global, require, module, exports, _dependencyMap) {
   }
 
   module.exports = exports['default'];
-},671,[631],"validator/lib/isLength.js");
+},672,[632],"validator/lib/isLength.js");
 __d(function (global, require, module, exports, _dependencyMap) {
   'use strict';
 
@@ -84220,7 +84218,7 @@ __d(function (global, require, module, exports, _dependencyMap) {
   }
 
   module.exports = exports['default'];
-},672,[631],"validator/lib/isUUID.js");
+},673,[632],"validator/lib/isUUID.js");
 __d(function (global, require, module, exports, _dependencyMap) {
   'use strict';
 
@@ -84249,7 +84247,7 @@ __d(function (global, require, module, exports, _dependencyMap) {
   }
 
   module.exports = exports['default'];
-},673,[631,663],"validator/lib/isMongoId.js");
+},674,[632,664],"validator/lib/isMongoId.js");
 __d(function (global, require, module, exports, _dependencyMap) {
   'use strict';
 
@@ -84281,7 +84279,7 @@ __d(function (global, require, module, exports, _dependencyMap) {
   }
 
   module.exports = exports['default'];
-},674,[631,630],"validator/lib/isAfter.js");
+},675,[632,631],"validator/lib/isAfter.js");
 __d(function (global, require, module, exports, _dependencyMap) {
   'use strict';
 
@@ -84313,7 +84311,7 @@ __d(function (global, require, module, exports, _dependencyMap) {
   }
 
   module.exports = exports['default'];
-},675,[631,630],"validator/lib/isBefore.js");
+},676,[632,631],"validator/lib/isBefore.js");
 __d(function (global, require, module, exports, _dependencyMap) {
   'use strict';
 
@@ -84367,7 +84365,7 @@ __d(function (global, require, module, exports, _dependencyMap) {
   }
 
   module.exports = exports['default'];
-},676,[631,637],"validator/lib/isIn.js");
+},677,[632,638],"validator/lib/isIn.js");
 __d(function (global, require, module, exports, _dependencyMap) {
   'use strict';
 
@@ -84424,7 +84422,7 @@ __d(function (global, require, module, exports, _dependencyMap) {
   }
 
   module.exports = exports['default'];
-},677,[631],"validator/lib/isCreditCard.js");
+},678,[632],"validator/lib/isCreditCard.js");
 __d(function (global, require, module, exports, _dependencyMap) {
   'use strict';
 
@@ -84483,7 +84481,7 @@ __d(function (global, require, module, exports, _dependencyMap) {
   }
 
   module.exports = exports['default'];
-},678,[631],"validator/lib/isISIN.js");
+},679,[632],"validator/lib/isISIN.js");
 __d(function (global, require, module, exports, _dependencyMap) {
   'use strict';
 
@@ -84555,7 +84553,7 @@ __d(function (global, require, module, exports, _dependencyMap) {
   }
 
   module.exports = exports['default'];
-},679,[631],"validator/lib/isISBN.js");
+},680,[632],"validator/lib/isISBN.js");
 __d(function (global, require, module, exports, _dependencyMap) {
   'use strict';
 
@@ -84620,7 +84618,7 @@ __d(function (global, require, module, exports, _dependencyMap) {
   }
 
   module.exports = exports['default'];
-},680,[631],"validator/lib/isISSN.js");
+},681,[632],"validator/lib/isISSN.js");
 __d(function (global, require, module, exports, _dependencyMap) {
   'use strict';
 
@@ -84731,7 +84729,7 @@ __d(function (global, require, module, exports, _dependencyMap) {
   }
 
   module.exports = exports['default'];
-},681,[631],"validator/lib/isMobilePhone.js");
+},682,[632],"validator/lib/isMobilePhone.js");
 __d(function (global, require, module, exports, _dependencyMap) {
   'use strict';
 
@@ -84826,7 +84824,7 @@ __d(function (global, require, module, exports, _dependencyMap) {
   }
 
   module.exports = exports['default'];
-},682,[640,631],"validator/lib/isCurrency.js");
+},683,[641,632],"validator/lib/isCurrency.js");
 __d(function (global, require, module, exports, _dependencyMap) {
   'use strict';
 
@@ -84853,7 +84851,7 @@ __d(function (global, require, module, exports, _dependencyMap) {
   }
 
   module.exports = exports['default'];
-},683,[631],"validator/lib/isISO8601.js");
+},684,[632],"validator/lib/isISO8601.js");
 __d(function (global, require, module, exports, _dependencyMap) {
   'use strict';
 
@@ -84880,7 +84878,7 @@ __d(function (global, require, module, exports, _dependencyMap) {
   }
 
   module.exports = exports['default'];
-},684,[631],"validator/lib/isISO31661Alpha2.js");
+},685,[632],"validator/lib/isISO31661Alpha2.js");
 __d(function (global, require, module, exports, _dependencyMap) {
   'use strict';
 
@@ -84914,7 +84912,7 @@ __d(function (global, require, module, exports, _dependencyMap) {
   }
 
   module.exports = exports['default'];
-},685,[631],"validator/lib/isBase64.js");
+},686,[632],"validator/lib/isBase64.js");
 __d(function (global, require, module, exports, _dependencyMap) {
   'use strict';
 
@@ -84974,7 +84972,7 @@ __d(function (global, require, module, exports, _dependencyMap) {
   }
 
   module.exports = exports['default'];
-},686,[631],"validator/lib/isDataURI.js");
+},687,[632],"validator/lib/isDataURI.js");
 __d(function (global, require, module, exports, _dependencyMap) {
   'use strict';
 
@@ -85003,7 +85001,7 @@ __d(function (global, require, module, exports, _dependencyMap) {
   }
 
   module.exports = exports['default'];
-},687,[631],"validator/lib/isMimeType.js");
+},688,[632],"validator/lib/isMimeType.js");
 __d(function (global, require, module, exports, _dependencyMap) {
   'use strict';
 
@@ -85031,7 +85029,7 @@ __d(function (global, require, module, exports, _dependencyMap) {
   var lat = /^\(?[+-]?(90(\.0+)?|[1-8]?\d(\.\d+)?)$/;
   var long = /^\s?[+-]?(180(\.0+)?|1[0-7]\d(\.\d+)?|\d{1,2}(\.\d+)?)\)?$/;
   module.exports = exports['default'];
-},688,[631],"validator/lib/isLatLong.js");
+},689,[632],"validator/lib/isLatLong.js");
 __d(function (global, require, module, exports, _dependencyMap) {
   'use strict';
 
@@ -85114,7 +85112,7 @@ __d(function (global, require, module, exports, _dependencyMap) {
     ZM: fiveDigit
   };
   var locales = exports.locales = Object.keys(patterns);
-},689,[631],"validator/lib/isPostalCode.js");
+},690,[632],"validator/lib/isPostalCode.js");
 __d(function (global, require, module, exports, _dependencyMap) {
   'use strict';
 
@@ -85140,7 +85138,7 @@ __d(function (global, require, module, exports, _dependencyMap) {
   }
 
   module.exports = exports['default'];
-},690,[631],"validator/lib/ltrim.js");
+},691,[632],"validator/lib/ltrim.js");
 __d(function (global, require, module, exports, _dependencyMap) {
   'use strict';
 
@@ -85172,7 +85170,7 @@ __d(function (global, require, module, exports, _dependencyMap) {
   }
 
   module.exports = exports['default'];
-},691,[631],"validator/lib/rtrim.js");
+},692,[632],"validator/lib/rtrim.js");
 __d(function (global, require, module, exports, _dependencyMap) {
   'use strict';
 
@@ -85200,7 +85198,7 @@ __d(function (global, require, module, exports, _dependencyMap) {
   }
 
   module.exports = exports['default'];
-},692,[691,690],"validator/lib/trim.js");
+},693,[692,691],"validator/lib/trim.js");
 __d(function (global, require, module, exports, _dependencyMap) {
   'use strict';
 
@@ -85225,7 +85223,7 @@ __d(function (global, require, module, exports, _dependencyMap) {
   }
 
   module.exports = exports['default'];
-},693,[631],"validator/lib/escape.js");
+},694,[632],"validator/lib/escape.js");
 __d(function (global, require, module, exports, _dependencyMap) {
   'use strict';
 
@@ -85250,7 +85248,7 @@ __d(function (global, require, module, exports, _dependencyMap) {
   }
 
   module.exports = exports['default'];
-},694,[631],"validator/lib/unescape.js");
+},695,[632],"validator/lib/unescape.js");
 __d(function (global, require, module, exports, _dependencyMap) {
   'use strict';
 
@@ -85280,7 +85278,7 @@ __d(function (global, require, module, exports, _dependencyMap) {
   }
 
   module.exports = exports['default'];
-},695,[631,696],"validator/lib/stripLow.js");
+},696,[632,697],"validator/lib/stripLow.js");
 __d(function (global, require, module, exports, _dependencyMap) {
   'use strict';
 
@@ -85305,7 +85303,7 @@ __d(function (global, require, module, exports, _dependencyMap) {
   }
 
   module.exports = exports['default'];
-},696,[631],"validator/lib/blacklist.js");
+},697,[632],"validator/lib/blacklist.js");
 __d(function (global, require, module, exports, _dependencyMap) {
   'use strict';
 
@@ -85330,7 +85328,7 @@ __d(function (global, require, module, exports, _dependencyMap) {
   }
 
   module.exports = exports['default'];
-},697,[631],"validator/lib/whitelist.js");
+},698,[632],"validator/lib/whitelist.js");
 __d(function (global, require, module, exports, _dependencyMap) {
   'use strict';
 
@@ -85362,7 +85360,7 @@ __d(function (global, require, module, exports, _dependencyMap) {
   }
 
   module.exports = exports['default'];
-},698,[631],"validator/lib/isWhitelisted.js");
+},699,[632],"validator/lib/isWhitelisted.js");
 __d(function (global, require, module, exports, _dependencyMap) {
   'use strict';
 
@@ -85469,7 +85467,7 @@ __d(function (global, require, module, exports, _dependencyMap) {
   }
 
   module.exports = exports['default'];
-},699,[640],"validator/lib/normalizeEmail.js");
+},700,[641],"validator/lib/normalizeEmail.js");
 __d(function (global, require, module, exports, _dependencyMap) {
     "use strict";
 
@@ -85530,7 +85528,7 @@ __d(function (global, require, module, exports, _dependencyMap) {
     }();
 
     exports.default = VK;
-},700,[242,377],"react-native-vkontakte-login/lib/index.js");
+},701,[242,377],"react-native-vkontakte-login/lib/index.js");
 __d(function (global, require, module, exports, _dependencyMap) {
     Object.defineProperty(exports, "__esModule", {
         value: true
@@ -85559,7 +85557,10 @@ __d(function (global, require, module, exports, _dependencyMap) {
                 shouldFetchBasicProfile: true
             });
 
+            console.log(">>>>> FUCK");
+
             _reactNativeGoogleSignIn2.default.signInPromise().then(function (googleAuthData) {
+                console.log(">>>>>", googleAuthData);
                 var payload = {
                     email: googleAuthData.email,
                     phone: "",
@@ -85574,6 +85575,8 @@ __d(function (global, require, module, exports, _dependencyMap) {
                 };
                 dispatch((0, _ApiActions.registerUser)(payload, userMetaInfo));
             }).catch(function (error) {
+                console.log(error);
+
                 _reactNative.Alert.alert("Ошибка входа через Google", "Произошла ошибка входа через Google. Попробуйте еще раз или воспользуйтесь другим методом входа", [{
                     text: "OK"
                 }], {
@@ -85582,10 +85585,10 @@ __d(function (global, require, module, exports, _dependencyMap) {
             });
         };
     };
-},701,[702,626,704,242,238],"CatchTheAsteroid/src/actions/GoogleSignInAction.js");
+},702,[703,626,627,242,238],"CatchTheAsteroid/src/actions/GoogleSignInAction.js");
 __d(function (global, require, module, exports, _dependencyMap) {
   module.exports = require(_dependencyMap[0], './js/GoogleSignIn');
-},702,[703],"react-native-google-sign-in/index.js");
+},703,[704],"react-native-google-sign-in/index.js");
 __d(function (global, require, module, exports, _dependencyMap) {
   var ReactNative = require(_dependencyMap[0], 'react-native');
 
@@ -85731,7 +85734,7 @@ __d(function (global, require, module, exports, _dependencyMap) {
     }
   };
   module.exports = GoogleSignIn;
-},703,[242],"react-native-google-sign-in/js/GoogleSignIn.android.js");
+},704,[242],"react-native-google-sign-in/js/GoogleSignIn.android.js");
 __d(function (global, require, module, exports, _dependencyMap) {
     Object.defineProperty(exports, "__esModule", {
         value: true
@@ -85780,7 +85783,7 @@ __d(function (global, require, module, exports, _dependencyMap) {
             });
         };
     };
-},705,[700,242,704,238],"CatchTheAsteroid/src/actions/VKSignInAction.js");
+},705,[701,242,627,238],"CatchTheAsteroid/src/actions/VKSignInAction.js");
 __d(function (global, require, module, exports, _dependencyMap) {
     Object.defineProperty(exports, "__esModule", {
         value: true
@@ -85816,7 +85819,7 @@ __d(function (global, require, module, exports, _dependencyMap) {
             dispatch(_ApiActions2.default.registerUser(payload, metaInfo));
         };
     };
-},706,[704,240,626,238],"CatchTheAsteroid/src/actions/SimpleSignInAction.js");
+},706,[627,240,626,238],"CatchTheAsteroid/src/actions/SimpleSignInAction.js");
 __d(function (global, require, module, exports, _dependencyMap) {
     Object.defineProperty(exports, "__esModule", {
         value: true
@@ -86030,7 +86033,98 @@ __d(function (global, require, module, exports, _dependencyMap) {
             fontSize: 11
         }
     });
-},707,[13,23,242,177,191,624,629,700,701,705,706,622],"CatchTheAsteroid/src/containers/SetUserName.js");
+},707,[13,23,242,177,191,624,630,701,702,705,706,622],"CatchTheAsteroid/src/containers/SetUserName.js");
+__d(function (global, require, module, exports, _dependencyMap) {
+    Object.defineProperty(exports, "__esModule", {
+        value: true
+    });
+
+    var _react2 = require(_dependencyMap[0], "react");
+
+    var _react3 = _interopRequireDefault(_react2);
+
+    var _index = require(_dependencyMap[1], "./../../node_modules/react-transform-hmr/lib/index.js");
+
+    var _index2 = _interopRequireDefault(_index);
+
+    var _jsxFileName = "/Users/Aleksei_Ivshin/Development/Projects/CatchTheAsteroid/src/containers/WebViewHosting.js";
+
+    var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+    var _reactNative = require(_dependencyMap[2], "react-native");
+
+    var _reactRedux = require(_dependencyMap[3], "react-redux");
+
+    var _actions = require(_dependencyMap[4], "../actions");
+
+    var _actions2 = _interopRequireDefault(_actions);
+
+    var _selectors = require(_dependencyMap[5], "../selectors");
+
+    var _constants = require(_dependencyMap[6], "../constants");
+
+    function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+    function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+    function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+    function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+    var _components = {
+        WebViewHosting: {
+            displayName: "WebViewHosting"
+        }
+    };
+
+    var _node_modulesReactTransformHmrLibIndexJs2 = (0, _index2.default)({
+        filename: "/Users/Aleksei_Ivshin/Development/Projects/CatchTheAsteroid/src/containers/WebViewHosting.js",
+        components: _components,
+        locals: [module],
+        imports: [_react3.default]
+    });
+
+    function _wrapComponent(id) {
+        return function (Component) {
+            return _node_modulesReactTransformHmrLibIndexJs2(Component, id);
+        };
+    }
+
+    var WebViewHosting = _wrapComponent("WebViewHosting")(function (_PureComponent) {
+        _inherits(WebViewHosting, _PureComponent);
+
+        function WebViewHosting() {
+            _classCallCheck(this, WebViewHosting);
+
+            return _possibleConstructorReturn(this, (WebViewHosting.__proto__ || Object.getPrototypeOf(WebViewHosting)).apply(this, arguments));
+        }
+
+        _createClass(WebViewHosting, [{
+            key: "render",
+            value: function render() {
+                return _react3.default.createElement(_reactNative.WebView, {
+                    source: {
+                        uri: this.props.uri
+                    },
+                    __source: {
+                        fileName: _jsxFileName,
+                        lineNumber: 11
+                    }
+                });
+            }
+        }]);
+
+        return WebViewHosting;
+    }(_react2.PureComponent));
+
+    function mapStateToProps(state, props) {
+        return {
+            uri: props.navigation.state.params.uri
+        };
+    }
+
+    exports.default = (0, _reactRedux.connect)(mapStateToProps, _actions2.default)(WebViewHosting);
+},708,[13,23,242,177,624,628,238],"CatchTheAsteroid/src/containers/WebViewHosting.js");
 __d(function (global, require, module, exports, _dependencyMap) {
     Object.defineProperty(exports, "__esModule", {
         value: true
@@ -86046,7 +86140,7 @@ __d(function (global, require, module, exports, _dependencyMap) {
     var RootNavListener = (0, _reactNavigationReduxHelpers.createReduxBoundAddListener)(rootNavKey);
     exports.RootNavMiddleware = RootNavMiddleware;
     exports.RootNavListener = RootNavListener;
-},708,[709],"CatchTheAsteroid/src/middlewares/navigationMiddleware.js");
+},709,[710],"CatchTheAsteroid/src/middlewares/navigationMiddleware.js");
 __d(function (global, require, module, exports, _dependencyMap) {
   Object.defineProperty(exports, "__esModule", {
     value: true
@@ -86080,8 +86174,8 @@ __d(function (global, require, module, exports, _dependencyMap) {
   var _reducer = require(_dependencyMap[2], "./reducer");
 
   exports.createNavigationReducer = _reducer.createNavigationReducer;
-},709,[710,711,712],"react-navigation-redux-helpers/src/index.js");
-__d(function (global, require, module, exports, _dependencyMap) {},710,[],"react-navigation-redux-helpers/src/types.js");
+},710,[711,712,713],"react-navigation-redux-helpers/src/index.js");
+__d(function (global, require, module, exports, _dependencyMap) {},711,[],"react-navigation-redux-helpers/src/types.js");
 __d(function (global, require, module, exports, _dependencyMap) {
   Object.defineProperty(exports, "__esModule", {
     value: true
@@ -86160,7 +86254,7 @@ __d(function (global, require, module, exports, _dependencyMap) {
   exports.createReactNavigationReduxMiddleware = createReactNavigationReduxMiddleware;
   exports.createReduxBoundAddListener = createReduxBoundAddListener;
   exports.initializeListeners = initializeListeners;
-},711,[186,712],"react-navigation-redux-helpers/src/middleware.js");
+},712,[186,713],"react-navigation-redux-helpers/src/middleware.js");
 __d(function (global, require, module, exports, _dependencyMap) {
   Object.defineProperty(exports, "__esModule", {
     value: true
@@ -86183,7 +86277,7 @@ __d(function (global, require, module, exports, _dependencyMap) {
   ;
   exports.createNavigationReducer = createNavigationReducer;
   exports.initAction = initAction;
-},712,[240],"react-navigation-redux-helpers/src/reducer.js");
+},713,[240],"react-navigation-redux-helpers/src/reducer.js");
 __d(function (global, require, module, exports, _dependencyMap) {
     Object.defineProperty(exports, "__esModule", {
         value: true
@@ -86232,7 +86326,7 @@ __d(function (global, require, module, exports, _dependencyMap) {
                 return state;
         }
     }
-},716,[704,236],"CatchTheAsteroid/src/reducers/AuthorizationReducer.js");
+},714,[627,236],"CatchTheAsteroid/src/reducers/AuthorizationReducer.js");
 __d(function (global, require, module, exports, _dependencyMap) {
     Object.defineProperty(exports, "__esModule", {
         value: true
@@ -86305,7 +86399,7 @@ __d(function (global, require, module, exports, _dependencyMap) {
             };
         };
     };
-},717,[235,242,718,625,236,238],"CatchTheAsteroid/src/middlewares/BeaconsMiddleware.android.js");
+},715,[235,242,716,625,236,238],"CatchTheAsteroid/src/middlewares/BeaconsMiddleware.android.js");
 __d(function (global, require, module, exports, _dependencyMap) {
   Object.defineProperty(exports, "__esModule", {
     value: true
@@ -86323,7 +86417,7 @@ __d(function (global, require, module, exports, _dependencyMap) {
   })();
 
   exports.default = RNiBeaconsModule;
-},718,[242,719,720],"react-native-beacons-manager/index.js");
+},716,[242,717,718],"react-native-beacons-manager/index.js");
 __d(function (global, require, module, exports, _dependencyMap) {
   var RN = require(_dependencyMap[0], 'react-native');
 
@@ -86409,7 +86503,7 @@ __d(function (global, require, module, exports, _dependencyMap) {
     stopMonitoringForRegion: stopMonitoringForRegion,
     stopRangingBeaconsInRegion: stopRangingBeaconsInRegion
   };
-},719,[242],"react-native-beacons-manager/lib/next/new.module.ios.js");
+},717,[242],"react-native-beacons-manager/lib/next/new.module.ios.js");
 __d(function (global, require, module, exports, _dependencyMap) {
   var _module = require(_dependencyMap[0], "./module.types");
 
@@ -86546,7 +86640,7 @@ __d(function (global, require, module, exports, _dependencyMap) {
     stopMonitoringForRegion: stopMonitoringForRegion,
     stopRangingBeaconsInRegion: stopRangingBeaconsInRegion
   };
-},720,[721,242],"react-native-beacons-manager/lib/next/new.module.android.js");
+},718,[719,242],"react-native-beacons-manager/lib/next/new.module.android.js");
 __d(function (global, require, module, exports, _dependencyMap) {
   Object.defineProperty(exports, "__esModule", {
     value: true
@@ -86558,98 +86652,7 @@ __d(function (global, require, module, exports, _dependencyMap) {
   var EDDYSTONE_UID = exports.EDDYSTONE_UID = 's:0-1=feaa,m:2-2=00,p:3-3:-41,i:4-13,i:14-19';
   var EDDYSTONE_URL = exports.EDDYSTONE_URL = 's:0-1=feaa,m:2-2=10,p:3-3:-41,i:4-20v';
   var transmissionSupport = exports.transmissionSupport = ['SUPPORTED', 'NOT_SUPPORTED_MIN_SDK', 'NOT_SUPPORTED_BLE', 'DEPRECATED_NOT_SUPPORTED_MULTIPLE_ADVERTISEMENTS', 'NOT_SUPPORTED_CANNOT_GET_ADVERTISER', 'NOT_SUPPORTED_CANNOT_GET_ADVERTISER_MULTIPLE_ADVERTISEMENTS'];
-},721,[],"react-native-beacons-manager/lib/next/module.types.js");
-__d(function (global, require, module, exports, _dependencyMap) {
-    Object.defineProperty(exports, "__esModule", {
-        value: true
-    });
-
-    var _react2 = require(_dependencyMap[0], "react");
-
-    var _react3 = _interopRequireDefault(_react2);
-
-    var _index = require(_dependencyMap[1], "./../../node_modules/react-transform-hmr/lib/index.js");
-
-    var _index2 = _interopRequireDefault(_index);
-
-    var _jsxFileName = "/Users/Aleksei_Ivshin/Development/Projects/CatchTheAsteroid/src/containers/WebViewHosting.js";
-
-    var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-
-    var _reactNative = require(_dependencyMap[2], "react-native");
-
-    var _reactRedux = require(_dependencyMap[3], "react-redux");
-
-    var _actions = require(_dependencyMap[4], "../actions");
-
-    var _actions2 = _interopRequireDefault(_actions);
-
-    var _selectors = require(_dependencyMap[5], "../selectors");
-
-    var _constants = require(_dependencyMap[6], "../constants");
-
-    function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-    function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-    function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
-
-    function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-
-    var _components = {
-        WebViewHosting: {
-            displayName: "WebViewHosting"
-        }
-    };
-
-    var _node_modulesReactTransformHmrLibIndexJs2 = (0, _index2.default)({
-        filename: "/Users/Aleksei_Ivshin/Development/Projects/CatchTheAsteroid/src/containers/WebViewHosting.js",
-        components: _components,
-        locals: [module],
-        imports: [_react3.default]
-    });
-
-    function _wrapComponent(id) {
-        return function (Component) {
-            return _node_modulesReactTransformHmrLibIndexJs2(Component, id);
-        };
-    }
-
-    var WebViewHosting = _wrapComponent("WebViewHosting")(function (_PureComponent) {
-        _inherits(WebViewHosting, _PureComponent);
-
-        function WebViewHosting() {
-            _classCallCheck(this, WebViewHosting);
-
-            return _possibleConstructorReturn(this, (WebViewHosting.__proto__ || Object.getPrototypeOf(WebViewHosting)).apply(this, arguments));
-        }
-
-        _createClass(WebViewHosting, [{
-            key: "render",
-            value: function render() {
-                return _react3.default.createElement(_reactNative.WebView, {
-                    source: {
-                        uri: this.props.uri
-                    },
-                    __source: {
-                        fileName: _jsxFileName,
-                        lineNumber: 11
-                    }
-                });
-            }
-        }]);
-
-        return WebViewHosting;
-    }(_react2.PureComponent));
-
-    function mapStateToProps(state, props) {
-        return {
-            uri: props.navigation.state.params.uri
-        };
-    }
-
-    exports.default = (0, _reactRedux.connect)(mapStateToProps, _actions2.default)(WebViewHosting);
-},723,[13,23,242,177,624,627,238],"CatchTheAsteroid/src/containers/WebViewHosting.js");
+},719,[],"react-native-beacons-manager/lib/next/module.types.js");
 require(252);
 require(11);
 //# sourceMappingURL=index.map
