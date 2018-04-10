@@ -18,7 +18,7 @@ import centerImage from './images/earth.png';
 import objectImage from './images/asteroid.png';
 
 const ANGLES = [0, 0.8, 1.6, 2.4, 3, 3.6, 4.2, 4.8, 5.6];
-const ORBITS = 3;
+const ORBITS = 4;
 const ORBIT_STEP_PX = 30;
 
 type Props = {

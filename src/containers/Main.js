@@ -53,11 +53,13 @@ class Main extends Component {
   render() {
     return (
       <View style={styles.container}>
-        <Cosmo
-          objects={this.state.beaconStations}
-          maxDistance={MAX_DISTANCE}
-          onObjectCapture={this.handleObjectCapture}
-        />
+        <View style={styles.mapContainer}>
+          <Cosmo
+            objects={this.state.beaconStations}
+            maxDistance={MAX_DISTANCE}
+            onObjectCapture={this.handleObjectCapture}
+          />
+        </View>
         <Button
           title="Go to dashboard"
           onPress={this.moveToDashboard}
@@ -69,6 +71,9 @@ class Main extends Component {
 
 const styles = StyleSheet.create({
   container: {
+    flex: 1,
+  },
+  mapContainer: {
     flex: 1,
   },
 });
