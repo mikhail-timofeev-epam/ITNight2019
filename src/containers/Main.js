@@ -18,12 +18,11 @@ class Main extends Component {
     }
 
     moveToDashboard = () => {
-        this.props.navigation.dispatch(
-            NavigationActions.navigate({
-                routeName: Routes.WebViewHosting,
-                params: { uri: "http://bash.im" },
-            })
-        );
+        this.props.openDashboard();
+    };
+
+    moveToQuiz = () => {
+        this.props.openQuiz(1);
     };
 
     render() {
@@ -46,6 +45,7 @@ class Main extends Component {
                         return <Text key={station.beacon.uid}>{stationInfo}</Text>;
                     })}
                 </View>
+                <Button title="Go to quiz" onPress={this.moveToQuiz} />
                 <Button title="Go to dashboard" onPress={this.moveToDashboard} />
             </View>
         );

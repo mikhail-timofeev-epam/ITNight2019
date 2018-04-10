@@ -16,11 +16,9 @@ export const googleSignIn = () => dispatch => {
 
         shouldFetchBasicProfile: true,
     });
-    console.log(">>>>> FUCK" );
 
     GoogleSignIn.signInPromise()
         .then(googleAuthData => {
-            console.log(">>>>>", googleAuthData);
             const payload = {
                 email: googleAuthData.email,
                 phone: "",
