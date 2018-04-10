@@ -33,7 +33,7 @@ const routeConfigMap = {
 };
 
 const stackConfig = {
-    initialRouteName: Routes.Login,
+    initialRouteName: Routes.Main,
     initialRouteParams: {},
 };
 
