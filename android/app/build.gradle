@@ -117,9 +117,10 @@ android {
     }
     buildTypes {
         debug {
-               signingConfig signingConfigs.debug
+            signingConfig signingConfigs.debug
         }
         release {
+            signingConfig signingConfigs.debug
             minifyEnabled enableProguardInReleaseBuilds
             proguardFiles getDefaultProguardFile("proguard-android.txt"), "proguard-rules.pro"
         }
@@ -138,14 +139,14 @@ android {
         }
     }
 
-        signingConfigs {
-                debug {
-                    storeFile file("qa-key.keystore")
-                    storePassword '12345678'
-                    keyAlias 'my-key-alias'
-                    keyPassword '12345678'
-                }
-            }
+    signingConfigs {
+        debug {
+             storeFile file("qa-key.keystore")
+             storePassword '12345678'
+             keyAlias 'my-key-alias'
+             keyPassword '12345678'
+        }
+    }
 }
 
 dependencies {
