@@ -22,8 +22,6 @@ export const vkSignIn = () => dispatch => {
                 typeAuthorization: AUTH_TYPES.VK,
                 phone: "",
                 idVK: vkAuthData.user_id,
-                userId: epamAuthData.userId,
-                newUser: epamAuthData.newUser,
             };
             dispatch(apiAction.registerUser(payload, userMetaInfo));
         })
