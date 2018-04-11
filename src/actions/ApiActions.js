@@ -7,7 +7,7 @@ import { SIGN_IN } from "./SignInActionTypes";
 
 // See http://ecsc00a017ee.epam.com:8090/swagger-ui.html#/
 
-export const ENDPOINT = "http://ecsc00a017ee.epam.com:8090";
+export const ENDPOINT = "http://ec2-18-216-26-81.us-east-2.compute.amazonaws.com";
 const ALL_STATIONS = ENDPOINT + "/station";
 
 const _openMainScreenAction = userName => {
