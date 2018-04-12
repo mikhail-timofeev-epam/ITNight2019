@@ -1,13 +1,9 @@
 import _ from "lodash";
+import { DeviceEventEmitter } from "react-native";
 import Beacons from "react-native-beacons-manager";
-import { BluetoothStatus } from "react-native-bluetooth-status";
 import beaconActions from "../actions/BeaconActions";
 import { BeaconActionTypes } from "../actions/actionsTypes";
 import { REGION } from "../constants";
-
-import { NativeModules, DeviceEventEmitter, NativeEventEmitter, Alert } from "react-native";
-
-const { RNBluetoothManager } = NativeModules;
 
 const debouncedCleanFunction = _.debounce(
     dispatch => dispatch(beaconActions.beaconsChanged([])),

@@ -4,32 +4,11 @@ import Beacons from "react-native-beacons-manager";
 import { DEFAULT_UUID, REGION } from "../constants";
 import beaconActions from "../actions/BeaconActions";
 import { BeaconActionTypes } from "../actions/actionsTypes";
-import BluetoothManager from "./BluetoothManager";
 
 const debouncedCleanFunction = _.debounce(dispatch => dispatch(beaconsChanged([])), 10000, {
     leading: false,
     trailing: true,
 });
-
-import _ from "lodash";
-import Beacons from "react-native-beacons-manager";
-import { BluetoothStatus } from "react-native-bluetooth-status";
-import beaconActions from "../actions/BeaconActions";
-import { BeaconActionTypes } from "../actions/actionsTypes";
-import { REGION } from "../constants";
-
-import { NativeModules, DeviceEventEmitter, NativeEventEmitter, Alert } from "react-native";
-
-const { RNBluetoothManager } = NativeModules;
-
-const debouncedCleanFunction = _.debounce(
-    dispatch => dispatch(beaconActions.beaconsChanged([])),
-    10000,
-    {
-        leading: false,
-        trailing: true,
-    }
-);
 
 export default class BeaconsManager {
     constructor(dispatch) {
@@ -48,7 +27,7 @@ export default class BeaconsManager {
 
             Beacons.requestWhenInUseAuthorization();
 
-            const region = { identifier: REGION, uuid: action.payload || DEFAULT_UUID };
+            const region = { identifier: REGION, uuid: DEFAULT_UUID };
             Beacons.startRangingBeaconsInRegion(region);
             console.log("BeaconsManager(iOS): ranging started");
         }
@@ -58,9 +37,6 @@ export default class BeaconsManager {
         console.log("BeaconsManager(iOS): stop ranging");
         this.isRanging = false;
         const region = { identifier: REGION, uuid: DEFAULT_UUID };
-        if (action.payload) {
-            region.uuid = action.payload;
-        }
         Beacons.stopRangingBeaconsInRegion(region);
         console.log("BeaconsManager(iOS): ranging stopped");
 
