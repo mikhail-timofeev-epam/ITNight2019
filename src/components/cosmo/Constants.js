@@ -1,4 +1,4 @@
 export default {
-  gravityRadius: 35,
+  gravityRadius: 40,
   minObjectRadius: 30,
 }

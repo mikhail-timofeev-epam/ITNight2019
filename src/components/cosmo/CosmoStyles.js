@@ -32,7 +32,6 @@ export default StyleSheet.create({
     fontSize: 16,
     color: 'white',
     textAlign: 'left',
-    backgroundColor: 'black',
     paddingHorizontal: 2,
   },
   orbit: {
