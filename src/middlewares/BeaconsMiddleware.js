@@ -17,7 +17,6 @@ export default store => {
 
                 BluetoothStatus.state()
                     .then(isEnabled => {
-                        store.dispatch(beaconActions.bluetoothStatusChanged(isEnabled));
                         if (!isEnabled) {
                             Alert.alert(null, "Включите Bluetooth в настройках", [{ text: "OK" }], {
                                 cancelable: true,
