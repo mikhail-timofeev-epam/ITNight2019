@@ -47,14 +47,18 @@ const updateMainScreenHeader = () => (dispatch, getState) => {
     })
         .then(response => response.json())
         .then(user => {
-            const mainRoute = getState().rootNavigation.root.routes.find((route)=> route.routeName===Routes.Main);
+            const mainRoute = getState().rootNavigation.root.routes.find(
+                route => route.routeName === Routes.Main
+            );
             if (mainRoute) {
-            dispatch(NavigationActions.setParams({
-                params: { userName: user.name,scores: user.score },
-                key: mainRoute.key,
-              }));
+                dispatch(
+                    NavigationActions.setParams({
+                        params: { userName: user.name, scores: user.score },
+                        key: mainRoute.key,
+                    })
+                );
             }
-        })
+        });
 };
 
 const registerUser = (payload, metaInfo) => dispatch => {

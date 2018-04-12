@@ -91,7 +91,9 @@ function mapStateToProps(state) {
         beacons: state.beacons.beacons,
         isSearching: state.beacons.isSearching,
         stations: getVisibleStations(state, MAX_DISTANCE),
-        isVisible: state.rootNavigation.root.routes[state.rootNavigation.root.index].routeName===Routes.Main
+        isVisible:
+            state.rootNavigation.root.routes[state.rootNavigation.root.index].routeName ===
+            Routes.Main,
     };
 }
 
