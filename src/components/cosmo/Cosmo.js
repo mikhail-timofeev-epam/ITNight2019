@@ -31,24 +31,9 @@ type State = {
 };
 
 export default class Cosmo extends Component<Props, State> {
-  static defaultProps = {
-    objects: [],
-    orbits: ORBITS,
-  };
-
-  constructor() {
-    super();
-
-    const { width, height } = Dimensions.get('window');
-    const xStart = width / 2;
-    const yStart = (height - TOP_OFFSET) / 2;
-
-    this.state = {
-      xStart,
-      yStart,
-      width,
-      height,
-      objectsCoordinates: {},
+    static defaultProps = {
+        objects: [],
+        orbits: ORBITS,
     };
 
     constructor() {
@@ -56,7 +41,7 @@ export default class Cosmo extends Component<Props, State> {
 
         const { width, height } = Dimensions.get("window");
         const xStart = width / 2;
-        const yStart = height / 2;
+        const yStart = (height - TOP_OFFSET) / 2;
 
         this.state = {
             xStart,
@@ -65,8 +50,6 @@ export default class Cosmo extends Component<Props, State> {
             height,
             objectsCoordinates: {},
         };
-
-        this.angles = {};
     }
 
     componentWillMount() {
@@ -137,20 +120,20 @@ export default class Cosmo extends Component<Props, State> {
         return { x, y };
     };
 
-  render() {
-    return (
-      <View style={styles.container}>
-        <ImageBackground
-          source={backgroundImage}
-          style={styles.backgroundImage}
-          resizeMode='cover'
-        />
-        {this.renderCenter()}
-        {this.renderOrbits(this.props.orbits)}
-        {this.renderObjects()}
-      </View>
-    );
-  }
+    render() {
+        return (
+            <View style={styles.container}>
+                <ImageBackground
+                    source={backgroundImage}
+                    style={styles.backgroundImage}
+                    resizeMode="cover"
+                />
+                {this.renderCenter()}
+                {this.renderOrbits(this.props.orbits)}
+                {this.renderObjects()}
+            </View>
+        );
+    }
 
     handlePlanetPress = object => {
         if (this.isObjectCaptured(object)) {

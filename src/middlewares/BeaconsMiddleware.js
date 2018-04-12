@@ -6,7 +6,7 @@ import beaconActions from "../actions/BeaconActions";
 import { BeaconActionTypes } from "../actions/actionsTypes";
 import { REGION } from "../constants";
 import BeaconsManager from "./BeaconsManager";
-import { AppState } from 'react-native'
+import { AppState } from "react-native";
 
 export default store => {
     const beaconsManager = new BeaconsManager(store.dispatch);

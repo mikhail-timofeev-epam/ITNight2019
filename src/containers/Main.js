@@ -27,68 +27,66 @@ class Main extends Component {
         this.syncBeaconStations(nextProps);
     }
 
-  syncBeaconStations = (props) => {
-    let beaconStations = [];
-    props.beacons.forEach((beacon) => {
-      const index = props.stations.findIndex((station) =>
-        `${station.beacon.uid}|${station.beacon.major}|${station.beacon.minor}` === beacon.id);
-      const station = props.stations[index];
-      if (station) {
-        beaconStations.push({ ...beacon, name: station.name, quizId: station.quizId });
-      }
-    });
-    this.setState({ beaconStations })
-  };
+    syncBeaconStations = props => {
+        let beaconStations = [];
+        props.beacons.forEach(beacon => {
+            const index = props.stations.findIndex(
+                station =>
+                    `${station.beacon.uid}|${station.beacon.major}|${station.beacon.minor}` ===
+                    beacon.id
+            );
+            const station = props.stations[index];
+            if (station) {
+                beaconStations.push({ ...beacon, name: station.name, quizId: station.quizId });
+            }
+        });
+        this.setState({ beaconStations });
+    };
 
     moveToDashboard = () => {
         this.props.openDashboard();
     };
 
-  handleObjectCapture = (object) => {
-    this.props.openQuiz(object.quizId);
-  };
+    handleObjectCapture = object => {
+        this.props.openQuiz(object.quizId);
+    };
 
-  render() {
-    return (
-      <View style={styles.container}>
-        <Cosmo
-          objects={this.state.beaconStations}
-          maxDistance={MAX_DISTANCE}
-          onObjectCapture={this.handleObjectCapture}
-        />
-        <TouchableOpacity
-          onPress={this.moveToDashboard}
-          style={styles.bottomButton}
-        >
-          <Text style={styles.buttonText}>
-            {'Go to dashboard'}
-          </Text>
-        </TouchableOpacity>
-      </View>
-    );
-  }
+    render() {
+        return (
+            <View style={styles.container}>
+                <Cosmo
+                    objects={this.state.beaconStations}
+                    maxDistance={MAX_DISTANCE}
+                    onObjectCapture={this.handleObjectCapture}
+                />
+                <TouchableOpacity onPress={this.moveToDashboard} style={styles.bottomButton}>
+                    <Text style={styles.buttonText}>{"Go to dashboard"}</Text>
+                </TouchableOpacity>
+            </View>
+        );
+    }
 }
 
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-  },
-  bottomButton: {
-    position: 'absolute',
-    zIndex: 10,
-    left: 0,
-    right: 0,
-    bottom: 0,
-    backgroundColor: colors.blue,
-    alignItems: 'center',
-    justifyContent: 'center',
-    opacity: 0.8
-  },
-  buttonText: {
-    paddingVertical: 18,
-    fontSize: 18,
-    color: colors.text
-  }
+    container: {
+        flex: 1,
+    },
+    bottomButton: {
+        position: "absolute",
+        zIndex: 10,
+        left: 0,
+        right: 0,
+        bottom: 0,
+        backgroundColor: colors.blue,
+        alignItems: "center",
+        justifyContent: "center",
+        opacity: 0.8,
+    },
+    buttonText: {
+        paddingVertical: 18,
+        fontSize: 18,
+        color: colors.text,
+    },
 });
 
 function mapStateToProps(state) {
