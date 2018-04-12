@@ -40,6 +40,23 @@ const getUserById = id => dispatch => {
         .catch(error => dispatch(createAction(ApiActionTypes.GET_USER_FAILURE)(error)));
 };
 
+const updateMainScreenHeader = () => (dispatch, getState) => {
+    const currentUserId = getState().authorization.userId;
+    return fetch(`${ENDPOINT}/user/${currentUserId}`, {
+        method: "GET",
+    })
+        .then(response => response.json())
+        .then(user => {
+            const mainRoute = getState().rootNavigation.root.routes.find((route)=> route.routeName===Routes.Main);
+            if (mainRoute) {
+            dispatch(NavigationActions.setParams({
+                params: { userName: user.name,scores: user.score },
+                key: mainRoute.key,
+              }));
+            }
+        })
+};
+
 const registerUser = (payload, metaInfo) => dispatch => {
     console.log("Register user: ", payload, metaInfo);
     fetch(`${ENDPOINT}/user`, {
@@ -113,4 +130,4 @@ const saveUserName = (id, name) => dispatch => {
         .catch(error => dispatch(createAction(ApiActionTypes.SAVE_USER_NAME_FAILURE)(error)));
 };
 
-export default { getAllStations, saveUserName, registerUser };
+export default { getAllStations, saveUserName, registerUser, updateMainScreenHeader };

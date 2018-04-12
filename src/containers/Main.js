@@ -17,6 +17,7 @@ class Main extends Component {
     componentDidMount() {
         this.props.startRanging(null);
         this.props.getAllStations();
+        this.props.updateMainScreenHeader();
     }
 
     componentWillUnmount() {
@@ -25,6 +26,9 @@ class Main extends Component {
 
     componentWillReceiveProps(nextProps) {
         this.syncBeaconStations(nextProps);
+        if (!this.props.isVisible && nextProps.isVisible) {
+            this.props.updateMainScreenHeader();
+        }
     }
 
     syncBeaconStations = props => {
@@ -43,10 +47,6 @@ class Main extends Component {
         this.setState({ beaconStations });
     };
 
-    moveToDashboard = () => {
-        this.props.openDashboard();
-    };
-
     handleObjectCapture = object => {
         this.props.openQuiz(object.quizId);
     };
@@ -59,9 +59,6 @@ class Main extends Component {
                     maxDistance={MAX_DISTANCE}
                     onObjectCapture={this.handleObjectCapture}
                 />
-                <TouchableOpacity onPress={this.moveToDashboard} style={styles.bottomButton}>
-                    <Text style={styles.buttonText}>{"Go to dashboard"}</Text>
-                </TouchableOpacity>
             </View>
         );
     }
@@ -94,6 +91,7 @@ function mapStateToProps(state) {
         beacons: state.beacons.beacons,
         isSearching: state.beacons.isSearching,
         stations: getVisibleStations(state, MAX_DISTANCE),
+        isVisible: state.rootNavigation.root.routes[state.rootNavigation.root.index].routeName===Routes.Main
     };
 }
 

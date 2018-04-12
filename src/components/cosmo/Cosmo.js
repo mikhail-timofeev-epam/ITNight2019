@@ -6,7 +6,7 @@ import _ from "lodash";
 import styles from "./CosmoStyles";
 import constants from "./Constants";
 
-import backgroundImage from "./images/cosmo_bg2.jpg";
+import backgroundImage from "./images/cosmo_bg.jpg";
 import centerImage from "./images/earth.png";
 import objectImage from "./images/asteroid.png";
 

@@ -1,4 +1,5 @@
 import * as React from "react";
+import { Text, View, Image, TouchableOpacity } from "react-native";
 import { NavigationActions, StackNavigator, addNavigationHelpers } from "react-navigation";
 import { connect } from "react-redux";
 import deepDiffer from "react-native/lib/deepDiffer";
@@ -8,6 +9,7 @@ import LoginScreen from "./containers/LoginScreen";
 import SetUserName from "./containers/SetUserName";
 import WebViewHosting from "./containers/WebViewHosting";
 import { RootNavListener } from "./middlewares/navigationMiddleware";
+import actions from "./actions";
 
 import keymirror from "keymirror";
 
@@ -58,6 +60,36 @@ const routeConfigMap = {
         navigationOptions: ({ navigation }) => {
             return {
                 title: `${navigation.state.params.userName || ""}`,
+                headerTintColor: "white",
+                headerRight: (
+                    <TouchableOpacity
+                        onPress={() => {
+                            navigation.dispatch(actions.openDashboard());
+                        }}
+                    >
+                        <Image
+                            style={{ marginRight: 8 }}
+                            source={require("./images/dashboard.png")}
+                        />
+                    </TouchableOpacity>
+                ),
+                headerLeft: (
+                    <Text
+                        style={{
+                            color: "white",
+                            fontSize: 18,
+                            alignSelf: "center",
+                            paddingLeft: 8,
+                        }}
+                    >
+                        {navigation.state.params.scores}
+                    </Text>
+                ),
+                headerStyle: {
+                    backgroundColor: "black",
+                    borderBottomWidth: 0,
+                    elevation: null,
+                },
             };
         },
     },
