@@ -53,6 +53,7 @@
 		C9472EC8B8DD41509160B0C9 /* VKSdkFramework.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D4F11909BA2C43468701F1C5 /* VKSdkFramework.framework */; };
 		D577AC858728409AAA49F57D /* libRNiBeacon.a in Frameworks */ = {isa = PBXBuildFile; fileRef = FF8DD6F89446498A91C8B3F8 /* libRNiBeacon.a */; };
 		697C319E1F5C42AEA7ECCB76 /* libRNBluetoothManager.a in Frameworks */ = {isa = PBXBuildFile; fileRef = D6CB33E1F340463E9A5491FB /* libRNBluetoothManager.a */; };
+		630EAEDD63E949609B502468 /* libReactNativeBluetooth.a in Frameworks */ = {isa = PBXBuildFile; fileRef = CAE86FAAB6C94408AFA3C53F /* libReactNativeBluetooth.a */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -406,6 +407,9 @@
 		FF8DD6F89446498A91C8B3F8 /* libRNiBeacon.a */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = archive.ar; path = libRNiBeacon.a; sourceTree = "<group>"; };
 		B9F1905DD6B64EEDA459E5A9 /* RNBluetoothManager.xcodeproj */ = {isa = PBXFileReference; name = "RNBluetoothManager.xcodeproj"; path = "../node_modules/react-native-bluetooth-status/ios/RNBluetoothManager.xcodeproj"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = wrapper.pb-project; explicitFileType = undefined; includeInIndex = 0; };
 		D6CB33E1F340463E9A5491FB /* libRNBluetoothManager.a */ = {isa = PBXFileReference; name = "libRNBluetoothManager.a"; path = "libRNBluetoothManager.a"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = archive.ar; explicitFileType = undefined; includeInIndex = 0; };
+		1BB564A3722F4E1DA8BFEB5C /* ReactNativeBluetooth.xcodeproj */ = {isa = PBXFileReference; name = "ReactNativeBluetooth.xcodeproj"; path = "../node_modules/react-native-bluetooth-manager/ios/ReactNativeBluetooth.xcodeproj"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = wrapper.pb-project; explicitFileType = undefined; includeInIndex = 0; };
+		CAE86FAAB6C94408AFA3C53F /* libReactNativeBluetooth.a */ = {isa = PBXFileReference; name = "libReactNativeBluetooth.a"; path = "libReactNativeBluetooth.a"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = archive.ar; explicitFileType = undefined; includeInIndex = 0; };
+		88067711D76E44DE96ED4FA8 /* ReactNativeBluetooth.xcodeproj */ = {isa = PBXFileReference; name = "ReactNativeBluetooth.xcodeproj"; path = "../node_modules/react-native-bluetooth-manager/ios/ReactNativeBluetooth.xcodeproj"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = wrapper.pb-project; explicitFileType = undefined; includeInIndex = 0; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -443,6 +447,7 @@
 				983DA67B9B0B438691DE946C /* libRNVkontakteLogin.a in Frameworks */,
 				C9472EC8B8DD41509160B0C9 /* VKSdkFramework.framework in Frameworks */,
 				697C319E1F5C42AEA7ECCB76 /* libRNBluetoothManager.a in Frameworks */,
+				630EAEDD63E949609B502468 /* libReactNativeBluetooth.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -664,6 +669,8 @@
 				D25AA2597081410E9098C2C6 /* RNiBeacon.xcodeproj */,
 				CFB8D7BB3CDC41CE945F5C2A /* RNVkontakteLogin.xcodeproj */,
 				B9F1905DD6B64EEDA459E5A9 /* RNBluetoothManager.xcodeproj */,
+				1BB564A3722F4E1DA8BFEB5C /* ReactNativeBluetooth.xcodeproj */,
+				88067711D76E44DE96ED4FA8 /* ReactNativeBluetooth.xcodeproj */,
 			);
 			name = Libraries;
 			sourceTree = "<group>";
@@ -1331,12 +1338,15 @@
 					"$(SRCROOT)..\node_modules\neact-native-beacons-manageriosRNiBeaconRNiBeacon",
 					"$(SRCROOT)/../node_modules/react-native-vkontakte-login/ios/**",
 					"$(SRCROOT)/../node_modules/react-native-bluetooth-status/ios",
+					"$(SRCROOT)/../node_modules/react-native-bluetooth-manager/ios/**",
+					"$(SRCROOT)/../node_modules/react-native-bluetooth-manager/ios/**",
 				);
 				INFOPLIST_FILE = CatchTheAsteroidTests/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
+					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
@@ -1365,12 +1375,15 @@
 					"$(SRCROOT)..\node_modules\neact-native-beacons-manageriosRNiBeaconRNiBeacon",
 					"$(SRCROOT)/../node_modules/react-native-vkontakte-login/ios/**",
 					"$(SRCROOT)/../node_modules/react-native-bluetooth-status/ios",
+					"$(SRCROOT)/../node_modules/react-native-bluetooth-manager/ios/**",
+					"$(SRCROOT)/../node_modules/react-native-bluetooth-manager/ios/**",
 				);
 				INFOPLIST_FILE = CatchTheAsteroidTests/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
+					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
@@ -1404,6 +1417,8 @@
 					"$(SRCROOT)/../node_modules/react-native-beacons-manager/ios/RNiBeacon/RNiBeacon",
 					"$(SRCROOT)/../node_modules/react-native-vkontakte-login/ios/**",
 					"$(SRCROOT)/../node_modules/react-native-bluetooth-status/ios",
+					"$(SRCROOT)/../node_modules/react-native-bluetooth-manager/ios/**",
+					"$(SRCROOT)/../node_modules/react-native-bluetooth-manager/ios/**",
 				);
 				INFOPLIST_FILE = CatchTheAsteroid/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
@@ -1442,6 +1457,8 @@
 					"$(SRCROOT)/../node_modules/react-native-beacons-manager/ios/RNiBeacon/RNiBeacon",
 					"$(SRCROOT)/../node_modules/react-native-vkontakte-login/ios/**",
 					"$(SRCROOT)/../node_modules/react-native-bluetooth-status/ios",
+					"$(SRCROOT)/../node_modules/react-native-bluetooth-manager/ios/**",
+					"$(SRCROOT)/../node_modules/react-native-bluetooth-manager/ios/**",
 				);
 				INFOPLIST_FILE = CatchTheAsteroid/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
@@ -1481,11 +1498,14 @@
 					"$(SRCROOT)..\node_modules\neact-native-beacons-manageriosRNiBeaconRNiBeacon",
 					"$(SRCROOT)/../node_modules/react-native-vkontakte-login/ios/**",
 					"$(SRCROOT)/../node_modules/react-native-bluetooth-status/ios",
+					"$(SRCROOT)/../node_modules/react-native-bluetooth-manager/ios/**",
+					"$(SRCROOT)/../node_modules/react-native-bluetooth-manager/ios/**",
 				);
 				INFOPLIST_FILE = "CatchTheAsteroid-tvOS/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
+					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
@@ -1523,11 +1543,14 @@
 					"$(SRCROOT)..\node_modules\neact-native-beacons-manageriosRNiBeaconRNiBeacon",
 					"$(SRCROOT)/../node_modules/react-native-vkontakte-login/ios/**",
 					"$(SRCROOT)/../node_modules/react-native-bluetooth-status/ios",
+					"$(SRCROOT)/../node_modules/react-native-bluetooth-manager/ios/**",
+					"$(SRCROOT)/../node_modules/react-native-bluetooth-manager/ios/**",
 				);
 				INFOPLIST_FILE = "CatchTheAsteroid-tvOS/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
+					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
@@ -1566,6 +1589,7 @@
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
+					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = "com.facebook.REACT.CatchTheAsteroid-tvOSTests";
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -1594,6 +1618,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
+					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
