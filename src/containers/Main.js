@@ -9,78 +9,81 @@ import { Routes } from "../rootNavigator";
 import Cosmo from "../components/cosmo/Cosmo";
 
 class Main extends Component {
-  state = {
-    beaconStations: []
-  };
+    state = {
+        beaconStations: [],
+    };
 
-  componentDidMount() {
-    this.props.startRanging(null);
-    this.props.getAllStations();
-  }
+    componentDidMount() {
+        this.props.startRanging(null);
+        this.props.getAllStations();
+    }
 
-  componentWillUnmount() {
-    this.props.stopRanging(null);
-  }
+    componentWillUnmount() {
+        this.props.stopRanging(null);
+    }
 
-  componentWillReceiveProps(nextProps) {
-    this.syncBeaconStations(nextProps);
-  }
+    componentWillReceiveProps(nextProps) {
+        this.syncBeaconStations(nextProps);
+    }
 
-  syncBeaconStations = (props) => {
-    let beaconStations = [];
-    props.beacons.forEach((beacon) => {
-      const index = props.stations.findIndex((station) =>
-        `${station.beacon.uid}|${station.beacon.major}|${station.beacon.minor}` === beacon.id);
-      const station = props.stations[index];
-      beaconStations.push({ ...beacon, name: station && station.name });
-    });
-    this.setState({ beaconStations })
-  };
+    syncBeaconStations = props => {
+        let beaconStations = [];
+        props.beacons.forEach(beacon => {
+            const index = props.stations.findIndex(
+                station =>
+                    `${station.beacon.uid}|${station.beacon.major}|${station.beacon.minor}` ===
+                    beacon.id
+            );
+            const station = props.stations[index];
+            beaconStations.push({ ...beacon, name: station && station.name });
+        });
+        this.setState({ beaconStations });
+    };
 
-  moveToDashboard = () => {
-    this.props.openDashboard();
-  };
+    moveToDashboard = () => {
+        this.props.openDashboard();
+    };
 
-  moveToQuiz = () => {
-    this.props.openQuiz(1);
-  };
+    moveToQuiz = () => {
+        this.props.openQuiz(1);
+    };
 
-  handleObjectCapture = (object) => {
-    console.warn('Go to ' + object.name);
-  };
+    handleObjectCapture = object => {
+        console.warn("Go to " + object.name);
+    };
 
-  render() {
-    return (
-      <View style={styles.container}>
-        <View style={styles.mapContainer}>
-          <Cosmo
-            objects={this.state.beaconStations}
-            maxDistance={MAX_DISTANCE}
-            onObjectCapture={this.handleObjectCapture}
-          />
-        </View>
-        <Button title="Go to quiz" onPress={this.moveToQuiz} />
-        <Button title="Go to dashboard" onPress={this.moveToDashboard} />
-      </View>
-    );
-  }
+    render() {
+        return (
+            <View style={styles.container}>
+                <View style={styles.mapContainer}>
+                    <Cosmo
+                        objects={this.state.beaconStations}
+                        maxDistance={MAX_DISTANCE}
+                        onObjectCapture={this.handleObjectCapture}
+                    />
+                </View>
+                <Button title="Go to quiz" onPress={this.moveToQuiz} />
+                <Button title="Go to dashboard" onPress={this.moveToDashboard} />
+            </View>
+        );
+    }
 }
 
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-  },
-  mapContainer: {
-    flex: 1,
-  },
+    container: {
+        flex: 1,
+    },
+    mapContainer: {
+        flex: 1,
+    },
 });
 
 function mapStateToProps(state) {
-  return {
-    beacons: state.beacons.beacons,
-    isSearching: state.beacons.isSearching,
-    stations: getVisibleStations(state, MAX_DISTANCE),
-  };
+    return {
+        beacons: state.beacons.beacons,
+        isSearching: state.beacons.isSearching,
+        stations: getVisibleStations(state, MAX_DISTANCE),
+    };
 }
 
 export default connect(mapStateToProps, actions)(Main);

@@ -10,6 +10,7 @@ import com.facebook.react.ReactNativeHost;
 import com.facebook.react.ReactPackage;
 import com.facebook.react.shell.MainReactPackage;
 import com.facebook.soloader.SoLoader;
+import com.solinor.bluetoothstatus.RNBluetoothManagerPackage;
 
 import com.reactlibrary.googlesignin.RNGoogleSignInPackage;
 
@@ -30,7 +31,8 @@ public class MainApplication extends Application implements ReactApplication {
           new MainReactPackage(),
             new BeaconsAndroidPackage(),
             new VKAuthPackage(),
-              new RNGoogleSignInPackage()
+            new RNGoogleSignInPackage(),
+            new RNBluetoothManagerPackage()
       );
     }
 
