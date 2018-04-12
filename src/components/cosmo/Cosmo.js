@@ -13,6 +13,7 @@ import objectImage from "./images/asteroid.png";
 const ANGLES = [0, 0.8, 1.6, 2.4, 3, 3.6, 4.2, 4.8, 5.6];
 const ORBITS = 4;
 const ORBIT_STEP_PX = 30;
+const TOP_OFFSET = 60;
 
 type Props = {
     objects?: array<{ name: string, id: number, distance: number }>,
@@ -30,9 +31,24 @@ type State = {
 };
 
 export default class Cosmo extends Component<Props, State> {
-    static defaultProps = {
-        objects: [],
-        orbits: ORBITS,
+  static defaultProps = {
+    objects: [],
+    orbits: ORBITS,
+  };
+
+  constructor() {
+    super();
+
+    const { width, height } = Dimensions.get('window');
+    const xStart = width / 2;
+    const yStart = (height - TOP_OFFSET) / 2;
+
+    this.state = {
+      xStart,
+      yStart,
+      width,
+      height,
+      objectsCoordinates: {},
     };
 
     constructor() {
@@ -121,10 +137,20 @@ export default class Cosmo extends Component<Props, State> {
         return { x, y };
     };
 
-    isObjectCaptured = object => {
-        const localDistance = this.measureToPixel(object.distance);
-        return localDistance < constants.gravityRadius;
-    };
+  render() {
+    return (
+      <View style={styles.container}>
+        <ImageBackground
+          source={backgroundImage}
+          style={styles.backgroundImage}
+          resizeMode='cover'
+        />
+        {this.renderCenter()}
+        {this.renderOrbits(this.props.orbits)}
+        {this.renderObjects()}
+      </View>
+    );
+  }
 
     handlePlanetPress = object => {
         if (this.isObjectCaptured(object)) {
