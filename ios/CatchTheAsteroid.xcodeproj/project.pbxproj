@@ -543,6 +543,7 @@
 			children = (
 				FF8DD6F89446498A91C8B3F8 /* libRNiBeacon.a */,
 				47BA776AE2A0499982A069D1 /* libRNVkontakteLogin.a */,
+				D6CB33E1F340463E9A5491FB /* libRNBluetoothManager.a */,
 			);
 			name = "Recovered References";
 			sourceTree = "<group>";

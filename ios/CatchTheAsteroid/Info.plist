@@ -104,5 +104,7 @@
 	</array>
 	<key>UIViewControllerBasedStatusBarAppearance</key>
 	<false/>
+	<key>VK_APP_ID</key>
+    <integer>6430395</integer>
 </dict>
 </plist>
