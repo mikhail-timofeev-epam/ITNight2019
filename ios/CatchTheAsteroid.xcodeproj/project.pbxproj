@@ -46,6 +46,7 @@
 		2D02E4C81E0B4AEC006451C7 /* libRCTWebSocket-tvOS.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 3DAD3E991DF850E9000B6D8A /* libRCTWebSocket-tvOS.a */; };
 		2D16E6881FA4F8E400B85C8A /* libReact.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 2D16E6891FA4F8E400B85C8A /* libReact.a */; };
 		2DCD954D1E0B4F2C00145EB5 /* CatchTheAsteroidTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 00E356F21AD99517003FC87E /* CatchTheAsteroidTests.m */; };
+		5848FEB02080F10A00FC321E /* libVKSdk.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 5848FEB12080F10A00FC321E /* libVKSdk.a */; };
 		5E9157361DD0AC6A00FF2AA8 /* libRCTAnimation.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 5E9157331DD0AC6500FF2AA8 /* libRCTAnimation.a */; };
 		697C319E1F5C42AEA7ECCB76 /* libRNBluetoothManager.a in Frameworks */ = {isa = PBXBuildFile; fileRef = D6CB33E1F340463E9A5491FB /* libRNBluetoothManager.a */; };
 		743EAC75C9EF4DC1B2096D31 /* VKSdkFramework.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = D4F11909BA2C43468701F1C5 /* VKSdkFramework.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, ); }; };
@@ -161,13 +162,6 @@
 			proxyType = 2;
 			remoteGlobalIDString = 0D03EBDE1E56B1E700C55E6B;
 			remoteInfo = RNiBeacon;
-		};
-		0EB93E28206E14DE004CFD20 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = CFB8D7BB3CDC41CE945F5C2A /* RNVkontakteLogin.xcodeproj */;
-			proxyType = 2;
-			remoteGlobalIDString = 134814201AA4EA6300B7C361;
-			remoteInfo = RNVkontakteLogin;
 		};
 		139105C01AF99BAD00B5F7CC /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
@@ -309,9 +303,16 @@
 			remoteGlobalIDString = 3D3CD9181DE5FBD800167DC4;
 			remoteInfo = "jschelpers-tvOS";
 		};
-		5C2FD5D2207F7F2E00BB084D /* PBXContainerItemProxy */ = {
+		5848FEA82080F0C300FC321E /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
-			containerPortal = B9F1905DD6B64EEDA459E5A9 /* RNBluetoothManager.xcodeproj */;
+			containerPortal = 5848FE7C2080F0C300FC321E /* RNVkontakteLogin.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 134814201AA4EA6300B7C361;
+			remoteInfo = RNVkontakteLogin;
+		};
+		5848FEAE2080F0E000FC321E /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 5848FEAA2080F0DF00FC321E /* RNBluetoothManager.xcodeproj */;
 			proxyType = 2;
 			remoteGlobalIDString = 134814201AA4EA6300B7C361;
 			remoteInfo = RNBluetoothManager;
@@ -404,12 +405,13 @@
 		2D02E4901E0B4A5D006451C7 /* CatchTheAsteroid-tvOSTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "CatchTheAsteroid-tvOSTests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		2D16E6891FA4F8E400B85C8A /* libReact.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; path = libReact.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		47BA776AE2A0499982A069D1 /* libRNVkontakteLogin.a */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = archive.ar; path = libRNVkontakteLogin.a; sourceTree = "<group>"; };
+		5848FE7C2080F0C300FC321E /* RNVkontakteLogin.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RNVkontakteLogin.xcodeproj; path = "../node_modules/react-native-vkontakte-login/ios/RNVkontakteLogin.xcodeproj"; sourceTree = "<group>"; };
+		5848FEAA2080F0DF00FC321E /* RNBluetoothManager.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RNBluetoothManager.xcodeproj; path = "../node_modules/react-native-bluetooth-status/ios/RNBluetoothManager.xcodeproj"; sourceTree = "<group>"; };
+		5848FEB12080F10A00FC321E /* libVKSdk.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; path = libVKSdk.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		5E91572D1DD0AC6500FF2AA8 /* RCTAnimation.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RCTAnimation.xcodeproj; path = "../node_modules/react-native/Libraries/NativeAnimation/RCTAnimation.xcodeproj"; sourceTree = "<group>"; };
 		78C398B01ACF4ADC00677621 /* RCTLinking.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RCTLinking.xcodeproj; path = "../node_modules/react-native/Libraries/LinkingIOS/RCTLinking.xcodeproj"; sourceTree = "<group>"; };
 		832341B01AAA6A8300B99B32 /* RCTText.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RCTText.xcodeproj; path = "../node_modules/react-native/Libraries/Text/RCTText.xcodeproj"; sourceTree = "<group>"; };
 		ADBDB91F1DFEBF0600ED6528 /* RCTBlob.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RCTBlob.xcodeproj; path = "../node_modules/react-native/Libraries/Blob/RCTBlob.xcodeproj"; sourceTree = "<group>"; };
-		B9F1905DD6B64EEDA459E5A9 /* RNBluetoothManager.xcodeproj */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = "wrapper.pb-project"; name = RNBluetoothManager.xcodeproj; path = "../node_modules/react-native-bluetooth-status/ios/RNBluetoothManager.xcodeproj"; sourceTree = "<group>"; };
-		CFB8D7BB3CDC41CE945F5C2A /* RNVkontakteLogin.xcodeproj */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = "wrapper.pb-project"; name = RNVkontakteLogin.xcodeproj; path = "../node_modules/react-native-vkontakte-login/ios/RNVkontakteLogin.xcodeproj"; sourceTree = "<group>"; };
 		D25AA2597081410E9098C2C6 /* RNiBeacon.xcodeproj */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = "wrapper.pb-project"; name = RNiBeacon.xcodeproj; path = "../node_modules/react-native-beacons-manager/ios/RNiBeacon/RNiBeacon.xcodeproj"; sourceTree = "<group>"; };
 		D4F11909BA2C43468701F1C5 /* VKSdkFramework.framework */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = wrapper.framework; path = VKSdkFramework.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		D6CB33E1F340463E9A5491FB /* libRNBluetoothManager.a */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = archive.ar; path = libRNBluetoothManager.a; sourceTree = "<group>"; };
@@ -429,6 +431,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				5848FEB02080F10A00FC321E /* libVKSdk.a in Frameworks */,
 				0E0FF4152065466A0029C3AC /* SafariServices.framework in Frameworks */,
 				0E0FF4132065465A0029C3AC /* SystemConfiguration.framework in Frameworks */,
 				0E0FF4112065464C0029C3AC /* GoogleSignInDependencies.framework in Frameworks */,
@@ -556,14 +559,6 @@
 			name = Products;
 			sourceTree = "<group>";
 		};
-		0EB93E25206E14DE004CFD20 /* Products */ = {
-			isa = PBXGroup;
-			children = (
-				0EB93E29206E14DE004CFD20 /* libRNVkontakteLogin.a */,
-			);
-			name = Products;
-			sourceTree = "<group>";
-		};
 		139105B71AF99BAD00B5F7CC /* Products */ = {
 			isa = PBXGroup;
 			children = (
@@ -626,6 +621,7 @@
 		2D16E6871FA4F8E400B85C8A /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				5848FEB12080F10A00FC321E /* libVKSdk.a */,
 				0E0FF4142065466A0029C3AC /* SafariServices.framework */,
 				0E0FF4122065465A0029C3AC /* SystemConfiguration.framework */,
 				0E0FF4102065464C0029C3AC /* GoogleSignInDependencies.framework */,
@@ -637,10 +633,18 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
-		5C2FD5AA207F7F2E00BB084D /* Products */ = {
+		5848FE7D2080F0C300FC321E /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				5C2FD5D3207F7F2E00BB084D /* libRNBluetoothManager.a */,
+				5848FEA92080F0C300FC321E /* libRNVkontakteLogin.a */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		5848FEAB2080F0DF00FC321E /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				5848FEAF2080F0E000FC321E /* libRNBluetoothManager.a */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -666,6 +670,8 @@
 		832341AE1AAA6A7D00B99B32 /* Libraries */ = {
 			isa = PBXGroup;
 			children = (
+				5848FEAA2080F0DF00FC321E /* RNBluetoothManager.xcodeproj */,
+				5848FE7C2080F0C300FC321E /* RNVkontakteLogin.xcodeproj */,
 				5E91572D1DD0AC6500FF2AA8 /* RCTAnimation.xcodeproj */,
 				146833FF1AC3E56700842450 /* React.xcodeproj */,
 				00C302A71ABCB8CE00DB3ED1 /* RCTActionSheet.xcodeproj */,
@@ -679,8 +685,6 @@
 				00C302DF1ABCB9EE00DB3ED1 /* RCTVibration.xcodeproj */,
 				139FDEE61B06529A00C62182 /* RCTWebSocket.xcodeproj */,
 				D25AA2597081410E9098C2C6 /* RNiBeacon.xcodeproj */,
-				CFB8D7BB3CDC41CE945F5C2A /* RNVkontakteLogin.xcodeproj */,
-				B9F1905DD6B64EEDA459E5A9 /* RNBluetoothManager.xcodeproj */,
 			);
 			name = Libraries;
 			sourceTree = "<group>";
@@ -901,16 +905,16 @@
 					ProjectRef = 146833FF1AC3E56700842450 /* React.xcodeproj */;
 				},
 				{
-					ProductGroup = 5C2FD5AA207F7F2E00BB084D /* Products */;
-					ProjectRef = B9F1905DD6B64EEDA459E5A9 /* RNBluetoothManager.xcodeproj */;
+					ProductGroup = 5848FEAB2080F0DF00FC321E /* Products */;
+					ProjectRef = 5848FEAA2080F0DF00FC321E /* RNBluetoothManager.xcodeproj */;
 				},
 				{
 					ProductGroup = 0E0FF405206545100029C3AC /* Products */;
 					ProjectRef = D25AA2597081410E9098C2C6 /* RNiBeacon.xcodeproj */;
 				},
 				{
-					ProductGroup = 0EB93E25206E14DE004CFD20 /* Products */;
-					ProjectRef = CFB8D7BB3CDC41CE945F5C2A /* RNVkontakteLogin.xcodeproj */;
+					ProductGroup = 5848FE7D2080F0C300FC321E /* Products */;
+					ProjectRef = 5848FE7C2080F0C300FC321E /* RNVkontakteLogin.xcodeproj */;
 				},
 			);
 			projectRoot = "";
@@ -1020,13 +1024,6 @@
 			fileType = archive.ar;
 			path = libRNiBeacon.a;
 			remoteRef = 0E0FF408206545100029C3AC /* PBXContainerItemProxy */;
-			sourceTree = BUILT_PRODUCTS_DIR;
-		};
-		0EB93E29206E14DE004CFD20 /* libRNVkontakteLogin.a */ = {
-			isa = PBXReferenceProxy;
-			fileType = archive.ar;
-			path = libRNVkontakteLogin.a;
-			remoteRef = 0EB93E28206E14DE004CFD20 /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
 		139105C11AF99BAD00B5F7CC /* libRCTSettings.a */ = {
@@ -1162,11 +1159,18 @@
 			remoteRef = 3DAD3EAE1DF850E9000B6D8A /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
-		5C2FD5D3207F7F2E00BB084D /* libRNBluetoothManager.a */ = {
+		5848FEA92080F0C300FC321E /* libRNVkontakteLogin.a */ = {
+			isa = PBXReferenceProxy;
+			fileType = archive.ar;
+			path = libRNVkontakteLogin.a;
+			remoteRef = 5848FEA82080F0C300FC321E /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		5848FEAF2080F0E000FC321E /* libRNBluetoothManager.a */ = {
 			isa = PBXReferenceProxy;
 			fileType = archive.ar;
 			path = libRNBluetoothManager.a;
-			remoteRef = 5C2FD5D2207F7F2E00BB084D /* PBXContainerItemProxy */;
+			remoteRef = 5848FEAE2080F0E000FC321E /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
 		5E9157331DD0AC6500FF2AA8 /* libRCTAnimation.a */ = {
@@ -1435,9 +1439,9 @@
 				HEADER_SEARCH_PATHS = (
 					"$(PROJECT_DIR)/CatchTheAsteroid/google_signin_sdk_4_1_0/GoogleSignIn.framework/**",
 					"$(inherited)",
-					"$(SRCROOT)/../node_modules/react-native-beacons-manager/ios/RNiBeacon/RNiBeacon",
+					"$(SRCROOT)/../node_modules/react-native-beacons-manager/ios/RNiBeacon/RNiBeacon/**",
 					"$(SRCROOT)/../node_modules/react-native-vkontakte-login/ios/**",
-					"$(SRCROOT)/../node_modules/react-native-bluetooth-status/ios",
+					"$(SRCROOT)/../node_modules/react-native-bluetooth-status/ios/**",
 				);
 				INFOPLIST_FILE = CatchTheAsteroid/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
@@ -1473,9 +1477,9 @@
 				HEADER_SEARCH_PATHS = (
 					"$(PROJECT_DIR)/CatchTheAsteroid/google_signin_sdk_4_1_0/GoogleSignIn.framework/**",
 					"$(inherited)",
-					"$(SRCROOT)/../node_modules/react-native-beacons-manager/ios/RNiBeacon/RNiBeacon",
+					"$(SRCROOT)/../node_modules/react-native-beacons-manager/ios/RNiBeacon/RNiBeacon/**",
 					"$(SRCROOT)/../node_modules/react-native-vkontakte-login/ios/**",
-					"$(SRCROOT)/../node_modules/react-native-bluetooth-status/ios",
+					"$(SRCROOT)/../node_modules/react-native-bluetooth-status/ios/**",
 				);
 				INFOPLIST_FILE = CatchTheAsteroid/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
