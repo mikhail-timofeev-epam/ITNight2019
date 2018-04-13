@@ -51,6 +51,7 @@
   BOOL handled = [[GIDSignIn sharedInstance] handleURL:url
                                      sourceApplication:options[UIApplicationOpenURLOptionsSourceApplicationKey]
                                             annotation:options[UIApplicationOpenURLOptionsAnnotationKey]];
+  [VKSdk processOpenURL:url fromApplication:options[UIApplicationOpenURLOptionsSourceApplicationKey]];
   return handled;
   // ADD THE ABOVE CODE
 }
@@ -65,6 +66,7 @@
                                  annotation:annotation]) {
     return YES;
   }
+  [VKSdk processOpenURL:url fromApplication:sourceApplication];
   // ADD THE ABOVE CODE
   return YES;
 }
