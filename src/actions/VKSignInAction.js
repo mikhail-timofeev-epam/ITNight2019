@@ -12,9 +12,9 @@ export const vkSignIn = () => dispatch => {
                 email: vkAuthData.email,
                 phone: "",
                 source: AUTH_TYPES.VK,
-                attrs: JSON.stringify({
+                attrs: {
                     id_vk: vkAuthData.user_id,
-                }),
+                },
             };
             const userMetaInfo = {
                 name: "",
