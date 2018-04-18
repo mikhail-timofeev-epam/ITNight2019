@@ -41,7 +41,7 @@ class Main extends Component {
             );
             const station = props.stations[index];
             if (station) {
-                beaconStations.push({ ...beacon, name: station.name, quizId: station.quizId });
+                beaconStations.push({ ...beacon, name: station.name, quizId: station.quizId, type: station.type });
             }
         });
         this.setState({ beaconStations });
