@@ -30,6 +30,7 @@ export default class BeaconsManager {
             const region = { identifier: REGION, uuid: DEFAULT_UUID };
             Beacons.startRangingBeaconsInRegion(region);
             console.log("BeaconsManager(iOS): ranging started");
+            this._subscribeOnBeaconsChanges();
         }
     }
 
@@ -51,9 +52,9 @@ export default class BeaconsManager {
                 data => {
                     if (data.beacons && data.beacons.length != 0) {
                         this.dispatch(beaconActions.beaconsChanged(data.beacons));
-                        debouncedCleanFunction(store.dispatch);
+                        debouncedCleanFunction(this.dispatch);
                     }
-                    store.dispatch(
+                    this.dispatch(
                         beaconActions.searching(!data.beacons || data.beacons.length == 0)
                     );
                 }
