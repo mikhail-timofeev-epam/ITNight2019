@@ -63,13 +63,17 @@ const updateMainScreenHeader = () => (dispatch, getState) => {
 
 const registerUser = (payload, metaInfo) => dispatch => {
     console.log("Register user: ", payload, metaInfo);
+    const registerPayload = {
+        ...payload,
+        attrs: payload.attrs || {},
+    };
     fetch(`${ENDPOINT}/user`, {
         method: "POST",
         headers: {
             Accept: "application/json",
             "Content-Type": "application/json",
         },
-        body: JSON.stringify(payload),
+        body: JSON.stringify(registerPayload),
     })
         .then(epamAuthData => {
             return epamAuthData.json();

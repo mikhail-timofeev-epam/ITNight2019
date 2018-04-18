@@ -58,6 +58,8 @@ const routeConfigMap = {
         path: "/main",
         screen: Main,
         navigationOptions: ({ navigation }) => {
+            const scores = Math.round(navigation.state.params.scores) || 0;
+
             return {
                 title: `${navigation.state.params.userName || ""}`,
                 headerTintColor: "white",
@@ -81,8 +83,9 @@ const routeConfigMap = {
                             alignSelf: "center",
                             paddingLeft: 8,
                         }}
+                        ellipsizeMode="tail"
                     >
-                        {navigation.state.params.scores}
+                        {scores > 99999 ? "99999+" : scores}
                     </Text>
                 ),
                 headerStyle: {
