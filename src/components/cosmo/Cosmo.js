@@ -192,29 +192,19 @@ export default class Cosmo extends Component<Props, State> {
         }
 
         return this.props.objects.map(object => {
-            return (
-                <View style={this.state.objectsCoordinates[object.id].xy}>
-                    <TouchableOpacity
-                        onPress={() => {
-                            this.handlePlanetPress(object);
-                        }}
-                        style={styles.objectWrapper}
-                        activeOpacity={0.5}
-                        key={object.id}
-                    >
-                        <Image
-                            source={
-                                object.type === STATION_TYPES.MASTER ? objectImage : stationImage
-                            }
-                            style={styles.image}
-                            resizeMode="contain"
-                        />
-                    </TouchableOpacity>
-                    <Text style={styles.objectName} numberOfLines={2}>
-                        {object.name ? object.name : object.id}
-                    </Text>
-                </View>
-            );
-        });
+          return (
+              <TouchableOpacity
+                  onPress={this.handlePlanetPress.bind(this, object)}
+                  style={[styles.objectWrapper, this.state.objectsCoordinates[object.id].xy]}
+                  activeOpacity={0.5}
+                  key={object.id}
+              >
+                  <Image source={objectImage} style={styles.image} />
+                  <Text style={styles.objectName} numberOfLines={2}>
+                      {object.name ? object.name : object.id}
+                  </Text>
+              </TouchableOpacity>
+          );
+       });
     };
 }
