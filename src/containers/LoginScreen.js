@@ -9,7 +9,7 @@ import {
     TouchableOpacity,
 } from "react-native";
 import { connect } from "react-redux";
-import { bindActionCreators } from "redux";
+import _ from "lodash";
 import validator from "validator";
 import VKLogin from "react-native-vkontakte-login";
 import { Routes } from "../rootNavigator";
@@ -17,6 +17,8 @@ import { Routes } from "../rootNavigator";
 import { googleSignIn } from "../actions/GoogleSignInAction";
 import { vkSignIn } from "../actions/VKSignInAction";
 import { simpleSignIn } from "../actions/SimpleSignInAction";
+
+import actions from "../actions";
 
 class LoginScreen extends Component {
     constructor(props) {
@@ -102,14 +104,6 @@ class LoginScreen extends Component {
     };
 }
 
-function mapDispatchToProps(dispatch) {
-    return {
-        googleSignIn: bindActionCreators(googleSignIn, dispatch),
-        vkSignIn: bindActionCreators(vkSignIn, dispatch),
-        simpleSignIn: bindActionCreators(simpleSignIn, dispatch),
-    };
-}
-
 function mapStateToProps(state) {
     return {
         userId: state.authorization.userId,
@@ -117,7 +111,12 @@ function mapStateToProps(state) {
     };
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(LoginScreen);
+export default connect(mapStateToProps, {
+    ...actions,
+    googleSignIn,
+    vkSignIn,
+    simpleSignIn,
+})(LoginScreen);
 
 const styles = StyleSheet.create({
     container: {

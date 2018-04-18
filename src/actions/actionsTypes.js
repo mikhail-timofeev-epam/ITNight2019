@@ -19,4 +19,6 @@ export const ApiActionTypes = keymirror({
     SAVE_USER_NAME_REQUEST: true,
     SAVE_USER_NAME_SUCCESS: true,
     SAVE_USER_NAME_FAILURE: true,
+
+    LOGOUT: true,
 });

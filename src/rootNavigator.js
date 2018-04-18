@@ -8,12 +8,14 @@ import Main from "./containers/Main";
 import LoginScreen from "./containers/LoginScreen";
 import SetUserName from "./containers/SetUserName";
 import WebViewHosting from "./containers/WebViewHosting";
+import Splash from "./containers/Splash";
 import { RootNavListener } from "./middlewares/navigationMiddleware";
 import actions from "./actions";
 
 import keymirror from "keymirror";
 
 export const Routes = keymirror({
+    Splash: true,
     Main: true,
     Login: true,
     SetUserName: true,
@@ -54,6 +56,7 @@ const withNavigationPreventDuplicate = getStateForAction => {
 
 const routeConfigMap = {
     [Routes.Login]: { path: "/login", screen: LoginScreen },
+    [Routes.Splash]: { path: "/splash", screen: Splash },
     [Routes.Main]: {
         path: "/main",
         screen: Main,
@@ -113,7 +116,7 @@ const routeConfigMap = {
 };
 
 const stackConfig = {
-    initialRouteName: Routes.Login,
+    initialRouteName: Routes.Splash,
     initialRouteParams: {},
 };
 

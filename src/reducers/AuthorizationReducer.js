@@ -8,7 +8,7 @@ const initialState = {
     phone: "",
     idVK: "",
     newUser: true,
-    userId: 0,
+    userId: null,
 };
 
 export default function reducer(state = initialState, action = {}) {
@@ -29,6 +29,8 @@ export default function reducer(state = initialState, action = {}) {
                 ...state,
                 name: action.payload.name,
             };
+        case ApiActionTypes.LOGOUT:
+            return initialState;
         default:
             return state;
     }

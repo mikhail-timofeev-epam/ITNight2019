@@ -133,7 +133,7 @@ export default class Cosmo extends Component<Props, State> {
         if (this.isObjectCaptured(object) && object.type === STATION_TYPES.MASTER) {
             this.props.onObjectCapture(object);
         }
-    },500);
+    }, 500);
 
     render() {
         return (
@@ -195,8 +195,8 @@ export default class Cosmo extends Component<Props, State> {
             return (
                 <View style={this.state.objectsCoordinates[object.id].xy}>
                     <TouchableOpacity
-                        onPress={()=>{
-                          this.handlePlanetPress(object)
+                        onPress={() => {
+                            this.handlePlanetPress(object);
                         }}
                         style={styles.objectWrapper}
                         activeOpacity={0.5}
@@ -217,5 +217,4 @@ export default class Cosmo extends Component<Props, State> {
             );
         });
     };
-    
 }
