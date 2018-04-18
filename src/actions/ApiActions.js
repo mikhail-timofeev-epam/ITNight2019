@@ -53,7 +53,7 @@ const updateMainScreenHeader = () => (dispatch, getState) => {
             if (mainRoute) {
                 dispatch(
                     NavigationActions.setParams({
-                        params: { userName: user.name, scores: user.score },
+                        params: { userName: user.name, scores: user.score, userId: currentUserId },
                         key: mainRoute.key,
                     })
                 );

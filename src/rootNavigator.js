@@ -69,10 +69,22 @@ const routeConfigMap = {
                             navigation.dispatch(actions.openDashboard());
                         }}
                     >
-                        <Image
-                            style={{ marginRight: 8 }}
-                            source={require("./images/dashboard.png")}
-                        />
+                        <View style={{ flexDirection: "row" }}>
+                            <Text
+                                style={{
+                                    color: "white",
+                                    fontSize: 18,
+                                    alignSelf: "center",
+                                    paddingRight: 8,
+                                }}
+                            >
+                                {scores > 99999 ? "99999+" : scores}
+                            </Text>
+                            <Image
+                                style={{ marginRight: 8 }}
+                                source={require("./images/dashboard.png")}
+                            />
+                        </View>
                     </TouchableOpacity>
                 ),
                 headerLeft: (
@@ -85,7 +97,7 @@ const routeConfigMap = {
                         }}
                         ellipsizeMode="tail"
                     >
-                        {scores > 99999 ? "99999+" : scores}
+                        #{navigation.state.params.userId}
                     </Text>
                 ),
                 headerStyle: {

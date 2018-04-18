@@ -18,199 +18,201 @@ const ORBIT_STEP_PX = 30;
 const TOP_OFFSET = 60;
 
 type Props = {
-  objects?: array<{ name: string, id: number, distance: number }>,
-  maxDistance: number, // in real measure (meters)
-  onObjectCapture: any => void,
-  orbits?: number,
+    objects?: array<{ name: string, id: number, distance: number }>,
+    maxDistance: number, // in real measure (meters)
+    onObjectCapture: any => void,
+    orbits?: number,
 };
 
 type State = {
-  xStart: number,
-  yStart: number,
-  width: number,
-  height: number,
-  objectsCoordinates: any,
+    xStart: number,
+    yStart: number,
+    width: number,
+    height: number,
+    objectsCoordinates: any,
 };
 
 export default class Cosmo extends Component<Props, State> {
-  static defaultProps = {
-    objects: [],
-    orbits: ORBITS,
-  };
-
-  constructor() {
-    super();
-
-    const { width, height } = Dimensions.get("window");
-    const xStart = width / 2;
-    const yStart = (height - TOP_OFFSET) / 2;
-
-    this.state = {
-      xStart,
-      yStart,
-      width,
-      height,
-      objectsCoordinates: {},
+    static defaultProps = {
+        objects: [],
+        orbits: ORBITS,
     };
 
-    this.angles = {};
-  }
+    constructor() {
+        super();
 
-  componentWillMount() {
-    this.updateObjectsCoordinates(this.props.objects);
-  }
+        const { width, height } = Dimensions.get("window");
+        const xStart = width / 2;
+        const yStart = (height - TOP_OFFSET) / 2;
 
-  componentWillReceiveProps(nextProps) {
-    this.updateObjectsCoordinates(nextProps.objects);
-  }
+        this.state = {
+            xStart,
+            yStart,
+            width,
+            height,
+            objectsCoordinates: {},
+        };
 
-  getCenterCoordinates = radius => {
-    return {
-      bottom: this.state.yStart - radius,
-      left: this.state.xStart - radius,
+        this.angles = {};
+    }
+
+    componentWillMount() {
+        this.updateObjectsCoordinates(this.props.objects);
+    }
+
+    componentWillReceiveProps(nextProps) {
+        this.updateObjectsCoordinates(nextProps.objects);
+    }
+
+    getCenterCoordinates = radius => {
+        return {
+            bottom: this.state.yStart - radius,
+            left: this.state.xStart - radius,
+        };
     };
-  };
 
-  updateObjectsCoordinates = objects => {
-    if (!objects.length || !this.state.width) {
-      return;
-    }
+    updateObjectsCoordinates = objects => {
+        if (!objects.length || !this.state.width) {
+            return;
+        }
 
-    const objectsCoordinates = {};
-    objects.forEach(object => {
-      const angle = this.angles[object.id] ? this.angles[object.id] : this.getAngle();
-      this.angles[object.id] = angle;
+        const objectsCoordinates = {};
+        objects.forEach(object => {
+            const angle = this.angles[object.id] ? this.angles[object.id] : this.getAngle();
+            this.angles[object.id] = angle;
 
-      objectsCoordinates[object.id] = {
-        ...object,
-        xy: this.getOneObjectCoordinates(object.distance, angle),
-        angle,
-      };
-    });
+            objectsCoordinates[object.id] = {
+                ...object,
+                xy: this.getOneObjectCoordinates(object.distance, angle),
+                angle,
+            };
+        });
 
-    this.setState({ objectsCoordinates });
-  };
-
-  getAngle = () => {
-    return ANGLES[Math.floor(ANGLES.length * Math.random())];
-  };
-
-  getOneObjectCoordinates = (distance, angle) => {
-    const localDistance = this.measureToPixel(distance);
-    const coordinates = this.calculateCoordinates(localDistance, angle);
-    const objectRadius = constants.minObjectRadius;
-
-    return {
-      bottom: this.state.yStart - objectRadius + coordinates.y,
-      left: this.state.xStart - objectRadius + coordinates.x,
+        this.setState({ objectsCoordinates });
     };
-  };
 
-  isObjectCaptured = object => {
-    const localDistance = this.measureToPixel(object.distance);
-    return localDistance < constants.gravityRadius;
-  };
+    getAngle = () => {
+        return ANGLES[Math.floor(ANGLES.length * Math.random())];
+    };
 
-  measureToPixel = distance => {
-    // maps distance to device scale
-    const maxLocalDistance = this.state.width / 2;
-    return distance * maxLocalDistance / this.props.maxDistance;
-  };
+    getOneObjectCoordinates = (distance, angle) => {
+        const localDistance = this.measureToPixel(distance);
+        const coordinates = this.calculateCoordinates(localDistance, angle);
+        const objectRadius = constants.minObjectRadius;
 
-  pixelToMeasure = measure => {
-    const maxLocalDistance = this.state.width / 2;
-    return measure * this.props.maxDistance / maxLocalDistance;
-  };
+        return {
+            bottom: this.state.yStart - objectRadius + coordinates.y,
+            left: this.state.xStart - objectRadius + coordinates.x,
+        };
+    };
 
-  calculateCoordinates = (radius, angle) => {
-    const x = radius * Math.cos(angle);
-    const y = radius * Math.sin(angle);
+    isObjectCaptured = object => {
+        const localDistance = this.measureToPixel(object.distance);
+        return localDistance < constants.gravityRadius;
+    };
 
-    return { x, y };
-  };
+    measureToPixel = distance => {
+        // maps distance to device scale
+        const maxLocalDistance = this.state.width / 2;
+        return distance * maxLocalDistance / this.props.maxDistance;
+    };
 
-  handlePlanetPress = object => {
-    if (this.isObjectCaptured(object) && object.type === STATION_TYPES.MASTER) {
-      this.props.onObjectCapture(object);
-    }
-  };
+    pixelToMeasure = measure => {
+        const maxLocalDistance = this.state.width / 2;
+        return measure * this.props.maxDistance / maxLocalDistance;
+    };
 
-  render() {
-    return (
-      <View style={styles.container}>
-        <ImageBackground
-          source={backgroundImage}
-          style={styles.backgroundImage}
-          resizeMode="cover"
-        />
-        {this.renderCenter()}
-        {this.renderOrbits(this.props.orbits)}
-        {this.renderObjects()}
-      </View>
-    );
-  }
+    calculateCoordinates = (radius, angle) => {
+        const x = radius * Math.cos(angle);
+        const y = radius * Math.sin(angle);
 
-  renderCenter = () => {
-    return (
-      <View
-        style={[styles.planetWrapper, this.getCenterCoordinates(constants.gravityRadius)]}
-      >
-        <Image source={centerImage} style={styles.image} resizeMode={"contain"} />
-      </View>
-    );
-  };
+        return { x, y };
+    };
 
-  renderOrbits = orbits => {
-    const orbitComponents = [];
+    handlePlanetPress = object => {
+        if (this.isObjectCaptured(object) && object.type === STATION_TYPES.MASTER) {
+            this.props.onObjectCapture(object);
+        }
+    };
 
-    for (let i = 1; i <= orbits; i++) {
-      const radius = constants.gravityRadius + ORBIT_STEP_PX * i;
-      orbitComponents.push(this.renderOrbit(radius, i));
+    render() {
+        return (
+            <View style={styles.container}>
+                <ImageBackground
+                    source={backgroundImage}
+                    style={styles.backgroundImage}
+                    resizeMode="cover"
+                />
+                {this.renderCenter()}
+                {this.renderOrbits(this.props.orbits)}
+                {this.renderObjects()}
+            </View>
+        );
     }
 
-    return <View>{orbitComponents}</View>;
-  };
+    renderCenter = () => {
+        return (
+            <View
+                style={[styles.planetWrapper, this.getCenterCoordinates(constants.gravityRadius)]}
+            >
+                <Image source={centerImage} style={styles.image} resizeMode={"contain"} />
+            </View>
+        );
+    };
 
-  renderOrbit = (radius, key) => {
-    return (
-      <View
-        key={key}
-        style={[
-          styles.orbit,
-          { width: radius * 2, height: radius * 2, borderRadius: radius },
-          this.getCenterCoordinates(radius),
-        ]}
-      >
-        <Text style={styles.orbitText}>{Number.parseInt(this.pixelToMeasure(radius))}</Text>
-      </View>
-    );
-  };
+    renderOrbits = orbits => {
+        const orbitComponents = [];
 
-  renderObjects = () => {
-    if (_.isEmpty(this.state.objectsCoordinates)) {
-      return null;
-    }
+        for (let i = 1; i <= orbits; i++) {
+            const radius = constants.gravityRadius + ORBIT_STEP_PX * i;
+            orbitComponents.push(this.renderOrbit(radius, i));
+        }
 
-    return this.props.objects.map(object => {
-      return (
-        <View style={this.state.objectsCoordinates[object.id].xy}>  
-          <TouchableOpacity
-            onPress={this.handlePlanetPress.bind(this, object)}
-            style={styles.objectWrapper}
-            activeOpacity={0.5}
-            key={object.id}
-          >
-            <Image
-              source={object.type === STATION_TYPES.MASTER ? objectImage : stationImage}
-              style={styles.image}
-              resizeMode='contain'
-            />
-          </TouchableOpacity>
-          <Text style={styles.objectName} numberOfLines={2}>
-              {object.name ? object.name : object.id}
-          </Text>
-        </View>
-      );
-    });
-  };
+        return <View>{orbitComponents}</View>;
+    };
+
+    renderOrbit = (radius, key) => {
+        return (
+            <View
+                key={key}
+                style={[
+                    styles.orbit,
+                    { width: radius * 2, height: radius * 2, borderRadius: radius },
+                    this.getCenterCoordinates(radius),
+                ]}
+            >
+                <Text style={styles.orbitText}>{Number.parseInt(this.pixelToMeasure(radius))}</Text>
+            </View>
+        );
+    };
+
+    renderObjects = () => {
+        if (_.isEmpty(this.state.objectsCoordinates)) {
+            return null;
+        }
+
+        return this.props.objects.map(object => {
+            return (
+                <View style={this.state.objectsCoordinates[object.id].xy}>
+                    <TouchableOpacity
+                        onPress={this.handlePlanetPress.bind(this, object)}
+                        style={styles.objectWrapper}
+                        activeOpacity={0.5}
+                        key={object.id}
+                    >
+                        <Image
+                            source={
+                                object.type === STATION_TYPES.MASTER ? objectImage : stationImage
+                            }
+                            style={styles.image}
+                            resizeMode="contain"
+                        />
+                    </TouchableOpacity>
+                    <Text style={styles.objectName} numberOfLines={2}>
+                        {object.name ? object.name : object.id}
+                    </Text>
+                </View>
+            );
+        });
+    };
 }

@@ -5,8 +5,8 @@ export const REGION = "CATCH_THE_ASTEROID_REGION";
 export const MAX_DISTANCE = 12;
 
 export const STATION_TYPES = keymirror({
-  MASTER: true,
-  STATION: true,
+    MASTER: true,
+    STATION: true,
 });
 
 export const AUTH_TYPES = {
