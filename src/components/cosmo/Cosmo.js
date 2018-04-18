@@ -106,6 +106,11 @@ export default class Cosmo extends Component<Props, State> {
     };
   };
 
+  isObjectCaptured = object => {
+    const localDistance = this.measureToPixel(object.distance);
+    return localDistance < constants.gravityRadius;
+  };
+
   measureToPixel = distance => {
     // maps distance to device scale
     const maxLocalDistance = this.state.width / 2;
@@ -188,21 +193,23 @@ export default class Cosmo extends Component<Props, State> {
 
     return this.props.objects.map(object => {
       return (
-        <TouchableOpacity
-          onPress={this.handlePlanetPress.bind(this, object)}
-          style={[styles.objectWrapper, this.state.objectsCoordinates[object.id].xy]}
-          activeOpacity={0.5}
-          key={object.id}
-        >
-          <Image
-            source={object.type === STATION_TYPES.MASTER ? objectImage : stationImage}
-            style={styles.image}
-            resizeMode='contain'
-          />
+        <View style={this.state.objectsCoordinates[object.id].xy}>  
+          <TouchableOpacity
+            onPress={this.handlePlanetPress.bind(this, object)}
+            style={styles.objectWrapper}
+            activeOpacity={0.5}
+            key={object.id}
+          >
+            <Image
+              source={object.type === STATION_TYPES.MASTER ? objectImage : stationImage}
+              style={styles.image}
+              resizeMode='contain'
+            />
+          </TouchableOpacity>
           <Text style={styles.objectName} numberOfLines={2}>
-            {object.name ? object.name : object.id}
+              {object.name ? object.name : object.id}
           </Text>
-        </TouchableOpacity>
+        </View>
       );
     });
   };

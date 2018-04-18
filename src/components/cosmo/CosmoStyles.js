@@ -22,6 +22,7 @@ export default StyleSheet.create({
   },
   objectWrapper: {
     zIndex: 0,
+    marginTop: 10,
     position: "absolute",
     height: constants.minObjectRadius * 2,
     width: constants.minObjectRadius * 2,
@@ -33,6 +34,7 @@ export default StyleSheet.create({
     color: "white",
     textAlign: "left",
     paddingHorizontal: 2,
+    maxWidth: constants.minObjectRadius * 4,
   },
   orbit: {
     backgroundColor: "transparent",
