@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { View, Image, Text, ImageBackground, TouchableOpacity, Dimensions } from "react-native";
+import { View, Image, Text, ImageBackground, TouchableOpacity, TouchableWithoutFeedback, Dimensions, Modal, ScrollView } from "react-native";
 
 import _ from "lodash";
 
@@ -51,6 +51,7 @@ export default class Cosmo extends Component<Props, State> {
             width,
             height,
             objectsCoordinates: {},
+            stationDescription: null
         };
 
         this.angles = {};
@@ -130,8 +131,14 @@ export default class Cosmo extends Component<Props, State> {
     };
 
     handlePlanetPress = _.debounce(object => {
-        if (this.isObjectCaptured(object) && object.type === STATION_TYPES.MASTER) {
-            this.props.onObjectCapture(object);
+        if (this.isObjectCaptured(object)) {
+            if (object.type === STATION_TYPES.MASTER) {
+                this.props.onObjectCapture(object);
+            } else if (object.type === STATION_TYPES.STATION) {
+                this.setState({
+                    stationDescription: object.description
+                });
+            }
         }
     }, 500);
 
@@ -146,6 +153,7 @@ export default class Cosmo extends Component<Props, State> {
                 {this.renderCenter()}
                 {this.renderOrbits(this.props.orbits)}
                 {this.renderObjects()}
+                {this.renderStationDescription()}
             </View>
         );
     }
@@ -199,7 +207,12 @@ export default class Cosmo extends Component<Props, State> {
                   activeOpacity={0.5}
                   key={object.id}
               >
-                  <Image source={objectImage} style={styles.image} />
+                  <Image 
+                    source={ 
+                        object.type === STATION_TYPES.MASTER ? objectImage : stationImage 
+                    }  
+                    style={styles.image} 
+                    />
                   <Text style={styles.objectName} numberOfLines={2}>
                       {object.name ? object.name : object.id}
                   </Text>
@@ -207,4 +220,32 @@ export default class Cosmo extends Component<Props, State> {
           );
        });
     };
+
+    renderStationDescription() {
+      return (
+        <Modal 
+            transparent={true} 
+            visible={!!this.state.stationDescription} 
+            onRequestClose={this.handleCloseDescription}
+        >
+            <TouchableWithoutFeedback onPress={this.handleCloseDescription}>
+                <View style={{flex: 1, justifyContent: "center"}}>
+                        <View style={{backgroundColor: "#212121", marginHorizontal: 32, marginVertical: 128, borderRadius: 8}}>
+                        <ScrollView>
+                        <TouchableWithoutFeedback>
+                        <View style={{padding: 16}}>
+                            <Text style={{color: "white", fontSize: 20, alignSelf: "center"}}>{this.state.stationDescription}</Text>
+                        </View>
+                        </TouchableWithoutFeedback>
+                        </ScrollView>
+                        </View>
+                </View>
+            </TouchableWithoutFeedback>
+        </Modal>
+      )
+    }
+
+    handleCloseDescription = () => {
+        this.setState({stationDescription: null});
+    }
 }
