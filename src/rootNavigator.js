@@ -18,6 +18,7 @@ export const Routes = keymirror({
     Splash: true,
     Main: true,
     Login: true,
+    Tutorial: true,
     SetUserName: true,
     WebViewHosting: true,
 });
@@ -116,7 +117,7 @@ const routeConfigMap = {
 };
 
 const stackConfig = {
-    initialRouteName: Routes.Splash,
+    initialRouteName: Routes.Login,
     initialRouteParams: {},
 };
 

@@ -1,13 +1,18 @@
 import { StyleSheet } from "react-native";
-import constants from "./Constants";
+import constants from "./../cosmo/Constants";
 
 export default StyleSheet.create({
   container: {
     width: "100%",
     height: "100%",
+    justifyContent: 'space-between'
   },
   backgroundImage: {
-    flex: 1,
+    position: 'absolute',
+    left: 0,
+    right: 0,
+    top: 0,
+    bottom: 0,
   },
   image: {
     width: "100%",
@@ -21,9 +26,6 @@ export default StyleSheet.create({
     borderRadius: constants.gravityRadius,
   },
   objectWrapper: {
-    zIndex: 0,
-    marginTop: 10,
-    position: "absolute",
     height: constants.minObjectRadius * 2,
     width: constants.minObjectRadius * 2,
     borderRadius: constants.minObjectRadius,
@@ -49,11 +51,43 @@ export default StyleSheet.create({
     textAlign: "center",
     paddingHorizontal: 2,
   },
-  descView: {
-    paddingHorizontal: 10,
-    paddingVertical: 20,
+  top: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'space-between'
   },
-  closeButton: {
-    borderColor: "rgba(200, 200, 256, 0.4)",
+  middle: {
+    padding: 10,
+    flexDirection: 'row',
+    justifyContent: 'space-around',
+    alignItems: 'center',
+    backgroundColor: "rgba(256, 256, 256, 0.2)",
+  },
+  text: {
+    flex: -1,
+    fontSize: 18,
+    color: "rgba(256, 256, 256, 0.9)",
+    textAlign: "center",
+    fontWeight: 'bold',
+    paddingHorizontal: 2,
+  },
+  description: {
+    flex: -1,
+    fontSize: 14,
+    marginLeft: 20,
+    color: "rgba(256, 256, 256, 0.9)",
+    textAlign: "center",
+    fontWeight: '700',
+    paddingHorizontal: 2,
+  },
+  button: {
+    borderRadius: 12,
+    padding: 20,
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'center',
+    backgroundColor: "rgba(256, 256, 256, 0.9)",
+    marginHorizontal: 20,
+    marginBottom: 20,
   }
 });
