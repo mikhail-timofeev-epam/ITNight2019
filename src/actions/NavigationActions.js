@@ -31,6 +31,19 @@ const navigateToMain = () => dispatch => {
     );
 };
 
+const navigateToMainAsRoot = (userName) => dispatch => {
+    dispatch(NavigationActions.reset({
+        index: 0,
+        actions: [NavigationActions.navigate({
+            routeName: Routes.Main,
+            params: {
+                userName
+            }
+        })
+        ]}
+    ));
+};
+
 const resetToLogin = () => dispatch => {
     dispatch(createAction(ApiActionTypes.LOGOUT)());
     dispatch(NavigationActions.reset({
@@ -43,30 +56,33 @@ const resetToLogin = () => dispatch => {
     ));
 }
 
+const resetToSetUserName = () => dispatch => {
+    dispatch(NavigationActions.reset({
+        index: 0,
+        actions: [
+            NavigationActions.navigate({
+                routeName: Routes.SetUserName,
+            })
+        ]}
+    ));
+}
+
 const tryReOpenForLastUser = () => (dispatch, getState) => {
     const currentUserId = getState().authorization.userId;
-    console.log(">>>>", currentUserId)
     if (_.isNil(currentUserId)) {
-        console.log(">>>> !!!!", currentUserId)
         dispatch(resetToLogin());
         return ;
     }
-    console.log(">>>> WWWWW", currentUserId)
     return fetch(`${ENDPOINT}/user/${currentUserId}`, {
         method: "GET",
     })
         .then(response => response.json())
         .then(user => {
-                dispatch(
-                    NavigationActions.navigate({
-                        routeName: Routes.Main,
-                        params: { userName: user.name, scores: user.score, userId: currentUserId },
-                    })
-                );
+                dispatch(navigateToMainAsRoot());
         })
         .catch(()=>{
             dispatch(resetToLogin());
         });
 };
 
-export default { openQuiz, openDashboard, navigateToMain, tryReOpenForLastUser };
+export default { openQuiz, openDashboard, navigateToMain, tryReOpenForLastUser, navigateToMainAsRoot, resetToSetUserName };
