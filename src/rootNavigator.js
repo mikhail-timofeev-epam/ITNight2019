@@ -90,19 +90,6 @@ const routeConfigMap = {
                         </View>
                     </TouchableOpacity>
                 ),
-                headerLeft: (
-                    <Text
-                        style={{
-                            color: "white",
-                            fontSize: 18,
-                            alignSelf: "center",
-                            paddingLeft: 8,
-                        }}
-                        ellipsizeMode="tail"
-                    >
-                        #{navigation.state.params.userId}
-                    </Text>
-                ),
                 headerStyle: {
                     backgroundColor: "black",
                     borderBottomWidth: 0,

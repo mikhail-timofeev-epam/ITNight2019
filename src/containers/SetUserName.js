@@ -32,14 +32,17 @@ class SetUserName extends Component {
     render() {
         return (
             <View style={styles.container}>
-                <TextInput
-                    style={styles.inputField}
-                    onChangeText={text => this.setState({ name: text })}
-                    placeholder="Ваше имя для таблицы лидеров"
-                />
+                <View style={{flexDirection: "row", alignItems:"center", paddingLeft: 16}}>
+                    <Text>#{this.props.userId}/</Text>
+                    <TextInput
+                        style={styles.inputField}
+                        onChangeText={text => this.setState({ name: text })}
+                        placeholder="Ваше имя для таблицы лидеров"
+                    />
+                </View>
                 {this.state.nameError === null ? null : (
                     <Text style={styles.alertLabel}>
-                        *Ошибка при сохранении имени, попробуйте еще раз
+                        *{this.state.nameError}
                     </Text>
                 )}
                 <TouchableOpacity style={styles.button} onPress={this.onLogin}>
@@ -54,7 +57,6 @@ class SetUserName extends Component {
             { nameError: !this.state.name.trim() ? "Имя должно быть не пустым" : null },
             () => {
                 if (!this.state.nameError) {
-                    console.log(">>>>>>>", this.props);
                     this.props.saveUserName(this.props.userId, this.state.name);
                 }
             }
@@ -99,6 +101,7 @@ const styles = StyleSheet.create({
     },
 
     inputField: {
+        flex: 1,
         height: 40,
         borderColor: "gray",
         marginLeft: 10,

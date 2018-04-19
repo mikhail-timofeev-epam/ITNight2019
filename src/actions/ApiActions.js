@@ -1,6 +1,7 @@
 import { createAction } from "redux-actions";
 import { ApiActionTypes } from "./actionsTypes";
 import { NavigationActions } from "react-navigation";
+import navActions from "./NavigationActions"
 import { Routes } from "../rootNavigator";
 import { Alert } from "react-native";
 import { SIGN_IN } from "./SignInActionTypes";
@@ -9,18 +10,6 @@ import { SIGN_IN } from "./SignInActionTypes";
 
 export const ENDPOINT = "http://ec2-18-216-26-81.us-east-2.compute.amazonaws.com";
 const ALL_STATIONS = ENDPOINT + "/station";
-
-const _openMainScreenAction = userName => {
-    return NavigationActions.reset({
-        index: 0,
-        actions: [
-            NavigationActions.navigate({
-                routeName: Routes.Main,
-                params: { userName },
-            }),
-        ],
-    });
-};
 
 const getAllStations = () => dispatch => {
     dispatch(createAction(ApiActionTypes.GET_ALL_STATIONS_REQUEST));
@@ -109,9 +98,9 @@ const registerUser = (payload, metaInfo) => dispatch => {
         .then(response => {
             console.log("Receiverd user: ", response);
             if (!response.name) {
-                dispatch(NavigationActions.navigate({ routeName: Routes.SetUserName }));
+                dispatch(navActions.resetToSetUserName());
             } else {
-                dispatch(_openMainScreenAction(response.name));
+                dispatch(navActions.navigateToMainAsRoot(response.name));
             }
         })
         .catch(error => {
@@ -127,13 +116,13 @@ const registerUser = (payload, metaInfo) => dispatch => {
 
 const saveUserName = (id, name) => dispatch => {
     dispatch(createAction(ApiActionTypes.SAVE_USER_NAME_REQUEST));
-    return fetch(`${ENDPOINT}/user/${id}?name=${name}`, {
+    return fetch(`${ENDPOINT}/user/${id}?name=${id}/${name}`, {
         method: "PUT",
     })
         .then(response => response.json())
         .then(response => {
             dispatch(createAction(ApiActionTypes.SAVE_USER_NAME_SUCCESS)(response));
-            dispatch(_openMainScreenAction(name));
+            dispatch(navActions.navigateToMainAsRoot(name));
         })
         .catch(error => dispatch(createAction(ApiActionTypes.SAVE_USER_NAME_FAILURE)(error)));
 };
