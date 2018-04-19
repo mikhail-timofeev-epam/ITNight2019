@@ -202,7 +202,9 @@ export default class Cosmo extends Component<Props, State> {
         return this.props.objects.map(object => {
           return (
               <TouchableOpacity
-                  onPress={this.handlePlanetPress.bind(this, object)}
+                  onPress={()=>{
+                    this.handlePlanetPress(object)
+                  }}
                   style={[styles.objectWrapper, this.state.objectsCoordinates[object.id].xy]}
                   activeOpacity={0.5}
                   key={object.id}

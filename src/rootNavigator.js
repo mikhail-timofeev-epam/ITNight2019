@@ -2,7 +2,7 @@ import * as React from "react";
 import { Text, View, Image, TouchableOpacity } from "react-native";
 import { NavigationActions, StackNavigator, addNavigationHelpers } from "react-navigation";
 import { connect } from "react-redux";
-import deepDiffer from "react-native/lib/deepDiffer";
+import _ from "lodash";
 
 import Main from "./containers/Main";
 import LoginScreen from "./containers/LoginScreen";
@@ -23,38 +23,6 @@ export const Routes = keymirror({
     WebViewHosting: true,
 });
 
-export const isEqualRoute = (route1, route2) => {
-    if (route1.routeName !== route2.routeName) {
-        return false;
-    }
-
-    return !deepDiffer(route1.params, route2.params);
-};
-
-export const getActiveRouteForState = navigationState =>
-    navigationState.routes
-        ? getActiveRouteForState(navigationState.routes[navigationState.index])
-        : navigationState;
-
-const withNavigationPreventDuplicate = getStateForAction => {
-    const defaultGetStateForAction = getStateForAction;
-
-    const getStateForActionWithoutDuplicates = (action, state) => {
-        if (action.type === NavigationActions.NAVIGATE) {
-            const currentRoute = getActiveRouteForState(state);
-            const nextRoute = action;
-
-            if (isEqualRoute(currentRoute, nextRoute)) {
-                return null;
-            }
-        }
-
-        return defaultGetStateForAction(action, state);
-    };
-
-    return getStateForActionWithoutDuplicates;
-};
-
 const routeConfigMap = {
     [Routes.Login]: { path: "/login", screen: LoginScreen },
     [Routes.Splash]: { path: "/splash", screen: Splash },
@@ -64,14 +32,16 @@ const routeConfigMap = {
         navigationOptions: ({ navigation }) => {
             const scores = Math.round(navigation.state.params.scores) || 0;
 
+            const navigateToDashboard = _.debounce(() => {
+                navigation.dispatch(actions.openDashboard());
+            }, 500)
+
             return {
                 title: `${navigation.state.params.userName || ""}`,
                 headerTintColor: "white",
                 headerRight: (
                     <TouchableOpacity
-                        onPress={() => {
-                            navigation.dispatch(actions.openDashboard());
-                        }}
+                        onPress={navigateToDashboard}
                     >
                         <View style={{ flexDirection: "row" }}>
                             <Text
@@ -110,9 +80,7 @@ const stackConfig = {
 
 const RootNavigator = StackNavigator(routeConfigMap, stackConfig);
 
-RootNavigator.router.getStateForAction = withNavigationPreventDuplicate(
-    RootNavigator.router.getStateForAction
-);
+RootNavigator.router.getStateForAction = RootNavigator.router.getStateForAction
 
 class RootNavigatorComponent extends React.PureComponent {
     render() {
