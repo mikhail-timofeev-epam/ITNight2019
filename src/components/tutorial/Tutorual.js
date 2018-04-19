@@ -20,9 +20,8 @@ export default class Tutorual extends Component<> {
           resizeMode="cover"
         />
         <View style={styles.top}>
-          <Text style={styles.text} numberOfLines={2}>⇖{"\n"} Ваше Имя</Text>
-          <Text style={styles.text} numberOfLines={2}>⇑{"\n"} Очки</Text>
-          <Text style={styles.text} numberOfLines={2}>⇗{"\n"} Кнопка Dashboard </Text>
+          <Text style={[styles.text, {flex:2}]} numberOfLines={2}>{"\n"} Ваше Имя</Text>
+          <Text style={[styles.text, {flex:-1}]} numberOfLines={2}>{"\n"} Кнопка Dashboard </Text>
         </View>
         <View style={styles.middle}>
           <Image style={styles.objectWrapper} source={centerImage} />
