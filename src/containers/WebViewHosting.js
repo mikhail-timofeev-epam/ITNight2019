@@ -1,5 +1,5 @@
 import React, { PureComponent } from "react";
-import { WebView, View, ActivityIndicator, StyleSheet, Text } from "react-native";
+import { WebView, View, ActivityIndicator, StyleSheet, Text, BackHandler, Platform } from "react-native";
 import { connect } from "react-redux";
 import actions from "../actions";
 import { getVisibleStations } from "../selectors";
@@ -13,6 +13,19 @@ class WebViewHosting extends PureComponent {
             isLoading: true,
         };
     }
+
+    componentDidMount() {
+        if (Platform.OS === "android") {
+            BackHandler.addEventListener('hardwareBackPress', this.handlerBackButton);
+        }
+    }
+
+    componentWillUnmount() {
+        if (Platform.OS === "android") {
+            BackHandler.removeEventListener('hardwareBackPress', this.handlerBackButton);  
+        }
+    }
+
     render() {
         return (
             <View style={styles.container}>
@@ -31,6 +44,11 @@ class WebViewHosting extends PureComponent {
     handleWebViewLoaded = () => {
         this.setState({ isLoading: false });
     };
+
+    handlerBackButton = () => {
+        this.props.navigation.goBack();
+        return true;
+    }
 }
 
 function mapStateToProps(state, props) {
