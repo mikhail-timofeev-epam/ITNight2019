@@ -82,9 +82,9 @@ const registerUser = (payload, metaInfo) => dispatch => {
         .catch(error => {
             console.log(error);
             Alert.alert(
-                "Ошибка входа",
-                "Произошла ошибка входа. Повторите позже.",
-                [{ text: "OK" }],
+                "Ошибка авторизации",
+                "Пожалуйста, попробуйте позднее.",
+                [{ text: "OК" }],
                 { cancelable: true }
             );
         })
@@ -106,8 +106,8 @@ const registerUser = (payload, metaInfo) => dispatch => {
         .catch(error => {
             dispatch(createAction(ApiActionTypes.GET_USER_FAILURE)(error));
             Alert.alert(
-                "Ошибка входа",
-                "Произошла загрузки профиля. Повторите позже.",
+                "Ошибка авторизации",
+                "Невозможно загрузить профиль пользователя. Пожалуйста, попробуйте позднее.",
                 [{ text: "OK" }],
                 { cancelable: true }
             );

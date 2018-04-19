@@ -20,8 +20,8 @@ export default class Tutorual extends Component<> {
           resizeMode="cover"
         />
         <View style={styles.top}>
-          <Text style={[styles.text, {flex:2}]} numberOfLines={2}>{"\n"} Ваше Имя</Text>
-          <Text style={[styles.text, {flex:-1}]} numberOfLines={2}>{"\n"} Кнопка Dashboard </Text>
+          <Text style={[styles.text, {flex:2}]} numberOfLines={2}>{"\n"} Идентификатор / Имя</Text>
+          <Text style={[styles.text, {flex:-1}]} numberOfLines={2}>{"\n"} Топ 10 </Text>
         </View>
         <View style={styles.middle}>
           <Image style={styles.objectWrapper} source={centerImage} />
@@ -29,13 +29,12 @@ export default class Tutorual extends Component<> {
         </View>
         <View style={styles.middle}>
           <Image style={styles.objectWrapper} source={objectImage} />
-          <Text style={styles.text} numberOfLines={6}>Когда астероид касается земли, нажмите на него, чтобы
-            попасть на квест</Text>
+          <Text style={styles.text} numberOfLines={6}>Когда астероид коснется Земли, нажмите на него, чтобы
+            попасть на онлайн-тест</Text>
         </View>
         <View style={styles.middle}>
           <Image style={styles.objectWrapper} source={stationImage} />
-          <Text style={styles.text} numberOfLines={10}>Спутники - просто метки физических станций. Ищите их, там
-            вы можете заработать дополнительные баллы. Нажимать на них необязательно</Text>
+          <Text style={styles.text} numberOfLines={10}>Спутники - просто физические станции. На станциях Вы можете заработать дополнительные баллы.</Text>
         </View>
         <TouchableOpacity style={styles.button} onPress={this.props.onPress}>
           <Text>Я ВСЕ ПОНЯЛ!</Text>

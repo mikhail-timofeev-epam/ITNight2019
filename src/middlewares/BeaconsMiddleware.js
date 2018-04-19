@@ -18,7 +18,7 @@ export default store => {
                 BluetoothStatus.state()
                     .then(isEnabled => {
                         if (!isEnabled) {
-                            Alert.alert(null, "Включите Bluetooth в настройках", [{ text: "OK" }], {
+                            Alert.alert(null, "Пожалуйста, включите Bluetooth в настройках", [{ text: "OK" }], {
                                 cancelable: true,
                             });
                         }
