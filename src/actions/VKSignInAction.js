@@ -6,7 +6,7 @@ import { ACTION_VK_SIGN_IN, SIGN_IN } from "../actions/SignInActionTypes";
 import { AUTH_TYPES } from "../constants/index";
 
 export const vkSignIn = () => dispatch => {
-    VKLogin.login(["friends", "photos", "email"])
+    VKLogin.login(["email"])
         .then(vkAuthData => {
             const payload = {
                 email: vkAuthData.email,
