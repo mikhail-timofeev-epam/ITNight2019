@@ -20,3 +20,6 @@
 Currently works only with uuid "2f234454-cf6d-4a0f-adf2-f4911ba9ffa6". 
 
 For testing application with beacons simulator, put "2f234454-cf6d-4a0f-adf2-f4911ba9ffa6" to proximity  UUID.
+
+# Design
+https://www.fluidui.com/editor/live/project/p_1RCayR7g2CEd6g6bnyGaP2m1IPsnW2qf
