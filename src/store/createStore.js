@@ -5,6 +5,7 @@ import BeaconsReducer from "../reducers/BeaconsReducer";
 import rootNavigation from "../reducers/rootNavigatorReducer";
 import AuthorizationReducer from "../reducers/AuthorizationReducer";
 import MainReducer from "../reducers/MainReducer";
+import PlayerReducer from "../reducers/PlayerReducer";
 import BeaconsMiddleware from "../middlewares/BeaconsMiddleware";
 import { RootNavMiddleware } from "../middlewares/navigationMiddleware";
 import { persistStore, persistReducer } from "redux-persist";
@@ -20,6 +21,7 @@ const rootReducer = combineReducers({
     beacons: BeaconsReducer,
     authorization: AuthorizationReducer,
     main: MainReducer,
+    player: PlayerReducer,
     rootNavigation,
 });
 

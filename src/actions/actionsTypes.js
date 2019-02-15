@@ -22,3 +22,9 @@ export const ApiActionTypes = keymirror({
 
     LOGOUT: true,
 });
+
+export const PlayerActionTypes = keymirror({
+    PRESS_ON_MARKER: true,
+    ON_ADD_TO_BASKET: true,
+    ON_CLEAR_BASKET: true,
+});

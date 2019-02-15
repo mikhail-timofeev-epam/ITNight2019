@@ -1,9 +1,7 @@
 import React, { PureComponent } from "react";
-import { WebView, View, ActivityIndicator, StyleSheet, Text, BackHandler, Platform } from "react-native";
+import { WebView, View, ActivityIndicator, StyleSheet, BackHandler, Platform } from "react-native";
 import { connect } from "react-redux";
 import actions from "../actions";
-import { getVisibleStations } from "../selectors";
-import { STATION_TYPES, MAX_DISTANCE } from "../constants";
 
 class WebViewHosting extends PureComponent {
     constructor(props) {
@@ -16,13 +14,13 @@ class WebViewHosting extends PureComponent {
 
     componentDidMount() {
         if (Platform.OS === "android") {
-            BackHandler.addEventListener('hardwareBackPress', this.handlerBackButton);
+            BackHandler.addEventListener("hardwareBackPress", this.handlerBackButton);
         }
     }
 
     componentWillUnmount() {
         if (Platform.OS === "android") {
-            BackHandler.removeEventListener('hardwareBackPress', this.handlerBackButton);  
+            BackHandler.removeEventListener("hardwareBackPress", this.handlerBackButton);
         }
     }
 
@@ -48,7 +46,7 @@ class WebViewHosting extends PureComponent {
     handlerBackButton = () => {
         this.props.navigation.goBack();
         return true;
-    }
+    };
 }
 
 function mapStateToProps(state, props) {
