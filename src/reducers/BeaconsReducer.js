@@ -2,11 +2,24 @@ import { handleActions } from "redux-actions";
 import _ from "lodash";
 import { BeaconActionTypes, ApiActionTypes } from "../actions/actionsTypes";
 import { DEFAULT_UUID } from "../constants";
+import { STATION_TYPES } from "../constants/";
+
+const mockStations = {
+    "2f234454-cf6d-4a0f-adf2-f4911ba9ffa6|0|2": {
+        name: "OLOLO",
+        type: STATION_TYPES.MASTER,
+        beacon: {
+            uid: "2f234454-cf6d-4a0f-adf2-f4911ba9ffa6",
+            major: "0",
+            minor: "2",
+        },
+    },
+};
 
 const initialState = {
     beacons: [],
     isSearching: true,
-    stations: {},
+    stations: mockStations,
     errors: {
         stationsRequest: false,
     },

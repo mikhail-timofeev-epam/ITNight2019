@@ -1,21 +1,10 @@
-import React, { Component } from "react";
-import {
-    View,
-    Image,
-    Text,
-    ImageBackground,
-    TouchableOpacity,
-    TouchableWithoutFeedback,
-    Dimensions,
-    Modal,
-    ScrollView,
-} from "react-native";
-
 import _ from "lodash";
-
+import React, { Component } from "react";
+import { View, Image, Text, ImageBackground, TouchableOpacity } from "react-native";
 import styles from "./CosmoStyles";
 import constants from "./Constants";
 import { STATION_TYPES } from "./../../constants/";
+import PlanetDescription from "./planetDescription";
 
 import backgroundImage from "./images/cosmo_bg.jpg";
 import centerImage from "./images/earth.png";
@@ -24,8 +13,7 @@ import stationImage from "./images/satelite.png";
 
 const ANGLES = [0, 0.8, 1.6, 2.4, 3, 3.6, 4.2, 4.8, 5.6];
 const ORBITS = 4;
-const ORBIT_STEP_PX = 30;
-const TOP_OFFSET = 60;
+const ORBIT_STEP_PX_DIVIDER = 13;
 
 type Props = {
     objects?: array<{ name: string, id: number, distance: number }>,
@@ -42,28 +30,30 @@ type State = {
     objectsCoordinates: any,
 };
 
+function getBound(height = 0, width = 0) {
+    return {
+        height,
+        width,
+        xStart: width / 2,
+        yStart: height / 2,
+        orbitStepPx: Math.min(height, width) / ORBIT_STEP_PX_DIVIDER,
+    };
+}
+
 export default class Cosmo extends Component<Props, State> {
     static defaultProps = {
         objects: [],
         orbits: ORBITS,
     };
 
-    constructor() {
-        super();
-
-        const { width, height } = Dimensions.get("window");
-        const xStart = width / 2;
-        const yStart = (height - TOP_OFFSET) * 0.3;
-
+    constructor(props) {
+        super(props);
         this.state = {
-            xStart,
-            yStart,
-            width,
-            height,
+            ...getBound(),
             objectsCoordinates: {},
             stationDescription: null,
+            isMeasured: false,
         };
-
         this.angles = {};
     }
 
@@ -152,9 +142,16 @@ export default class Cosmo extends Component<Props, State> {
         }
     }, 500);
 
+    measureRootView = event => {
+        this.setState({
+            ...getBound(event.nativeEvent.layout.height, event.nativeEvent.layout.width),
+            isMeasured: true,
+        });
+    };
+
     render() {
         return (
-            <View style={styles.container}>
+            <View style={styles.container} onLayout={this.measureRootView}>
                 <ImageBackground
                     source={backgroundImage}
                     style={styles.backgroundImage}
@@ -163,30 +160,37 @@ export default class Cosmo extends Component<Props, State> {
                 {this.renderCenter()}
                 {this.renderOrbits(this.props.orbits)}
                 {this.renderObjects()}
-                {this.renderStationDescription()}
+                <PlanetDescription stationDescription={this.state.stationDescription} />
             </View>
         );
     }
 
     renderCenter = () => {
-        return (
-            <View
-                style={[styles.planetWrapper, this.getCenterCoordinates(constants.gravityRadius)]}
-            >
-                <Image source={centerImage} style={styles.image} resizeMode={"contain"} />
-            </View>
-        );
+        if (this.state.isMeasured) {
+            return (
+                <View
+                    style={[
+                        styles.planetWrapper,
+                        this.getCenterCoordinates(constants.gravityRadius),
+                    ]}
+                >
+                    <Image source={centerImage} style={styles.image} resizeMode={"contain"} />
+                </View>
+            );
+        }
     };
 
     renderOrbits = orbits => {
-        const orbitComponents = [];
+        if (this.state.isMeasured) {
+            const orbitComponents = [];
 
-        for (let i = 1; i <= orbits; i++) {
-            const radius = constants.gravityRadius + ORBIT_STEP_PX * i;
-            orbitComponents.push(this.renderOrbit(radius, i));
+            for (let i = 1; i <= orbits; i++) {
+                const radius = constants.gravityRadius + this.state.orbitStepPx * i;
+                orbitComponents.push(this.renderOrbit(radius, i));
+            }
+
+            return <View>{orbitComponents}</View>;
         }
-
-        return <View>{orbitComponents}</View>;
     };
 
     renderOrbit = (radius, key) => {
@@ -205,72 +209,33 @@ export default class Cosmo extends Component<Props, State> {
     };
 
     renderObjects = () => {
-        if (_.isEmpty(this.state.objectsCoordinates)) {
-            return null;
+        if (this.state.isMeasured) {
+            if (_.isEmpty(this.state.objectsCoordinates)) {
+                return null;
+            }
+
+            return this.props.objects.map(object => {
+                return (
+                    <TouchableOpacity
+                        onPress={() => {
+                            this.handlePlanetPress(object);
+                        }}
+                        style={[styles.objectWrapper, this.state.objectsCoordinates[object.id].xy]}
+                        activeOpacity={0.5}
+                        key={object.id}
+                    >
+                        <Image
+                            source={
+                                object.type === STATION_TYPES.MASTER ? objectImage : stationImage
+                            }
+                            style={styles.image}
+                        />
+                        <Text style={styles.objectName} numberOfLines={2}>
+                            {object.name ? object.name : object.id}
+                        </Text>
+                    </TouchableOpacity>
+                );
+            });
         }
-
-        return this.props.objects.map(object => {
-            return (
-                <TouchableOpacity
-                    onPress={() => {
-                        this.handlePlanetPress(object);
-                    }}
-                    style={[styles.objectWrapper, this.state.objectsCoordinates[object.id].xy]}
-                    activeOpacity={0.5}
-                    key={object.id}
-                >
-                    <Image
-                        source={object.type === STATION_TYPES.MASTER ? objectImage : stationImage}
-                        style={styles.image}
-                    />
-                    <Text style={styles.objectName} numberOfLines={2}>
-                        {object.name ? object.name : object.id}
-                    </Text>
-                </TouchableOpacity>
-            );
-        });
-    };
-
-    renderStationDescription() {
-        return (
-            <Modal
-                transparent={true}
-                visible={!!this.state.stationDescription}
-                onRequestClose={this.handleCloseDescription}
-            >
-                <TouchableWithoutFeedback onPress={this.handleCloseDescription}>
-                    <View style={{ flex: 1, justifyContent: "center" }}>
-                        <View
-                            style={{
-                                backgroundColor: "#212121",
-                                marginHorizontal: 32,
-                                marginVertical: 128,
-                                borderRadius: 8,
-                            }}
-                        >
-                            <ScrollView>
-                                <TouchableWithoutFeedback>
-                                    <View style={{ padding: 16 }}>
-                                        <Text
-                                            style={{
-                                                color: "white",
-                                                fontSize: 20,
-                                                alignSelf: "center",
-                                            }}
-                                        >
-                                            {this.state.stationDescription}
-                                        </Text>
-                                    </View>
-                                </TouchableWithoutFeedback>
-                            </ScrollView>
-                        </View>
-                    </View>
-                </TouchableWithoutFeedback>
-            </Modal>
-        );
-    }
-
-    handleCloseDescription = () => {
-        this.setState({ stationDescription: null });
     };
 }

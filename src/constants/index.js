@@ -7,6 +7,8 @@ export const MAX_DISTANCE = 12;
 export const STATION_TYPES = keymirror({
     MASTER: true,
     STATION: true,
+    BAZAR: true,
+    CARAVAN: true,
 });
 
 export const AUTH_TYPES = {
