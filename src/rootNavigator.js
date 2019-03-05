@@ -34,15 +34,13 @@ const routeConfigMap = {
 
             const navigateToDashboard = _.debounce(() => {
                 navigation.dispatch(actions.openDashboard());
-            }, 500)
+            }, 500);
 
             return {
                 title: `${navigation.state.params.userName || ""}`,
                 headerTintColor: "white",
                 headerRight: (
-                    <TouchableOpacity
-                        onPress={navigateToDashboard}
-                    >
+                    <TouchableOpacity onPress={navigateToDashboard}>
                         <View style={{ flexDirection: "row" }}>
                             <Text
                                 style={{
@@ -80,7 +78,7 @@ const stackConfig = {
 
 const RootNavigator = StackNavigator(routeConfigMap, stackConfig);
 
-RootNavigator.router.getStateForAction = RootNavigator.router.getStateForAction
+RootNavigator.router.getStateForAction = RootNavigator.router.getStateForAction;
 
 class RootNavigatorComponent extends React.PureComponent {
     render() {

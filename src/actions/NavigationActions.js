@@ -31,58 +31,72 @@ const navigateToMain = () => dispatch => {
     );
 };
 
-const navigateToMainAsRoot = (userName) => dispatch => {
-    dispatch(NavigationActions.reset({
-        index: 0,
-        actions: [NavigationActions.navigate({
-            routeName: Routes.Main,
-            params: {
-                userName
-            }
+const navigateToMainAsRoot = userName => dispatch => {
+    dispatch(
+        NavigationActions.reset({
+            index: 0,
+            actions: [
+                NavigationActions.navigate({
+                    routeName: Routes.Main,
+                    params: {
+                        userName,
+                    },
+                }),
+            ],
         })
-        ]}
-    ));
+    );
 };
 
 const resetToLogin = () => dispatch => {
     dispatch(createAction(ApiActionTypes.LOGOUT)());
-    dispatch(NavigationActions.reset({
-        index: 0,
-        actions: [
-            NavigationActions.navigate({
-                routeName: Routes.Login,
-            })
-        ]}
-    ));
-}
+    dispatch(
+        NavigationActions.reset({
+            index: 0,
+            actions: [
+                NavigationActions.navigate({
+                    routeName: Routes.Login,
+                }),
+            ],
+        })
+    );
+};
 
 const resetToSetUserName = () => dispatch => {
-    dispatch(NavigationActions.reset({
-        index: 0,
-        actions: [
-            NavigationActions.navigate({
-                routeName: Routes.SetUserName,
-            })
-        ]}
-    ));
-}
+    dispatch(
+        NavigationActions.reset({
+            index: 0,
+            actions: [
+                NavigationActions.navigate({
+                    routeName: Routes.SetUserName,
+                }),
+            ],
+        })
+    );
+};
 
 const tryReOpenForLastUser = () => (dispatch, getState) => {
     const currentUserId = getState().authorization.userId;
     if (_.isNil(currentUserId)) {
         dispatch(resetToLogin());
-        return ;
+        return;
     }
     return fetch(`${ENDPOINT}/user/${currentUserId}`, {
         method: "GET",
     })
         .then(response => response.json())
         .then(user => {
-                dispatch(navigateToMainAsRoot());
+            dispatch(navigateToMainAsRoot());
         })
-        .catch(()=>{
+        .catch(() => {
             dispatch(resetToLogin());
         });
 };
 
-export default { openQuiz, openDashboard, navigateToMain, tryReOpenForLastUser, navigateToMainAsRoot, resetToSetUserName };
+export default {
+    openQuiz,
+    openDashboard,
+    navigateToMain,
+    tryReOpenForLastUser,
+    navigateToMainAsRoot,
+    resetToSetUserName,
+};

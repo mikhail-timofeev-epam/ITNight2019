@@ -32,7 +32,7 @@ class SetUserName extends Component {
     render() {
         return (
             <View style={styles.container}>
-                <View style={{flexDirection: "row", alignItems:"center", paddingLeft: 16}}>
+                <View style={{ flexDirection: "row", alignItems: "center", paddingLeft: 16 }}>
                     <Text>#{this.props.userId}/</Text>
                     <TextInput
                         style={styles.inputField}
@@ -41,9 +41,7 @@ class SetUserName extends Component {
                     />
                 </View>
                 {this.state.nameError === null ? null : (
-                    <Text style={styles.alertLabel}>
-                        *{this.state.nameError}
-                    </Text>
+                    <Text style={styles.alertLabel}>*{this.state.nameError}</Text>
                 )}
                 <TouchableOpacity style={styles.button} onPress={this.onLogin}>
                     <Text style={styles.buttonLabel}>Сохранить</Text>

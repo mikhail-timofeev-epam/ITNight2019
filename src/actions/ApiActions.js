@@ -1,7 +1,7 @@
 import { createAction } from "redux-actions";
 import { ApiActionTypes } from "./actionsTypes";
 import { NavigationActions } from "react-navigation";
-import navActions from "./NavigationActions"
+import navActions from "./NavigationActions";
 import { Routes } from "../rootNavigator";
 import { Alert } from "react-native";
 import { SIGN_IN } from "./SignInActionTypes";
@@ -81,12 +81,9 @@ const registerUser = (payload, metaInfo) => dispatch => {
         })
         .catch(error => {
             console.log(error);
-            Alert.alert(
-                "Ошибка авторизации",
-                "Пожалуйста, попробуйте позднее.",
-                [{ text: "OК" }],
-                { cancelable: true }
-            );
+            Alert.alert("Ошибка авторизации", "Пожалуйста, попробуйте позднее.", [{ text: "OК" }], {
+                cancelable: true,
+            });
         })
         .then(userId => {
             console.log("Get user by id: ", userId);

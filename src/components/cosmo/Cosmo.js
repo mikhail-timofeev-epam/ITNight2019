@@ -1,5 +1,15 @@
 import React, { Component } from "react";
-import { View, Image, Text, ImageBackground, TouchableOpacity, TouchableWithoutFeedback, Dimensions, Modal, ScrollView } from "react-native";
+import {
+    View,
+    Image,
+    Text,
+    ImageBackground,
+    TouchableOpacity,
+    TouchableWithoutFeedback,
+    Dimensions,
+    Modal,
+    ScrollView,
+} from "react-native";
 
 import _ from "lodash";
 
@@ -43,7 +53,7 @@ export default class Cosmo extends Component<Props, State> {
 
         const { width, height } = Dimensions.get("window");
         const xStart = width / 2;
-        const yStart = (height - TOP_OFFSET) / 2;
+        const yStart = (height - TOP_OFFSET) * 0.3;
 
         this.state = {
             xStart,
@@ -51,7 +61,7 @@ export default class Cosmo extends Component<Props, State> {
             width,
             height,
             objectsCoordinates: {},
-            stationDescription: null
+            stationDescription: null,
         };
 
         this.angles = {};
@@ -136,7 +146,7 @@ export default class Cosmo extends Component<Props, State> {
                 this.props.onObjectCapture(object);
             } else if (object.type === STATION_TYPES.STATION) {
                 this.setState({
-                    stationDescription: object.description
+                    stationDescription: object.description,
                 });
             }
         }
@@ -200,54 +210,67 @@ export default class Cosmo extends Component<Props, State> {
         }
 
         return this.props.objects.map(object => {
-          return (
-              <TouchableOpacity
-                  onPress={()=>{
-                    this.handlePlanetPress(object)
-                  }}
-                  style={[styles.objectWrapper, this.state.objectsCoordinates[object.id].xy]}
-                  activeOpacity={0.5}
-                  key={object.id}
-              >
-                  <Image 
-                    source={ 
-                        object.type === STATION_TYPES.MASTER ? objectImage : stationImage 
-                    }  
-                    style={styles.image} 
+            return (
+                <TouchableOpacity
+                    onPress={() => {
+                        this.handlePlanetPress(object);
+                    }}
+                    style={[styles.objectWrapper, this.state.objectsCoordinates[object.id].xy]}
+                    activeOpacity={0.5}
+                    key={object.id}
+                >
+                    <Image
+                        source={object.type === STATION_TYPES.MASTER ? objectImage : stationImage}
+                        style={styles.image}
                     />
-                  <Text style={styles.objectName} numberOfLines={2}>
-                      {object.name ? object.name : object.id}
-                  </Text>
-              </TouchableOpacity>
-          );
-       });
+                    <Text style={styles.objectName} numberOfLines={2}>
+                        {object.name ? object.name : object.id}
+                    </Text>
+                </TouchableOpacity>
+            );
+        });
     };
 
     renderStationDescription() {
-      return (
-        <Modal 
-            transparent={true} 
-            visible={!!this.state.stationDescription} 
-            onRequestClose={this.handleCloseDescription}
-        >
-            <TouchableWithoutFeedback onPress={this.handleCloseDescription}>
-                <View style={{flex: 1, justifyContent: "center"}}>
-                        <View style={{backgroundColor: "#212121", marginHorizontal: 32, marginVertical: 128, borderRadius: 8}}>
-                        <ScrollView>
-                        <TouchableWithoutFeedback>
-                        <View style={{padding: 16}}>
-                            <Text style={{color: "white", fontSize: 20, alignSelf: "center"}}>{this.state.stationDescription}</Text>
+        return (
+            <Modal
+                transparent={true}
+                visible={!!this.state.stationDescription}
+                onRequestClose={this.handleCloseDescription}
+            >
+                <TouchableWithoutFeedback onPress={this.handleCloseDescription}>
+                    <View style={{ flex: 1, justifyContent: "center" }}>
+                        <View
+                            style={{
+                                backgroundColor: "#212121",
+                                marginHorizontal: 32,
+                                marginVertical: 128,
+                                borderRadius: 8,
+                            }}
+                        >
+                            <ScrollView>
+                                <TouchableWithoutFeedback>
+                                    <View style={{ padding: 16 }}>
+                                        <Text
+                                            style={{
+                                                color: "white",
+                                                fontSize: 20,
+                                                alignSelf: "center",
+                                            }}
+                                        >
+                                            {this.state.stationDescription}
+                                        </Text>
+                                    </View>
+                                </TouchableWithoutFeedback>
+                            </ScrollView>
                         </View>
-                        </TouchableWithoutFeedback>
-                        </ScrollView>
-                        </View>
-                </View>
-            </TouchableWithoutFeedback>
-        </Modal>
-      )
+                    </View>
+                </TouchableWithoutFeedback>
+            </Modal>
+        );
     }
 
     handleCloseDescription = () => {
-        this.setState({stationDescription: null});
-    }
+        this.setState({ stationDescription: null });
+    };
 }

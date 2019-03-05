@@ -9,7 +9,7 @@ import {
     TouchableOpacity,
     CheckBox,
     Switch,
-    ScrollView
+    ScrollView,
 } from "react-native";
 import { connect } from "react-redux";
 import _ from "lodash";
@@ -33,7 +33,7 @@ class LoginScreen extends Component {
             isEmailValid: true,
             isPhoneValid: true,
             isLoginValid: true,
-            isAgreed: false
+            isAgreed: false,
         };
     }
 
@@ -44,52 +44,52 @@ class LoginScreen extends Component {
     render() {
         return (
             <View style={styles.container}>
-            <ScrollView>
-                <TextInput
-                    style={styles.inputField}
-                    onChangeText={text => this.setState({ email: text })}
-                    placeholder="Ваша электронная почта"
-                    keyboardType="email-address"
-                />
-                {this.state.isEmailValid ? null : (
-                    <Text style={styles.alertLabel}>*Неверный формат электронной почты</Text>
-                )}
-                <TextInput
-                    style={styles.inputField}
-                    onChangeText={text => this.setState({ phone: text })}
-                    placeholder="Ваш номер телефона"
-                    keyboardType="phone-pad"
-                />
-                {this.state.isPhoneValid ? null : (
-                    <Text style={styles.alertLabel}>
-                        *Неверный формат мобильного телефона. Телефон должен начинаться с +7 и
-                        содержать только цифры
-                    </Text>
-                )}
-                <TouchableOpacity 
-                    style={styles.button} 
-                    onPress={this.onLogin} 
-                    disabled={!this.state.isAgreed}
-                >
-                    <Text style={styles.buttonLabel}>Войти</Text>
-                </TouchableOpacity>
-                <Text style={styles.separator}>------------ или ------------</Text>
-                <TouchableOpacity
-                    style={[styles.button, styles.googleSignInButton]}
-                    onPress={this.onLoginViaGoogle}
-                    disabled={!this.state.isAgreed}
-                >
-                    <Text style={styles.buttonLabel}>Войти через Google</Text>
-                </TouchableOpacity>
-                <TouchableOpacity
-                    style={[styles.button, styles.vkSignInButton]}
-                    onPress={this.onLoginViaVK}
-                    disabled={!this.state.isAgreed}
-                >
-                    <Text style={styles.buttonLabel}>Войти через VK</Text>
-                </TouchableOpacity>
+                <ScrollView>
+                    <TextInput
+                        style={styles.inputField}
+                        onChangeText={text => this.setState({ email: text })}
+                        placeholder="Ваша электронная почта"
+                        keyboardType="email-address"
+                    />
+                    {this.state.isEmailValid ? null : (
+                        <Text style={styles.alertLabel}>*Неверный формат электронной почты</Text>
+                    )}
+                    <TextInput
+                        style={styles.inputField}
+                        onChangeText={text => this.setState({ phone: text })}
+                        placeholder="Ваш номер телефона"
+                        keyboardType="phone-pad"
+                    />
+                    {this.state.isPhoneValid ? null : (
+                        <Text style={styles.alertLabel}>
+                            *Неверный формат мобильного телефона. Телефон должен начинаться с +7 и
+                            содержать только цифры
+                        </Text>
+                    )}
+                    <TouchableOpacity
+                        style={styles.button}
+                        onPress={this.onLogin}
+                        disabled={!this.state.isAgreed}
+                    >
+                        <Text style={styles.buttonLabel}>Войти</Text>
+                    </TouchableOpacity>
+                    <Text style={styles.separator}>------------ или ------------</Text>
+                    <TouchableOpacity
+                        style={[styles.button, styles.googleSignInButton]}
+                        onPress={this.onLoginViaGoogle}
+                        disabled={!this.state.isAgreed}
+                    >
+                        <Text style={styles.buttonLabel}>Войти через Google</Text>
+                    </TouchableOpacity>
+                    <TouchableOpacity
+                        style={[styles.button, styles.vkSignInButton]}
+                        onPress={this.onLoginViaVK}
+                        disabled={!this.state.isAgreed}
+                    >
+                        <Text style={styles.buttonLabel}>Войти через VK</Text>
+                    </TouchableOpacity>
 
-                {this.renderAgreement()}
+                    {this.renderAgreement()}
                 </ScrollView>
             </View>
         );
@@ -97,23 +97,27 @@ class LoginScreen extends Component {
 
     renderAgreement = () => {
         const checkBoxRender = Platform.select({
-            android: () => <CheckBox
-                        value={this.state.isAgreed}
-                        onValueChange={() => this.setState({isAgreed: !this.state.isAgreed})}
-                        />,
-            ios: () => <Switch 
-                        value={this.state.isAgreed}
-                        onValueChange={() => this.setState({isAgreed: !this.state.isAgreed})}
-                    />
-        })
+            android: () => (
+                <CheckBox
+                    value={this.state.isAgreed}
+                    onValueChange={() => this.setState({ isAgreed: !this.state.isAgreed })}
+                />
+            ),
+            ios: () => (
+                <Switch
+                    value={this.state.isAgreed}
+                    onValueChange={() => this.setState({ isAgreed: !this.state.isAgreed })}
+                />
+            ),
+        });
 
         return (
-            <View style={{flexDirection: "row", margin: 16}}>
-                <Text style={{flex: 2}}>Даю согласие на обработку своих персональных данных</Text>
+            <View style={{ flexDirection: "row", margin: 16 }}>
+                <Text style={{ flex: 2 }}>Даю согласие на обработку своих персональных данных</Text>
                 {checkBoxRender()}
             </View>
         );
-    }
+    };
 
     onLogin = () => {
         this.setState({ isEmailValid: validator.isEmail(this.state.email) });

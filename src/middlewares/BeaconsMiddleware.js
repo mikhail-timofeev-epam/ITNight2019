@@ -18,9 +18,14 @@ export default store => {
                 BluetoothStatus.state()
                     .then(isEnabled => {
                         if (!isEnabled) {
-                            Alert.alert(null, "Пожалуйста, включите Bluetooth в настройках", [{ text: "OK" }], {
-                                cancelable: true,
-                            });
+                            Alert.alert(
+                                null,
+                                "Пожалуйста, включите Bluetooth в настройках",
+                                [{ text: "OK" }],
+                                {
+                                    cancelable: true,
+                                }
+                            );
                         }
                     })
                     .catch(error => console.log("Bluetooth status error", error));

@@ -1,9 +1,5 @@
 import React, { Component } from "react";
-import {
-    View,
-    ActivityIndicator,
-    StyleSheet
-} from "react-native";
+import { View, ActivityIndicator, StyleSheet } from "react-native";
 import { connect } from "react-redux";
 import _ from "lodash";
 import validator from "validator";
@@ -24,7 +20,7 @@ class Splash extends Component {
     render() {
         return (
             <View style={styles.container}>
-                <ActivityIndicator size="large"/>
+                <ActivityIndicator size="large" />
             </View>
         );
     }
@@ -37,13 +33,13 @@ function mapStateToProps(state) {
 }
 
 export default connect(mapStateToProps, {
-    ...actions
+    ...actions,
 })(Splash);
 
 const styles = StyleSheet.create({
     container: {
         flex: 1,
         justifyContent: "center",
-        alignItems: "center"
+        alignItems: "center",
     },
 });
