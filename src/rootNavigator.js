@@ -2,7 +2,7 @@ import * as React from "react";
 import { Text, View, Image, TouchableOpacity } from "react-native";
 import { NavigationActions, StackNavigator, addNavigationHelpers } from "react-navigation";
 import { connect } from "react-redux";
-import _ from "lodash";
+import { debounce } from "./utils/handler";
 
 import Main from "./containers/Main";
 import LoginScreen from "./containers/LoginScreen";
@@ -31,13 +31,14 @@ const routeConfigMap = {
         screen: Main,
         navigationOptions: ({ navigation }) => {
             const scores = Math.round(navigation.state.params.scores) || 0;
+            const name = navigation.state.params.userName || "";
 
-            const navigateToDashboard = _.debounce(() => {
+            const navigateToDashboard = debounce(() => {
                 navigation.dispatch(actions.openDashboard());
-            }, 500);
+            });
 
             return {
-                title: `${navigation.state.params.userName || ""}`,
+                title: `${name}`,
                 headerTintColor: "white",
                 headerRight: (
                     <TouchableOpacity onPress={navigateToDashboard}>

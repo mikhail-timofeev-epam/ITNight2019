@@ -1,10 +1,10 @@
 import keymirror from "keymirror";
 
 export const BeaconActionTypes = keymirror({
-    ACTION_START_RANGING: true,
-    ACTION_STOP_RANGING: true,
-    ACTION_BEACON_DID_RANGE: true,
-    ACTION_BEACON_SEARCHING: true,
+    BEACON_START_RANGING: true,
+    BEACON_STOP_RANGING: true,
+    BEACON_DID_RANGE: true,
+    BEACON_SEARCHING: true,
 });
 
 export const ApiActionTypes = keymirror({

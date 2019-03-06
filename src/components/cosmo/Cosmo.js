@@ -5,6 +5,7 @@ import styles from "./CosmoStyles";
 import constants from "./Constants";
 import { STATION_TYPES } from "./../../constants/";
 import PlanetDescription from "./planetDescription";
+import { debounce } from "../../utils/handler";
 
 import backgroundImage from "./images/cosmo_bg.jpg";
 import centerImage from "./images/earth.png";
@@ -130,7 +131,7 @@ export default class Cosmo extends Component<Props, State> {
         return { x, y };
     };
 
-    handlePlanetPress = _.debounce(object => {
+    handlePlanetPress = debounce(object => {
         if (this.isObjectCaptured(object)) {
             if (object.type === STATION_TYPES.MASTER) {
                 this.props.onObjectCapture(object);
@@ -140,7 +141,7 @@ export default class Cosmo extends Component<Props, State> {
                 });
             }
         }
-    }, 500);
+    });
 
     measureRootView = event => {
         this.setState({

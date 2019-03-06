@@ -4,11 +4,9 @@ import Beacons from "react-native-beacons-manager";
 import { DEFAULT_UUID, REGION } from "../constants";
 import beaconActions from "../actions/BeaconActions";
 import { BeaconActionTypes } from "../actions/actionsTypes";
+import { debounce } from "../utils/handler";
 
-const debouncedCleanFunction = _.debounce(dispatch => dispatch(beaconsChanged([])), 10000, {
-    leading: false,
-    trailing: true,
-});
+const debouncedCleanFunction = debounce(dispatch => dispatch(beaconsChanged([])), 10000);
 
 export default class BeaconsManager {
     constructor(dispatch) {

@@ -12,7 +12,7 @@ export default store => {
     const beaconsManager = new BeaconsManager(store.dispatch);
     return next => action => {
         switch (action.type) {
-            case BeaconActionTypes.ACTION_START_RANGING:
+            case BeaconActionTypes.BEACON_START_RANGING:
                 beaconsManager.startRanging();
 
                 BluetoothStatus.state()
@@ -30,7 +30,7 @@ export default store => {
                     })
                     .catch(error => console.log("Bluetooth status error", error));
                 break;
-            case BeaconActionTypes.ACTION_STOP_RANGING:
+            case BeaconActionTypes.BEACON_STOP_RANGING:
                 beaconsManager.stopRanging();
                 break;
         }

@@ -99,8 +99,8 @@ function handleGetStationsFailure(state) {
 
 export default handleActions(
     {
-        [BeaconActionTypes.ACTION_BEACON_DID_RANGE]: handleBeaconsChanged,
-        [BeaconActionTypes.ACTION_BEACON_SEARCHING]: handleBeaconsSearching,
+        [BeaconActionTypes.BEACON_DID_RANGE]: handleBeaconsChanged,
+        [BeaconActionTypes.BEACON_SEARCHING]: handleBeaconsSearching,
         [ApiActionTypes.GET_ALL_STATIONS_REQUEST]: handleGetStationsRequest,
         [ApiActionTypes.GET_ALL_STATIONS_SUCCESS]: handleGetStationsSuccess,
         [ApiActionTypes.GET_ALL_STATIONS_FAILURE]: handleGetStationsFailure,

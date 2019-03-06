@@ -27,6 +27,7 @@ const rootReducer = combineReducers({
 
 const logger = createLogger({
     duration: true,
+    collapsed: true,
 });
 
 const persistedReducer = persistReducer(persistConfig, rootReducer);

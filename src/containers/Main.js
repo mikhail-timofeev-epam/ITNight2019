@@ -74,7 +74,7 @@ class Main extends Component {
                     onObjectCapture={this.handleObjectCapture}
                 />
                 <View>
-                    <Text>werwerwer</Text>
+                    <Text>Здесь будет ваш инвентарь, а сейчас здесь пусто.</Text>
                 </View>
             </View>
         );

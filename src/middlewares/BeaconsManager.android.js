@@ -7,11 +7,7 @@ import { REGION } from "../constants";
 
 const debouncedCleanFunction = _.debounce(
     dispatch => dispatch(beaconActions.beaconsChanged([])),
-    10000,
-    {
-        leading: false,
-        trailing: true,
-    }
+    10000
 );
 
 export default class BeaconsManager {

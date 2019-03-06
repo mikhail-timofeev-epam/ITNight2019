@@ -17,7 +17,7 @@ describe("Beacons reducer", ()=>{
         }];
 
         const action = {
-            type: BeaconActionTypes.ACTION_BEACON_DID_RANGE,
+            type: BeaconActionTypes.BEACON_DID_RANGE,
             payload: beacons
         }
 
