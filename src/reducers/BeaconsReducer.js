@@ -2,16 +2,34 @@ import { handleActions } from "redux-actions";
 import _ from "lodash";
 import { BeaconActionTypes, ApiActionTypes } from "../actions/actionsTypes";
 import { DEFAULT_UUID } from "../constants";
-import { STATION_TYPES } from "../constants/";
+import { STATION_TYPES, MAX_DISTANCE } from "../constants";
 
 const mockStations = {
     "2f234454-cf6d-4a0f-adf2-f4911ba9ffa6|0|2": {
-        name: "OLOLO",
-        type: STATION_TYPES.MASTER,
+        name: "Bazar",
+        type: STATION_TYPES.BAZAR,
         beacon: {
             uid: "2f234454-cf6d-4a0f-adf2-f4911ba9ffa6",
             major: "0",
             minor: "2",
+        },
+    },
+    "2f234454-cf6d-4a0f-adf2-f4911ba9ffa6|0|3": {
+        name: "Corovan 1",
+        type: STATION_TYPES.CARAVAN,
+        beacon: {
+            uid: "2f234454-cf6d-4a0f-adf2-f4911ba9ffa6",
+            major: "0",
+            minor: "3",
+        },
+    },
+    "2f234454-cf6d-4a0f-adf2-f4911ba9ffa6|0|3": {
+        name: "Corovan 2",
+        type: STATION_TYPES.CARAVAN,
+        beacon: {
+            uid: "2f234454-cf6d-4a0f-adf2-f4911ba9ffa6",
+            major: "0",
+            minor: "4",
         },
     },
 };
@@ -20,6 +38,7 @@ const initialState = {
     beacons: [],
     isSearching: true,
     stations: mockStations,
+    beaconStations: [],
     errors: {
         stationsRequest: false,
     },
@@ -32,14 +51,47 @@ const mapBeaconToId = (uuid, major, minor) => {
     return `${uuid.toLowerCase()}|${major}|${minor}`;
 };
 
-/**
- * Beacon: {
- *  uuid: string,
- *  major: number,
- *  minor: number,
- *  distance: number
- * }
- */
+function getVisibleStations(beacons, stations, maxDistance = MAX_DISTANCE) {
+    const locatedStations = [];
+    const locatedBeacons = beacons.filter(
+        beacon =>
+            !Number.isNaN(beacon.distance) && beacon.distance >= 0 && beacon.distance <= maxDistance
+    );
+
+    for (const beacon of locatedBeacons) {
+        if (stations[beacon.id]) {
+            locatedStations.push(stations[beacon.id]);
+        }
+    }
+
+    return locatedStations;
+};
+
+
+function processBeaconStations(beacons, stations) {
+    let beaconStations = [];
+    const visibleStations = getVisibleStations(beacons, stations);
+
+    beacons.forEach(beacon => {
+        const index = visibleStations.findIndex(
+            station =>
+                `${station.beacon.uid}|${station.beacon.major}|${station.beacon.minor}` ===
+                beacon.id
+        );
+        const station = visibleStations[index];
+        if (station) {
+            beaconStations.push({
+                ...beacon,
+                name: station.name,
+                quizId: station.quizId,
+                type: station.type,
+                description: station.description,
+            });
+        }
+    });
+    return beaconStations;
+};
+
 function processBeacons(beacons) {
     return beacons.map(beacon => {
         return {
@@ -50,9 +102,13 @@ function processBeacons(beacons) {
 }
 
 function handleBeaconsChanged(state, action) {
+    const beacons = processBeacons(action.payload);
+    const beaconStations = processBeaconStations(beacons, state.stations);
+
     return {
         ...state,
-        beacons: processBeacons(action.payload),
+        beacons,
+        beaconStations,
     };
 }
 
@@ -70,7 +126,6 @@ function handleGetStationsRequest(state) {
             ...state.errors,
             stationsRequest: false,
         },
-        stations: [],
     };
 }
 
@@ -80,9 +135,12 @@ function handleGetStationsSuccess(state, action) {
         const id = mapBeaconToId(station.beacon.uid, station.beacon.major, station.beacon.minor);
         stations[id] = station;
     }
+    const beaconStations = processBeaconStations(state.beacons, stations);
+
     return {
         ...state,
         stations,
+        beaconStations,
     };
 }
 
@@ -93,7 +151,6 @@ function handleGetStationsFailure(state) {
             ...state.errors,
             stationsRequest: true,
         },
-        stations: [],
     };
 }
 

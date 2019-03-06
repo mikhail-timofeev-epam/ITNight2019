@@ -29,6 +29,7 @@ type State = {
     width: number,
     height: number,
     objectsCoordinates: any,
+    orbitStepPx: number,
 };
 
 function getBound(height = 0, width = 0) {
@@ -52,7 +53,6 @@ export default class Cosmo extends Component<Props, State> {
         this.state = {
             ...getBound(),
             objectsCoordinates: {},
-            stationDescription: null,
             isMeasured: false,
         };
         this.angles = {};
@@ -110,7 +110,7 @@ export default class Cosmo extends Component<Props, State> {
 
     isObjectCaptured = object => {
         const localDistance = this.measureToPixel(object.distance);
-        return localDistance < constants.gravityRadius;
+        return localDistance < constants.gravityRadius + this.state.orbitStepPx; // first orbit
     };
 
     measureToPixel = distance => {
@@ -133,13 +133,7 @@ export default class Cosmo extends Component<Props, State> {
 
     handlePlanetPress = debounce(object => {
         if (this.isObjectCaptured(object)) {
-            if (object.type === STATION_TYPES.MASTER) {
-                this.props.onObjectCapture(object);
-            } else if (object.type === STATION_TYPES.STATION) {
-                this.setState({
-                    stationDescription: object.description,
-                });
-            }
+            this.props.onObjectCapture(object);
         }
     });
 
@@ -161,7 +155,6 @@ export default class Cosmo extends Component<Props, State> {
                 {this.renderCenter()}
                 {this.renderOrbits(this.props.orbits)}
                 {this.renderObjects()}
-                <PlanetDescription stationDescription={this.state.stationDescription} />
             </View>
         );
     }
@@ -204,7 +197,7 @@ export default class Cosmo extends Component<Props, State> {
                     this.getCenterCoordinates(radius),
                 ]}
             >
-                <Text style={styles.orbitText}>{Number.parseInt(this.pixelToMeasure(radius))}</Text>
+                <Text style={styles.orbitText}>{Number.parseInt(this.pixelToMeasure(radius))} m</Text>
             </View>
         );
     };
@@ -216,6 +209,7 @@ export default class Cosmo extends Component<Props, State> {
             }
 
             return this.props.objects.map(object => {
+                const nameColorStyle = this.isObjectCaptured(object) ? "white" : "gray";
                 return (
                     <TouchableOpacity
                         onPress={() => {
@@ -231,7 +225,10 @@ export default class Cosmo extends Component<Props, State> {
                             }
                             style={styles.image}
                         />
-                        <Text style={styles.objectName} numberOfLines={2}>
+                        <Text
+                            style={[styles.objectName, { color: nameColorStyle }]}
+                            numberOfLines={2}
+                        >
                             {object.name ? object.name : object.id}
                         </Text>
                     </TouchableOpacity>

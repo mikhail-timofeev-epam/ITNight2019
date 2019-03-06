@@ -1,20 +1,14 @@
 import React, { Component } from "react";
-import { View, TouchableOpacity, Text, Button, StyleSheet } from "react-native";
-import { NavigationActions } from "react-navigation";
+import { View, TouchableOpacity, Text, StyleSheet } from "react-native";
 import { connect } from "react-redux";
 import actions from "../actions";
-import { getVisibleStations } from "../selectors";
-import { STATION_TYPES, MAX_DISTANCE } from "../constants";
+import { MAX_DISTANCE } from "../constants";
 import { Routes } from "../rootNavigator";
 import Cosmo from "../components/cosmo/Cosmo";
 import Tutorual from "../components/tutorial/Tutorual";
 import colors from "../constants/colors";
 
 class Main extends Component {
-    state = {
-        beaconStations: [],
-    };
-
     componentDidMount() {
         this.props.startRanging();
         this.props.getAllStations();
@@ -26,33 +20,10 @@ class Main extends Component {
     }
 
     componentWillReceiveProps(nextProps) {
-        this.syncBeaconStations(nextProps);
         if (!this.props.isVisible && nextProps.isVisible) {
             this.props.updateMainScreenHeader();
         }
     }
-
-    syncBeaconStations = props => {
-        let beaconStations = [];
-        props.beacons.forEach(beacon => {
-            const index = props.stations.findIndex(
-                station =>
-                    `${station.beacon.uid}|${station.beacon.major}|${station.beacon.minor}` ===
-                    beacon.id
-            );
-            const station = props.stations[index];
-            if (station) {
-                beaconStations.push({
-                    ...beacon,
-                    name: station.name,
-                    quizId: station.quizId,
-                    type: station.type,
-                    description: station.description,
-                });
-            }
-        });
-        this.setState({ beaconStations });
-    };
 
     handleObjectCapture = object => {
         this.props.openQuiz(object.quizId);
@@ -69,7 +40,7 @@ class Main extends Component {
         return (
             <View style={styles.container}>
                 <Cosmo
-                    objects={this.state.beaconStations}
+                    objects={this.props.beaconStations}
                     maxDistance={MAX_DISTANCE}
                     onObjectCapture={this.handleObjectCapture}
                 />
@@ -83,10 +54,9 @@ class Main extends Component {
 
 function mapStateToProps(state) {
     return {
-        beacons: state.beacons.beacons,
         isFirstRun: state.main.isFirstRun,
         isSearching: state.beacons.isSearching,
-        stations: getVisibleStations(state, MAX_DISTANCE),
+        beaconStations: state.beacons.beaconStations,
         isVisible:
             state.rootNavigation.root.routes[state.rootNavigation.root.index].routeName ===
             Routes.Main,

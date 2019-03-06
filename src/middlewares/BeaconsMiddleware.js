@@ -1,15 +1,23 @@
 import _ from "lodash";
-import { DeviceEventEmitter, Alert } from "react-native";
-import Beacons from "react-native-beacons-manager";
+import { Alert } from "react-native";
 import { BluetoothStatus } from "react-native-bluetooth-status";
 import beaconActions from "../actions/BeaconActions";
 import { BeaconActionTypes } from "../actions/actionsTypes";
-import { REGION } from "../constants";
 import BeaconsManager from "./BeaconsManager";
 import { AppState } from "react-native";
 
+let appState = "";
+
 export default store => {
     const beaconsManager = new BeaconsManager(store.dispatch);
+    AppState.addEventListener("change", nextAppState => {
+        if (appState.match(/inactive|background/) && nextAppState === "active") {
+            store.dispatch(beaconActions.startRanging());
+        } else if (nextAppState.match(/inactive|background/) && appState === "active") {
+            store.dispatch(beaconActions.stopRanging());
+        }
+        appState = nextAppState;
+    });
     return next => action => {
         switch (action.type) {
             case BeaconActionTypes.BEACON_START_RANGING:
