@@ -31,6 +31,22 @@ const getUserById = id => dispatch => {
 
 const updateMainScreenHeader = () => (dispatch, getState) => {
     const currentUserId = getState().authorization.userId;
+    //TODO: Mock calls
+    Promise.resolve({name:getState().authorization.newUser, scores: 120, userId: currentUserId })
+    .then(user => {
+        const mainRoute = getState().rootNavigation.root.routes.find(
+            route => route.routeName === Routes.Main
+        );
+        if (mainRoute) {
+            dispatch(
+                NavigationActions.setParams({
+                    params: { userName: user.name, scores: user.score, userId: currentUserId },
+                    key: mainRoute.key,
+                })
+            );
+        }
+    });
+    return;
     return fetch(`${ENDPOINT}/user/${currentUserId}`, {
         method: "GET",
     })
@@ -56,6 +72,17 @@ const registerUser = (payload, metaInfo) => dispatch => {
         ...payload,
         attrs: payload.attrs || {},
     };
+    // TODO: mock calls
+    dispatch({
+        type: SIGN_IN,
+        payload: {
+            userId: 1,
+            newUser: "user",
+        },
+    });
+    dispatch(navActions.resetToSetUserName());
+    return; 
+
     fetch(`${ENDPOINT}/user`, {
         method: "POST",
         headers: {
@@ -94,10 +121,10 @@ const registerUser = (payload, metaInfo) => dispatch => {
         .then(response => response.json())
         .then(response => {
             console.log("Receiverd user: ", response);
-            if (!response.name) {
-                dispatch(navActions.resetToSetUserName());
-            } else {
+            if (response.name) {
                 dispatch(navActions.navigateToMainAsRoot(response.name));
+            } else {
+                dispatch(navActions.resetToSetUserName());
             }
         })
         .catch(error => {
@@ -113,6 +140,10 @@ const registerUser = (payload, metaInfo) => dispatch => {
 
 const saveUserName = (id, name) => dispatch => {
     dispatch(createAction(ApiActionTypes.SAVE_USER_NAME_REQUEST));
+
+    dispatch(navActions.navigateToMainAsRoot(name));
+    return;
+    // TODO: Mock calls
     return fetch(`${ENDPOINT}/user/${id}?name=${id}/${name}`, {
         method: "PUT",
     })

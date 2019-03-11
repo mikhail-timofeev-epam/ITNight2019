@@ -73,7 +73,7 @@ const routeConfigMap = {
 };
 
 const stackConfig = {
-    initialRouteName: Routes.Main,
+    initialRouteName: Routes.Splash,
     initialRouteParams: {},
 };
 

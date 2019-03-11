@@ -2,13 +2,12 @@ import _ from "lodash";
 import { DeviceEventEmitter } from "react-native";
 import Beacons from "react-native-beacons-manager";
 import beaconActions from "../actions/BeaconActions";
-import { BeaconActionTypes } from "../actions/actionsTypes";
 import { REGION } from "../constants";
 
-const debouncedCleanFunction = _.debounce(
-    dispatch => dispatch(beaconActions.beaconsChanged([])),
-    10000
-);
+const debouncedCleanFunction = _.debounce(dispatch => dispatch(beaconsChanged([])), 10000, {
+    leading: false,
+    trailing: true,
+});
 
 export default class BeaconsManager {
     constructor(dispatch) {
@@ -43,7 +42,7 @@ export default class BeaconsManager {
         Beacons.stopRangingBeaconsInRegion(REGION)
             .then(() => console.log("BeaconsManager(Android): ranging stopped successfully!"))
             .catch(err =>
-                console.log(`BeaconsManager(Android): ranging not stopped, error ${err}`)
+                console.log(`BeaconsManager(Android): ranging not stopped, error ${err}`),
             );
 
         this._unSubscribeFromBeaconsChanges();
@@ -60,9 +59,9 @@ export default class BeaconsManager {
                         debouncedCleanFunction(this.dispatch);
                     }
                     this.dispatch(
-                        beaconActions.searching(!data.beacons || data.beacons.length == 0)
+                        beaconActions.searching(!data.beacons || data.beacons.length == 0),
                     );
-                }
+                },
             );
         }
     };

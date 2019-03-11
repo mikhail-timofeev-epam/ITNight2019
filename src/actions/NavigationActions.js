@@ -80,6 +80,10 @@ const tryReOpenForLastUser = () => (dispatch, getState) => {
         dispatch(resetToLogin());
         return;
     }
+    // TODO: Mock calls
+    dispatch(navigateToMainAsRoot());
+    return;
+    
     return fetch(`${ENDPOINT}/user/${currentUserId}`, {
         method: "GET",
     })

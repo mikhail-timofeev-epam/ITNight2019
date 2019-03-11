@@ -66,30 +66,29 @@ class LoginScreen extends Component {
                             содержать только цифры
                         </Text>
                     )}
+                    {this.renderAgreement()}
                     <TouchableOpacity
-                        style={styles.button}
-                        onPress={this.onLogin}
+                        style={[styles.button, this.getDisabledStyle()]}
+                        onPress={this.handlePressLogin}
                         disabled={!this.state.isAgreed}
                     >
                         <Text style={styles.buttonLabel}>Войти</Text>
                     </TouchableOpacity>
                     <Text style={styles.separator}>------------ или ------------</Text>
                     <TouchableOpacity
-                        style={[styles.button, styles.googleSignInButton]}
-                        onPress={this.onLoginViaGoogle}
+                        style={[styles.button, styles.googleSignInButton, this.getDisabledStyle()]}
+                        onPress={this.handlePressLoginViaGoogle}
                         disabled={!this.state.isAgreed}
                     >
                         <Text style={styles.buttonLabel}>Войти через Google</Text>
                     </TouchableOpacity>
                     <TouchableOpacity
-                        style={[styles.button, styles.vkSignInButton]}
-                        onPress={this.onLoginViaVK}
+                        style={[styles.button, styles.vkSignInButton, this.getDisabledStyle()]}
+                        onPress={this.handlePressLoginViaVK}
                         disabled={!this.state.isAgreed}
                     >
                         <Text style={styles.buttonLabel}>Войти через VK</Text>
                     </TouchableOpacity>
-
-                    {this.renderAgreement()}
                 </ScrollView>
             </View>
         );
@@ -119,7 +118,7 @@ class LoginScreen extends Component {
         );
     };
 
-    onLogin = () => {
+    handlePressLogin = () => {
         this.setState({ isEmailValid: validator.isEmail(this.state.email) });
         this.setState({ isPhoneValid: validator.isMobilePhone(this.state.phone, "ru-RU") });
         if (
@@ -133,13 +132,15 @@ class LoginScreen extends Component {
         }
     };
 
-    onLoginViaGoogle = () => {
+    handlePressLoginViaGoogle = () => {
         this.props.googleSignIn();
     };
 
-    onLoginViaVK = () => {
+    handlePressLoginViaVK = () => {
         this.props.vkSignIn();
     };
+
+    getDisabledStyle = () => (this.state.isAgreed ? null : styles.buttonDisabled);
 }
 
 function mapStateToProps(state) {
@@ -174,10 +175,12 @@ const styles = StyleSheet.create({
         alignItems: "center",
         backgroundColor: "#a1a1a1",
         padding: 10,
-        margin: 20,
+        margin: 10,
         borderRadius: 10,
     },
-
+    buttonDisabled: {
+        backgroundColor: "gray",
+    },
     buttonLabel: {
         color: "white",
         fontWeight: "bold",

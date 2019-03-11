@@ -1,4 +1,3 @@
-import _ from "lodash";
 import { Alert } from "react-native";
 import { BluetoothStatus } from "react-native-bluetooth-status";
 import beaconActions from "../actions/BeaconActions";

@@ -4,7 +4,6 @@ import { View, Image, Text, ImageBackground, TouchableOpacity } from "react-nati
 import styles from "./CosmoStyles";
 import constants from "./Constants";
 import { STATION_TYPES } from "./../../constants/";
-import PlanetDescription from "./planetDescription";
 import { debounce } from "../../utils/handler";
 
 import backgroundImage from "./images/cosmo_bg.jpg";
@@ -30,6 +29,7 @@ type State = {
     height: number,
     objectsCoordinates: any,
     orbitStepPx: number,
+    isMeasured: boolean,
 };
 
 function getBound(height = 0, width = 0) {
@@ -40,6 +40,10 @@ function getBound(height = 0, width = 0) {
         yStart: height / 2,
         orbitStepPx: Math.min(height, width) / ORBIT_STEP_PX_DIVIDER,
     };
+}
+
+function getAngle() {
+    return ANGLES[Math.floor(ANGLES.length * Math.random())];
 }
 
 export default class Cosmo extends Component<Props, State> {
@@ -80,7 +84,7 @@ export default class Cosmo extends Component<Props, State> {
 
         const objectsCoordinates = {};
         objects.forEach(object => {
-            const angle = this.angles[object.id] ? this.angles[object.id] : this.getAngle();
+            const angle = this.angles[object.id] ? this.angles[object.id] : getAngle();
             this.angles[object.id] = angle;
 
             objectsCoordinates[object.id] = {
@@ -91,10 +95,6 @@ export default class Cosmo extends Component<Props, State> {
         });
 
         this.setState({ objectsCoordinates });
-    };
-
-    getAngle = () => {
-        return ANGLES[Math.floor(ANGLES.length * Math.random())];
     };
 
     getOneObjectCoordinates = (distance, angle) => {
@@ -110,7 +110,7 @@ export default class Cosmo extends Component<Props, State> {
 
     isObjectCaptured = object => {
         const localDistance = this.measureToPixel(object.distance);
-        return localDistance < constants.gravityRadius + this.state.orbitStepPx; // first orbit
+        return localDistance < constants.gravityRadius;
     };
 
     measureToPixel = distance => {
@@ -168,7 +168,7 @@ export default class Cosmo extends Component<Props, State> {
                         this.getCenterCoordinates(constants.gravityRadius),
                     ]}
                 >
-                    <Image source={centerImage} style={styles.image} resizeMode={"contain"} />
+                    <Image source={centerImage} style={styles.image} resizeMode={"contain"}/>
                 </View>
             );
         }

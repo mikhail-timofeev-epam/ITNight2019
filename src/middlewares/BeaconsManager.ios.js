@@ -3,10 +3,11 @@ import { DeviceEventEmitter } from "react-native";
 import Beacons from "react-native-beacons-manager";
 import { DEFAULT_UUID, REGION } from "../constants";
 import beaconActions from "../actions/BeaconActions";
-import { BeaconActionTypes } from "../actions/actionsTypes";
-import { debounce } from "../utils/handler";
 
-const debouncedCleanFunction = debounce(dispatch => dispatch(beaconsChanged([])), 10000);
+const debouncedCleanFunction = _.debounce(dispatch => dispatch(beaconsChanged([])), 10000, {
+    leading: false,
+    trailing: true,
+});
 
 export default class BeaconsManager {
     constructor(dispatch) {
@@ -20,7 +21,7 @@ export default class BeaconsManager {
         if (!this.isRanging) {
             console.log("BeaconsManager(iOS): start ranging");
             DeviceEventEmitter.addListener("authorizationStatusDidChange", info =>
-                console.log("BeaconsManager(iOS):  authorization status did change: ", info)
+                console.log("BeaconsManager(iOS):  authorization status did change: ", info),
             );
 
             Beacons.requestWhenInUseAuthorization();
@@ -53,9 +54,9 @@ export default class BeaconsManager {
                         debouncedCleanFunction(this.dispatch);
                     }
                     this.dispatch(
-                        beaconActions.searching(!data.beacons || data.beacons.length == 0)
+                        beaconActions.searching(!data.beacons || data.beacons.length == 0),
                     );
-                }
+                },
             );
         }
     };

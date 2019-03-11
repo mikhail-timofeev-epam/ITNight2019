@@ -1,15 +1,6 @@
 import React, { Component } from "react";
 import { View, ActivityIndicator, StyleSheet } from "react-native";
 import { connect } from "react-redux";
-import _ from "lodash";
-import validator from "validator";
-import VKLogin from "react-native-vkontakte-login";
-import { Routes } from "../rootNavigator";
-
-import { googleSignIn } from "../actions/GoogleSignInAction";
-import { vkSignIn } from "../actions/VKSignInAction";
-import { simpleSignIn } from "../actions/SimpleSignInAction";
-
 import actions from "../actions";
 
 class Splash extends Component {
@@ -26,13 +17,7 @@ class Splash extends Component {
     }
 }
 
-function mapStateToProps(state) {
-    return {
-        userId: state.authorization.userId,
-    };
-}
-
-export default connect(mapStateToProps, {
+export default connect(null, {
     ...actions,
 })(Splash);
 
