@@ -23,6 +23,15 @@ const openDashboard = quizId => dispatch => {
     );
 };
 
+const openScoreboard = quizId => dispatch => {
+    dispatch(
+        NavigationActions.navigate({
+            routeName: Routes.Scoreboard,
+            params: { uri: `${ENDPOINT}/scoreboard` },
+        })
+    );
+};
+
 const navigateToMain = () => dispatch => {
     dispatch(
         NavigationActions.navigate({
@@ -83,7 +92,7 @@ const tryReOpenForLastUser = () => (dispatch, getState) => {
     // TODO: Mock calls
     dispatch(navigateToMainAsRoot());
     return;
-    
+
     return fetch(`${ENDPOINT}/user/${currentUserId}`, {
         method: "GET",
     })
@@ -99,6 +108,7 @@ const tryReOpenForLastUser = () => (dispatch, getState) => {
 export default {
     openQuiz,
     openDashboard,
+    openScoreboard,
     navigateToMain,
     tryReOpenForLastUser,
     navigateToMainAsRoot,

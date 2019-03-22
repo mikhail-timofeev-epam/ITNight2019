@@ -28,3 +28,9 @@ export const PlayerActionTypes = keymirror({
     ON_ADD_TO_BASKET: true,
     ON_CLEAR_BASKET: true,
 });
+
+export const ScoreboardActionTypes = keymirror({
+    LOAD_SCOREBOARD_DATA_REQUEST: true,
+    LOAD_SCOREBOARD_DATA_SUCCESS: true,
+    LOAD_SCOREBOARD_DATA_FAILURE: true,
+});
