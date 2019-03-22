@@ -1,6 +1,6 @@
 import * as React from "react";
 import { Text, View, Image, TouchableOpacity } from "react-native";
-import { NavigationActions, StackNavigator, addNavigationHelpers } from "react-navigation";
+import { StackNavigator, addNavigationHelpers } from "react-navigation";
 import { connect } from "react-redux";
 import { debounce } from "./utils/handler";
 
@@ -8,6 +8,7 @@ import Main from "./containers/Main";
 import LoginScreen from "./containers/LoginScreen";
 import SetUserName from "./containers/SetUserName";
 import WebViewHosting from "./containers/WebViewHosting";
+import Scoreboard from "./containers/Scoreboard";
 import Splash from "./containers/Splash";
 import { RootNavListener } from "./middlewares/navigationMiddleware";
 import actions from "./actions";
@@ -21,6 +22,7 @@ export const Routes = keymirror({
     Tutorial: true,
     SetUserName: true,
     WebViewHosting: true,
+    Scoreboard: true,
 });
 
 const routeConfigMap = {
@@ -33,15 +35,15 @@ const routeConfigMap = {
             const scores = Math.round(navigation.state.params.scores) || 0;
             const name = navigation.state.params.userName || "";
 
-            const navigateToDashboard = debounce(() => {
-                navigation.dispatch(actions.openDashboard());
-            });
+            const navigateToScoreboard = debounce(() => {
+                navigation.dispatch(actions.openScoreboard());
+            }, 500);
 
             return {
                 title: `${name}`,
                 headerTintColor: "white",
                 headerRight: (
-                    <TouchableOpacity onPress={navigateToDashboard}>
+                    <TouchableOpacity onPress={navigateToScoreboard}>
                         <View style={{ flexDirection: "row" }}>
                             <Text
                                 style={{
@@ -70,6 +72,11 @@ const routeConfigMap = {
     },
     [Routes.SetUserName]: { path: "/setUserName", screen: SetUserName },
     [Routes.WebViewHosting]: { path: "/webViewHosting", screen: WebViewHosting },
+    [Routes.Scoreboard]: {
+        path: "/scoreboard",
+        screen: Scoreboard,
+        navigationOptions: () => ({ title: "Рейтинг грабителей" }),
+    },
 };
 
 const stackConfig = {

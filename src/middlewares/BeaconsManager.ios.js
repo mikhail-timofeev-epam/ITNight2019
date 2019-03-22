@@ -21,7 +21,7 @@ export default class BeaconsManager {
         if (!this.isRanging) {
             console.log("BeaconsManager(iOS): start ranging");
             DeviceEventEmitter.addListener("authorizationStatusDidChange", info =>
-                console.log("BeaconsManager(iOS):  authorization status did change: ", info),
+                console.log("BeaconsManager(iOS):  authorization status did change: ", info)
             );
 
             Beacons.requestWhenInUseAuthorization();
@@ -54,9 +54,9 @@ export default class BeaconsManager {
                         debouncedCleanFunction(this.dispatch);
                     }
                     this.dispatch(
-                        beaconActions.searching(!data.beacons || data.beacons.length == 0),
+                        beaconActions.searching(!data.beacons || data.beacons.length == 0)
                     );
-                },
+                }
             );
         }
     };

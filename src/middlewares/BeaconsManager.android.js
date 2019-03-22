@@ -42,7 +42,7 @@ export default class BeaconsManager {
         Beacons.stopRangingBeaconsInRegion(REGION)
             .then(() => console.log("BeaconsManager(Android): ranging stopped successfully!"))
             .catch(err =>
-                console.log(`BeaconsManager(Android): ranging not stopped, error ${err}`),
+                console.log(`BeaconsManager(Android): ranging not stopped, error ${err}`)
             );
 
         this._unSubscribeFromBeaconsChanges();
@@ -59,9 +59,9 @@ export default class BeaconsManager {
                         debouncedCleanFunction(this.dispatch);
                     }
                     this.dispatch(
-                        beaconActions.searching(!data.beacons || data.beacons.length == 0),
+                        beaconActions.searching(!data.beacons || data.beacons.length == 0)
                     );
-                },
+                }
             );
         }
     };

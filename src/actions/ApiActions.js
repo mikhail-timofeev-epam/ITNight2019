@@ -32,8 +32,11 @@ const getUserById = id => dispatch => {
 const updateMainScreenHeader = () => (dispatch, getState) => {
     const currentUserId = getState().authorization.userId;
     //TODO: Mock calls
-    Promise.resolve({name:getState().authorization.newUser, scores: 120, userId: currentUserId })
-    .then(user => {
+    Promise.resolve({
+        name: getState().authorization.newUser,
+        scores: 120,
+        userId: currentUserId,
+    }).then(user => {
         const mainRoute = getState().rootNavigation.root.routes.find(
             route => route.routeName === Routes.Main
         );
@@ -81,7 +84,7 @@ const registerUser = (payload, metaInfo) => dispatch => {
         },
     });
     dispatch(navActions.resetToSetUserName());
-    return; 
+    return;
 
     fetch(`${ENDPOINT}/user`, {
         method: "POST",

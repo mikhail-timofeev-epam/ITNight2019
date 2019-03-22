@@ -65,8 +65,7 @@ function getVisibleStations(beacons, stations, maxDistance = MAX_DISTANCE) {
     }
 
     return locatedStations;
-};
-
+}
 
 function processBeaconStations(beacons, stations) {
     let beaconStations = [];
@@ -90,7 +89,7 @@ function processBeaconStations(beacons, stations) {
         }
     });
     return beaconStations;
-};
+}
 
 function processBeacons(beacons) {
     return beacons.map(beacon => {

@@ -168,7 +168,7 @@ export default class Cosmo extends Component<Props, State> {
                         this.getCenterCoordinates(constants.gravityRadius),
                     ]}
                 >
-                    <Image source={centerImage} style={styles.image} resizeMode={"contain"}/>
+                    <Image source={centerImage} style={styles.image} resizeMode={"contain"} />
                 </View>
             );
         }
@@ -197,7 +197,9 @@ export default class Cosmo extends Component<Props, State> {
                     this.getCenterCoordinates(radius),
                 ]}
             >
-                <Text style={styles.orbitText}>{Number.parseInt(this.pixelToMeasure(radius))} m</Text>
+                <Text style={styles.orbitText}>
+                    {Number.parseInt(this.pixelToMeasure(radius))} m
+                </Text>
             </View>
         );
     };
