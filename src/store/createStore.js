@@ -7,6 +7,7 @@ import AuthorizationReducer from "../reducers/AuthorizationReducer";
 import MainReducer from "../reducers/MainReducer";
 import PlayerReducer from "../reducers/PlayerReducer";
 import ScoreboardReducer from "../reducers/ScoreboardReducer";
+import CartReducer from "../reducers/CartReducer";
 import BeaconsMiddleware from "../middlewares/BeaconsMiddleware";
 import { RootNavMiddleware } from "../middlewares/navigationMiddleware";
 import { persistStore, persistReducer } from "redux-persist";
@@ -27,6 +28,7 @@ const rootReducer = combineReducers({
     scoreboardData: ScoreboardReducer,
     scoreboardActivityIndicator: ScoreboardReducer,
     refreshing: ScoreboardReducer,
+    randomStaff: CartReducer
 });
 
 const logger = createLogger({

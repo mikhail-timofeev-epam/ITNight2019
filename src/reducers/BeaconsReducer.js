@@ -23,13 +23,22 @@ const mockStations = {
             minor: "3",
         },
     },
-    "2f234454-cf6d-4a0f-adf2-f4911ba9ffa6|0|3": {
+    "2f234454-cf6d-4a0f-adf2-f4911ba9ffa6|0|4": {
         name: "Corovan 2",
         type: STATION_TYPES.CARAVAN,
         beacon: {
             uid: "2f234454-cf6d-4a0f-adf2-f4911ba9ffa6",
             major: "0",
             minor: "4",
+        },
+    },
+    "2f234454-cf6d-4a0f-adf2-f4911ba9ffa6|0|5": {
+        name: "Corovan 3",
+        type: STATION_TYPES.POLICE,
+        beacon: {
+            uid: "2f234454-cf6d-4a0f-adf2-f4911ba9ffa6",
+            major: "0",
+            minor: "5",
         },
     },
 };

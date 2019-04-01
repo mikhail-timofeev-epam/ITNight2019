@@ -34,3 +34,9 @@ export const ScoreboardActionTypes = keymirror({
     LOAD_SCOREBOARD_DATA_SUCCESS: true,
     LOAD_SCOREBOARD_DATA_FAILURE: true,
 });
+
+export const CartActionTypes = keymirror({
+    PUSH_RANDOM_STAFF_TO_CART: true,
+    REMOVE_RANDOM_STAFF_FROM_CART: true,
+    REMOVE_RANDOM_STAFF_FROM_CART_BY_POLICE: true,
+});
