@@ -16,12 +16,12 @@ export default function reducer(state = initialState, action = {}) {
         case CartActionTypes.REMOVE_RANDOM_STAFF_FROM_CART:
           return {
             ...state,
-            randomStaff: initialState.randomStaff,
+            randomStaff: [],
           };
         case CartActionTypes.REMOVE_RANDOM_STAFF_FROM_CART_BY_POLICE:
           return {
             ...state,
-            randomStaff: initialState.randomStaff,
+            randomStaff: [],
           };
         default:
             return state;

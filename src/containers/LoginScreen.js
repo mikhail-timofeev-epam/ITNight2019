@@ -31,9 +31,12 @@ class LoginScreen extends Component {
             email: "",
             phone: "",
             isEmailValid: true,
+            isNameValid: true,
             isPhoneValid: true,
             isLoginValid: true,
             isAgreed: false,
+            name: "",
+            nameError: null,
         };
     }
 
@@ -45,7 +48,7 @@ class LoginScreen extends Component {
         return (
             <View style={styles.container}>
                 <ScrollView>
-                    <TextInput
+                    {/* <TextInput
                         style={styles.inputField}
                         onChangeText={text => this.setState({ email: text })}
                         placeholder="Ваша электронная почта"
@@ -53,6 +56,17 @@ class LoginScreen extends Component {
                     />
                     {this.state.isEmailValid ? null : (
                         <Text style={styles.alertLabel}>*Неверный формат электронной почты</Text>
+                    )} */}
+                    <View style={{ flexDirection: "row", alignItems: "center" }}>
+                        {/* <Text>#{this.props.userId}/</Text> */}
+                        <TextInput
+                            style={styles.inputField}
+                            onChangeText={text => this.setState({ name: text })}
+                            placeholder="Ваше имя для таблицы лидеров"
+                        />
+                    </View>
+                    {this.state.isNameValid ? null : (
+                        <Text style={styles.alertLabel}>*Имя должно быть не пустым</Text>
                     )}
                     <TextInput
                         style={styles.inputField}
@@ -74,7 +88,7 @@ class LoginScreen extends Component {
                     >
                         <Text style={styles.buttonLabel}>Войти</Text>
                     </TouchableOpacity>
-                    <Text style={styles.separator}>------------ или ------------</Text>
+                    {/* <Text style={styles.separator}>------------ или ------------</Text>
                     <TouchableOpacity
                         style={[styles.button, styles.googleSignInButton, this.getDisabledStyle()]}
                         onPress={this.handlePressLoginViaGoogle}
@@ -88,7 +102,7 @@ class LoginScreen extends Component {
                         disabled={!this.state.isAgreed}
                     >
                         <Text style={styles.buttonLabel}>Войти через VK</Text>
-                    </TouchableOpacity>
+                    </TouchableOpacity> */}
                 </ScrollView>
             </View>
         );
@@ -118,17 +132,31 @@ class LoginScreen extends Component {
         );
     };
 
+    // onLogin = () => {
+    //     this.setState(
+    //         { nameError: !this.state.name.trim() ? "Имя должно быть не пустым" : null },
+    //         () => {
+    //             if (!this.state.nameError) {
+    //                 this.props.saveUserName(this.props.userId, this.state.name);
+    //             }
+    //         }
+    //     );
+    // };
+
     handlePressLogin = () => {
-        this.setState({ isEmailValid: validator.isEmail(this.state.email) });
+        // this.setState({ isEmailValid: validator.isEmail(this.state.email) });
+        this.setState({ isNameValid: !validator.isEmpty(this.state.name) });
         this.setState({ isPhoneValid: validator.isMobilePhone(this.state.phone, "ru-RU") });
         if (
-            validator.isEmail(this.state.email) &&
+            // validator.isEmail(this.state.email) &&
+            !validator.isEmpty(this.state.name) &&
             validator.isMobilePhone(this.state.phone, "ru-RU")
         ) {
             this.props.simpleSignIn({
-                email: this.state.email,
+                name: this.state.name,
                 phone: this.state.phone,
             });
+            this.props.saveUserName(this.state.name);
         }
     };
 
@@ -161,6 +189,7 @@ const styles = StyleSheet.create({
     container: {
         flex: 1,
         flexDirection: "column",
+        paddingTop: 30
     },
 
     googleSignInButton: {
@@ -204,5 +233,14 @@ const styles = StyleSheet.create({
         color: "red",
         margin: 10,
         fontSize: 11,
+    },
+    inputField: {
+        flex: 1,
+        height: 40,
+        borderColor: "gray",
+        marginLeft: 10,
+        marginRight: 10,
+        padding: 5,
+        borderBottomWidth: Platform.OS === "ios" ? 1 : 0,
     },
 });

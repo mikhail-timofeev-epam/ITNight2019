@@ -26,7 +26,13 @@ export const Routes = keymirror({
 });
 
 const routeConfigMap = {
-    [Routes.Login]: { path: "/login", screen: LoginScreen },
+    [Routes.Login]: {
+        path: "/login",
+        screen: LoginScreen,
+        navigationOptions: () => {
+            return {header: null}
+        }
+    },
     [Routes.Splash]: { path: "/splash", screen: Splash },
     [Routes.Main]: {
         path: "/main",
@@ -70,7 +76,7 @@ const routeConfigMap = {
             };
         },
     },
-    [Routes.SetUserName]: { path: "/setUserName", screen: SetUserName },
+    // [Routes.SetUserName]: { path: "/setUserName", screen: SetUserName },
     [Routes.WebViewHosting]: { path: "/webViewHosting", screen: WebViewHosting },
     [Routes.Scoreboard]: {
         path: "/scoreboard",

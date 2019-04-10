@@ -144,7 +144,7 @@ const removeRandomStaffByPoliceSuccues = () => {
 const getFullCartAlert = () => () => {
   Alert.alert(
     'Твой инвентарь полон!',
-    'Найди Базар чтобы сдать награбленное и продолжай охоту!',
+    'Найди Базар чтобы сдать награбленное и продолжай грабеж!',
     [
       {text: 'OK'},
     ],
@@ -167,10 +167,24 @@ const goToBazar = () => (dispatch) => {
   );
 }
 
+const emptyCartBazarMessage = () => () => {
+  Alert.alert(
+    'Ты пришел на Базар',
+    'Кажется твой инвентарь пуст.. Возвращайся когда будет что продать!',
+    [
+      {
+        text: 'Уйти с Базара',
+        style: 'cancel',
+      }
+    ],
+    {cancelable: false},
+  );
+}
+
 const goToPolice = () => (dispatch) => {
   Alert.alert(
-    'Ууууупс!! Полиция!',
-    'Всё награбленное будет конфисковано!',
+    'Ууууупс!! Разбойники!',
+    'Мы забираем всё что ты награбил! Уахахах!',
     [
       {text: 'Окааай :(((', onPress: () => dispatch(removeRandomStaffByPoliceSuccues())},
     ],
@@ -178,4 +192,15 @@ const goToPolice = () => (dispatch) => {
   );
 }
 
-export default { getRandomStaff, getFullCartAlert, goToBazar, goToPolice };
+const emptyCartPoliceMessage = () => () => {
+  Alert.alert(
+    'Ууууупс!! Разбойники!',
+    'Кажется ты пуст. Так и быть, мы тебя отпустим!',
+    [
+      {text: 'Уйти от разбойников', style: 'cancel'},
+    ],
+    {cancelable: false},
+  );
+}
+
+export default { getRandomStaff, getFullCartAlert, goToBazar, goToPolice, emptyCartBazarMessage, emptyCartPoliceMessage };

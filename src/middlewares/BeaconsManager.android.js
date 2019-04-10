@@ -4,7 +4,7 @@ import Beacons from "react-native-beacons-manager";
 import beaconActions from "../actions/BeaconActions";
 import { REGION } from "../constants";
 
-const debouncedCleanFunction = _.debounce(dispatch => dispatch(beaconsChanged([])), 10000, {
+const debouncedCleanFunction = _.debounce(dispatch => dispatch(beaconActions.beaconsChanged([])), 10000, {
     leading: false,
     trailing: true,
 });

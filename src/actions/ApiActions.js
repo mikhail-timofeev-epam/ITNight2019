@@ -141,7 +141,7 @@ const registerUser = (payload, metaInfo) => dispatch => {
         });
 };
 
-const saveUserName = (id, name) => dispatch => {
+const saveUserName = (name) => dispatch => {
     dispatch(createAction(ApiActionTypes.SAVE_USER_NAME_REQUEST));
 
     dispatch(navActions.navigateToMainAsRoot(name));

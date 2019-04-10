@@ -5,7 +5,7 @@ import { AUTH_TYPES } from "../constants/index";
 
 export const simpleSignIn = authData => dispatch => {
     const payload = {
-        email: authData.email,
+        name: authData.name,
         phone: authData.phone,
         source: AUTH_TYPES.EMAIL,
     };

@@ -26,19 +26,28 @@ class Main extends Component {
     }
 
     handleObjectCapture = object => {
-      if (this.props.randomStaff.length >= 5) {
-        this.props.getFullCartAlert();
-        return;
-      }
       switch (object.type) {
         case 'CARAVAN':
-          this.props.getRandomStaff();
-          break;
+          if (this.props.randomStaff.length >= 5) {
+            this.props.getFullCartAlert();
+            return;
+          } else {
+            this.props.getRandomStaff();
+            break;
+          }
         case 'BAZAR':
-          this.props.goToBazar();
+          if (this.props.randomStaff.length === 0) {
+            this.props.emptyCartBazarMessage();
+          } else {
+            this.props.goToBazar();
+          }
           break;
         case 'POLICE':
+        if (this.props.randomStaff.length === 0) {
+          this.props.emptyCartPoliceMessage();
+        } else {
           this.props.goToPolice();
+        }
           break;
       }
     };
@@ -67,11 +76,11 @@ class Main extends Component {
 
     renderCart = () => {
       if (this.props.randomStaff.length === 0) {
-        return <Text style={styles.emptyCart}>Ты пуст! Время грабить караваны!</Text>
+        return <Text style={styles.emptyCart}>Ты пуст! Время грабить корованы!</Text>
       }
 
       if (this.props.randomStaff.length >= 5) {
-        return <View>
+        return <View style={styles.container}>
                   <Text style={styles.fullCart}>Ты полон! Время сдать награбленное!</Text>
                   {this.getFlatList()}
                   <Text style={styles.totalScore}>Итого: {this.getTotalScore()}</Text>
