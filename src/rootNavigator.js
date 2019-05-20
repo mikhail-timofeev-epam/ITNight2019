@@ -6,7 +6,6 @@ import { debounce } from "./utils/handler";
 
 import Main from "./containers/Main";
 import LoginScreen from "./containers/LoginScreen";
-import SetUserName from "./containers/SetUserName";
 import WebViewHosting from "./containers/WebViewHosting";
 import Scoreboard from "./containers/Scoreboard";
 import Splash from "./containers/Splash";
@@ -20,19 +19,24 @@ export const Routes = keymirror({
     Main: true,
     Login: true,
     Tutorial: true,
-    SetUserName: true,
     WebViewHosting: true,
     Scoreboard: true,
 });
 
 const routeConfigMap = {
-    [Routes.Login]: { path: "/login", screen: LoginScreen },
+    [Routes.Login]: {
+        path: "/login",
+        screen: LoginScreen,
+        navigationOptions: () => {
+            return {header: null}
+        }
+    },
     [Routes.Splash]: { path: "/splash", screen: Splash },
     [Routes.Main]: {
         path: "/main",
         screen: Main,
         navigationOptions: ({ navigation }) => {
-            const scores = Math.round(navigation.state.params.scores) || 0;
+            const score = Math.round(navigation.state.params.score) || 0;
             const name = navigation.state.params.userName || "";
 
             const navigateToScoreboard = debounce(() => {
@@ -53,7 +57,7 @@ const routeConfigMap = {
                                     paddingRight: 8,
                                 }}
                             >
-                                {scores > 99999 ? "99999+" : scores}
+                                {score > 99999 ? "99999+" : score}
                             </Text>
                             <Image
                                 style={{ marginRight: 8 }}
@@ -70,7 +74,6 @@ const routeConfigMap = {
             };
         },
     },
-    [Routes.SetUserName]: { path: "/setUserName", screen: SetUserName },
     [Routes.WebViewHosting]: { path: "/webViewHosting", screen: WebViewHosting },
     [Routes.Scoreboard]: {
         path: "/scoreboard",

@@ -1,7 +1,6 @@
 import React, { Component } from "react";
 import {
     Platform,
-    AppRegistry,
     TextInput,
     StyleSheet,
     Text,
@@ -14,8 +13,6 @@ import {
 import { connect } from "react-redux";
 import _ from "lodash";
 import validator from "validator";
-import VKLogin from "react-native-vkontakte-login";
-import { Routes } from "../rootNavigator";
 
 import { googleSignIn } from "../actions/GoogleSignInAction";
 import { vkSignIn } from "../actions/VKSignInAction";
@@ -31,28 +28,28 @@ class LoginScreen extends Component {
             email: "",
             phone: "",
             isEmailValid: true,
+            isNameValid: true,
             isPhoneValid: true,
             isLoginValid: true,
             isAgreed: false,
+            name: "",
+            nameError: null,
         };
-    }
-
-    componentDidMount() {
-        VKLogin.initialize(6430395);
     }
 
     render() {
         return (
             <View style={styles.container}>
                 <ScrollView>
-                    <TextInput
-                        style={styles.inputField}
-                        onChangeText={text => this.setState({ email: text })}
-                        placeholder="Ваша электронная почта"
-                        keyboardType="email-address"
-                    />
-                    {this.state.isEmailValid ? null : (
-                        <Text style={styles.alertLabel}>*Неверный формат электронной почты</Text>
+                    <View style={{ flexDirection: "row", alignItems: "center" }}>
+                        <TextInput
+                            style={styles.inputField}
+                            onChangeText={text => this.setState({ name: text })}
+                            placeholder="Ваше имя для таблицы лидеров"
+                        />
+                    </View>
+                    {this.state.isNameValid ? null : (
+                        <Text style={styles.alertLabel}>*Имя должно быть не пустым</Text>
                     )}
                     <TextInput
                         style={styles.inputField}
@@ -73,21 +70,6 @@ class LoginScreen extends Component {
                         disabled={!this.state.isAgreed}
                     >
                         <Text style={styles.buttonLabel}>Войти</Text>
-                    </TouchableOpacity>
-                    <Text style={styles.separator}>------------ или ------------</Text>
-                    <TouchableOpacity
-                        style={[styles.button, styles.googleSignInButton, this.getDisabledStyle()]}
-                        onPress={this.handlePressLoginViaGoogle}
-                        disabled={!this.state.isAgreed}
-                    >
-                        <Text style={styles.buttonLabel}>Войти через Google</Text>
-                    </TouchableOpacity>
-                    <TouchableOpacity
-                        style={[styles.button, styles.vkSignInButton, this.getDisabledStyle()]}
-                        onPress={this.handlePressLoginViaVK}
-                        disabled={!this.state.isAgreed}
-                    >
-                        <Text style={styles.buttonLabel}>Войти через VK</Text>
                     </TouchableOpacity>
                 </ScrollView>
             </View>
@@ -119,25 +101,17 @@ class LoginScreen extends Component {
     };
 
     handlePressLogin = () => {
-        this.setState({ isEmailValid: validator.isEmail(this.state.email) });
+        this.setState({ isNameValid: !validator.isEmpty(this.state.name) });
         this.setState({ isPhoneValid: validator.isMobilePhone(this.state.phone, "ru-RU") });
         if (
-            validator.isEmail(this.state.email) &&
+            !validator.isEmpty(this.state.name) &&
             validator.isMobilePhone(this.state.phone, "ru-RU")
         ) {
             this.props.simpleSignIn({
-                email: this.state.email,
+                name: this.state.name,
                 phone: this.state.phone,
             });
         }
-    };
-
-    handlePressLoginViaGoogle = () => {
-        this.props.googleSignIn();
-    };
-
-    handlePressLoginViaVK = () => {
-        this.props.vkSignIn();
     };
 
     getDisabledStyle = () => (this.state.isAgreed ? null : styles.buttonDisabled);
@@ -161,6 +135,7 @@ const styles = StyleSheet.create({
     container: {
         flex: 1,
         flexDirection: "column",
+        paddingTop: 30
     },
 
     googleSignInButton: {
@@ -204,5 +179,14 @@ const styles = StyleSheet.create({
         color: "red",
         margin: 10,
         fontSize: 11,
+    },
+    inputField: {
+        flex: 1,
+        height: 40,
+        borderColor: "gray",
+        marginLeft: 10,
+        marginRight: 10,
+        padding: 5,
+        borderBottomWidth: Platform.OS === "ios" ? 1 : 0,
     },
 });

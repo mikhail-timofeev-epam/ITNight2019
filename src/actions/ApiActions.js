@@ -8,7 +8,7 @@ import { SIGN_IN } from "./SignInActionTypes";
 
 // See http://ecsc00a017ee.epam.com:8090/swagger-ui.html#/
 
-export const ENDPOINT = "http://ec2-18-216-26-81.us-east-2.compute.amazonaws.com";
+export const ENDPOINT = "https://us-central1-scorching-heat-4242.cloudfunctions.net";
 const ALL_STATIONS = ENDPOINT + "/station";
 
 const getAllStations = () => dispatch => {
@@ -31,25 +31,6 @@ const getUserById = id => dispatch => {
 
 const updateMainScreenHeader = () => (dispatch, getState) => {
     const currentUserId = getState().authorization.userId;
-    //TODO: Mock calls
-    Promise.resolve({
-        name: getState().authorization.newUser,
-        scores: 120,
-        userId: currentUserId,
-    }).then(user => {
-        const mainRoute = getState().rootNavigation.root.routes.find(
-            route => route.routeName === Routes.Main
-        );
-        if (mainRoute) {
-            dispatch(
-                NavigationActions.setParams({
-                    params: { userName: user.name, scores: user.score, userId: currentUserId },
-                    key: mainRoute.key,
-                })
-            );
-        }
-    });
-    return;
     return fetch(`${ENDPOINT}/user/${currentUserId}`, {
         method: "GET",
     })
@@ -61,7 +42,7 @@ const updateMainScreenHeader = () => (dispatch, getState) => {
             if (mainRoute) {
                 dispatch(
                     NavigationActions.setParams({
-                        params: { userName: user.name, scores: user.score, userId: currentUserId },
+                        params: { userName: user.name, score: user.score, userId: currentUserId },
                         key: mainRoute.key,
                     })
                 );
@@ -69,24 +50,13 @@ const updateMainScreenHeader = () => (dispatch, getState) => {
         });
 };
 
-const registerUser = (payload, metaInfo) => dispatch => {
-    console.log("Register user: ", payload, metaInfo);
+const registerUser = (payload) => dispatch => {
     const registerPayload = {
         ...payload,
         attrs: payload.attrs || {},
     };
-    // TODO: mock calls
-    dispatch({
-        type: SIGN_IN,
-        payload: {
-            userId: 1,
-            newUser: "user",
-        },
-    });
-    dispatch(navActions.resetToSetUserName());
-    return;
 
-    fetch(`${ENDPOINT}/user`, {
+    fetch(`${ENDPOINT}/user/`, {
         method: "POST",
         headers: {
             Accept: "application/json",
@@ -98,50 +68,23 @@ const registerUser = (payload, metaInfo) => dispatch => {
             return epamAuthData.json();
         })
         .then(epamAuthData => {
-            console.log("Registration results: ", epamAuthData);
             dispatch({
                 type: SIGN_IN,
                 payload: {
-                    ...metaInfo,
-                    userId: epamAuthData.userId,
-                    newUser: epamAuthData.newUser,
+                    ...registerPayload,
+                    userId: epamAuthData.userid,
                 },
             });
-            return epamAuthData.userId;
+            dispatch(navActions.navigateToMainAsRoot(registerPayload.name));
         })
         .catch(error => {
-            console.log(error);
             Alert.alert("Ошибка авторизации", "Пожалуйста, попробуйте позднее.", [{ text: "OК" }], {
                 cancelable: true,
             });
         })
-        .then(userId => {
-            console.log("Get user by id: ", userId);
-            return fetch(`${ENDPOINT}/user/${userId}`, {
-                method: "GET",
-            });
-        })
-        .then(response => response.json())
-        .then(response => {
-            console.log("Receiverd user: ", response);
-            if (response.name) {
-                dispatch(navActions.navigateToMainAsRoot(response.name));
-            } else {
-                dispatch(navActions.resetToSetUserName());
-            }
-        })
-        .catch(error => {
-            dispatch(createAction(ApiActionTypes.GET_USER_FAILURE)(error));
-            Alert.alert(
-                "Ошибка авторизации",
-                "Невозможно загрузить профиль пользователя. Пожалуйста, попробуйте позднее.",
-                [{ text: "OK" }],
-                { cancelable: true }
-            );
-        });
 };
 
-const saveUserName = (id, name) => dispatch => {
+const saveUserName = (name) => dispatch => {
     dispatch(createAction(ApiActionTypes.SAVE_USER_NAME_REQUEST));
 
     dispatch(navActions.navigateToMainAsRoot(name));

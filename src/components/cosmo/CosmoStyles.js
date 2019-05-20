@@ -38,14 +38,14 @@ export default StyleSheet.create({
     },
     orbit: {
         backgroundColor: "transparent",
-        borderColor: "rgba(256, 256, 256, 0.4)",
+        borderColor: "rgba(0, 0, 0, 0.3)",
         borderWidth: 2,
         position: "absolute",
     },
     orbitText: {
         flex: -1,
         fontSize: 12,
-        color: "rgba(256, 256, 256, 0.7)",
+        color: "rgba(0, 0, 0, 0.7)",
         textAlign: "center",
         paddingHorizontal: 2,
     },

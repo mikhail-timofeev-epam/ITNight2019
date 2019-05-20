@@ -6,12 +6,12 @@ import constants from "./Constants";
 import { STATION_TYPES } from "./../../constants/";
 import { debounce } from "../../utils/handler";
 
-import backgroundImage from "./images/cosmo_bg.jpg";
-import centerImage from "./images/earth.png";
-import objectImage from "./images/asteroid.png";
-import stationImage from "./images/satelite.png";
+import backgroundImage from "./images/desert_bg.jpg";
+import centerImage from "./images/you.png";
+import objectImage from "./images/bazaar.png";
+import stationImage from "./images/korovan.png";
 
-const ANGLES = [0, 0.8, 1.6, 2.4, 3, 3.6, 4.2, 4.8, 5.6];
+const ANGLES = [0, 3, 3.6, 4.2, 4.8, 5.6]; //for corovans will not fly in the sky
 const ORBITS = 4;
 const ORBIT_STEP_PX_DIVIDER = 13;
 
@@ -211,7 +211,7 @@ export default class Cosmo extends Component<Props, State> {
             }
 
             return this.props.objects.map(object => {
-                const nameColorStyle = this.isObjectCaptured(object) ? "white" : "gray";
+                const nameColorStyle = this.isObjectCaptured(object) ? "black" : "gray";
                 return (
                     <TouchableOpacity
                         onPress={() => {
@@ -223,7 +223,7 @@ export default class Cosmo extends Component<Props, State> {
                     >
                         <Image
                             source={
-                                object.type === STATION_TYPES.MASTER ? objectImage : stationImage
+                                object.type === STATION_TYPES.BAZAR ? objectImage : stationImage
                             }
                             style={styles.image}
                         />

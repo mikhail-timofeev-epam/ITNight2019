@@ -26,9 +26,9 @@ export default StyleSheet.create({
         borderRadius: constants.gravityRadius,
     },
     objectWrapper: {
-        height: constants.minObjectRadius * 2,
-        width: constants.minObjectRadius * 2,
-        borderRadius: constants.minObjectRadius,
+        // height: constants.minObjectRadius * 2,
+        // width: constants.minObjectRadius * 2,
+        // borderRadius: constants.minObjectRadius,
     },
     objectName: {
         position: "absolute",
@@ -65,8 +65,8 @@ export default StyleSheet.create({
     },
     text: {
         flex: -1,
-        fontSize: 18,
-        color: "rgba(256, 256, 256, 0.9)",
+        fontSize: 15,
+        color: "rgba(0, 0, 0, 0.9)",
         textAlign: "center",
         fontWeight: "bold",
         paddingHorizontal: 2,

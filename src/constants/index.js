@@ -9,6 +9,7 @@ export const STATION_TYPES = keymirror({
     STATION: true,
     BAZAR: true,
     CARAVAN: true,
+    POLICE: true,
 });
 
 export const AUTH_TYPES = {

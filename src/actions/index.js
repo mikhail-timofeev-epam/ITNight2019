@@ -3,6 +3,7 @@ import apiAction from "./ApiActions";
 import navigationActions from "./NavigationActions";
 import mainActions from "./MainActions";
 import scoreboardActions from "./ScoreboardActions";
+import cartActions from "./CartAction";
 
 export default {
     ...beaconActions,
@@ -10,4 +11,5 @@ export default {
     ...navigationActions,
     ...mainActions,
     ...scoreboardActions,
+    ...cartActions,
 };
