@@ -1,7 +1,6 @@
 import React, { Component } from "react";
 import {
     Platform,
-    AppRegistry,
     TextInput,
     StyleSheet,
     Text,
@@ -14,8 +13,6 @@ import {
 import { connect } from "react-redux";
 import _ from "lodash";
 import validator from "validator";
-import VKLogin from "react-native-vkontakte-login";
-import { Routes } from "../rootNavigator";
 
 import { googleSignIn } from "../actions/GoogleSignInAction";
 import { vkSignIn } from "../actions/VKSignInAction";
@@ -40,25 +37,11 @@ class LoginScreen extends Component {
         };
     }
 
-    componentDidMount() {
-        VKLogin.initialize(6430395);
-    }
-
     render() {
         return (
             <View style={styles.container}>
                 <ScrollView>
-                    {/* <TextInput
-                        style={styles.inputField}
-                        onChangeText={text => this.setState({ email: text })}
-                        placeholder="Ваша электронная почта"
-                        keyboardType="email-address"
-                    />
-                    {this.state.isEmailValid ? null : (
-                        <Text style={styles.alertLabel}>*Неверный формат электронной почты</Text>
-                    )} */}
                     <View style={{ flexDirection: "row", alignItems: "center" }}>
-                        {/* <Text>#{this.props.userId}/</Text> */}
                         <TextInput
                             style={styles.inputField}
                             onChangeText={text => this.setState({ name: text })}
@@ -88,21 +71,6 @@ class LoginScreen extends Component {
                     >
                         <Text style={styles.buttonLabel}>Войти</Text>
                     </TouchableOpacity>
-                    {/* <Text style={styles.separator}>------------ или ------------</Text>
-                    <TouchableOpacity
-                        style={[styles.button, styles.googleSignInButton, this.getDisabledStyle()]}
-                        onPress={this.handlePressLoginViaGoogle}
-                        disabled={!this.state.isAgreed}
-                    >
-                        <Text style={styles.buttonLabel}>Войти через Google</Text>
-                    </TouchableOpacity>
-                    <TouchableOpacity
-                        style={[styles.button, styles.vkSignInButton, this.getDisabledStyle()]}
-                        onPress={this.handlePressLoginViaVK}
-                        disabled={!this.state.isAgreed}
-                    >
-                        <Text style={styles.buttonLabel}>Войти через VK</Text>
-                    </TouchableOpacity> */}
                 </ScrollView>
             </View>
         );
@@ -132,23 +100,10 @@ class LoginScreen extends Component {
         );
     };
 
-    // onLogin = () => {
-    //     this.setState(
-    //         { nameError: !this.state.name.trim() ? "Имя должно быть не пустым" : null },
-    //         () => {
-    //             if (!this.state.nameError) {
-    //                 this.props.saveUserName(this.props.userId, this.state.name);
-    //             }
-    //         }
-    //     );
-    // };
-
     handlePressLogin = () => {
-        // this.setState({ isEmailValid: validator.isEmail(this.state.email) });
         this.setState({ isNameValid: !validator.isEmpty(this.state.name) });
         this.setState({ isPhoneValid: validator.isMobilePhone(this.state.phone, "ru-RU") });
         if (
-            // validator.isEmail(this.state.email) &&
             !validator.isEmpty(this.state.name) &&
             validator.isMobilePhone(this.state.phone, "ru-RU")
         ) {
@@ -156,16 +111,7 @@ class LoginScreen extends Component {
                 name: this.state.name,
                 phone: this.state.phone,
             });
-            this.props.saveUserName(this.state.name);
         }
-    };
-
-    handlePressLoginViaGoogle = () => {
-        this.props.googleSignIn();
-    };
-
-    handlePressLoginViaVK = () => {
-        this.props.vkSignIn();
     };
 
     getDisabledStyle = () => (this.state.isAgreed ? null : styles.buttonDisabled);

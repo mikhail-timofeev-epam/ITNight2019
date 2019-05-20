@@ -85,24 +85,22 @@ const resetToSetUserName = () => dispatch => {
 
 const tryReOpenForLastUser = () => (dispatch, getState) => {
     const currentUserId = getState().authorization.userId;
+
     if (_.isNil(currentUserId)) {
         dispatch(resetToLogin());
         return;
-    }
-    // TODO: Mock calls
-    dispatch(navigateToMainAsRoot());
-    return;
-
-    return fetch(`${ENDPOINT}/user/${currentUserId}`, {
-        method: "GET",
-    })
-        .then(response => response.json())
-        .then(user => {
-            dispatch(navigateToMainAsRoot());
+    } else {
+        return fetch(`${ENDPOINT}/user/${currentUserId}`, {
+            method: "GET",
         })
-        .catch(() => {
-            dispatch(resetToLogin());
-        });
+            .then(response => response.json())
+            .then(user => {
+                dispatch(navigateToMainAsRoot());
+            })
+            .catch(() => {
+                dispatch(resetToLogin());
+            });
+    }
 };
 
 export default {

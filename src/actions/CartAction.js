@@ -1,6 +1,9 @@
 import { createAction } from "redux-actions";
 import { CartActionTypes } from "./../actions/actionsTypes";
 import { Alert } from "react-native";
+import apiActions from "./ApiActions";
+
+const ENDPOINT = "https://us-central1-scorching-heat-4242.cloudfunctions.net";
 
 const cartStaff = [
   {
@@ -129,10 +132,27 @@ const pushRandomStaffSuccues = data => {
     };
 };
 
-const removeRandomStaffSuccues = () => {
-  return {
-    type: CartActionTypes.REMOVE_RANDOM_STAFF_FROM_CART
-  };
+const removeRandomStaffSuccues = (staff) => (dispatch, getState) => {
+  let score = staff.reduce((accumulator, value) => {
+    return accumulator + value.score;
+  }, 0);
+  const currentUserId = getState().authorization.userId;
+
+  return fetch(`${ENDPOINT}/user/${currentUserId}/score`, {
+      method: "PUT",
+      headers: {
+          Accept: "application/json",
+          "Content-Type": "application/json",
+      },
+      body: JSON.stringify({"score": score}),
+  })
+      .then(result => {
+        apiActions.updateMainScreenHeader();
+        dispatch(createAction(CartActionTypes.REMOVE_RANDOM_STAFF_FROM_CART)());
+      })
+      .catch(error => {
+        console.log(error);
+      });
 };
 
 const removeRandomStaffByPoliceSuccues = () => {
@@ -152,7 +172,7 @@ const getFullCartAlert = () => () => {
   );
 };
 
-const goToBazar = () => (dispatch) => {
+const goToBazar = (staff) => (dispatch) => {
   Alert.alert(
     'Ты пришел на Базар',
     'Хочешь сдать всё награбленное?',
@@ -161,7 +181,7 @@ const goToBazar = () => (dispatch) => {
         text: 'Уйти с Базара',
         style: 'cancel',
       },
-      {text: 'Да!', onPress: () => dispatch(removeRandomStaffSuccues())},
+      {text: 'Да!', onPress: () => dispatch(removeRandomStaffSuccues(staff))},
     ],
     {cancelable: false},
   );

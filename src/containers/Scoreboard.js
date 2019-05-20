@@ -11,6 +11,7 @@ import {
 } from "react-native";
 import { connect } from "react-redux";
 import actions from "../actions";
+import _ from "lodash";
 
 class Scoreboard extends PureComponent {
     constructor(props) {
@@ -34,26 +35,50 @@ class Scoreboard extends PureComponent {
         return (
             <View style={styles.container}>
                 {this.renderActivityIndicator()}
-                <FlatList
-                    refreshControl={
-                        <RefreshControl
-                            refreshing={this.props.refreshing}
-                            onRefresh={this.onRefresh}
-                        />
-                    }
-                    data={this.props.scoreboardData}
-                    renderItem={this.renderItem}
-                />
+                {this.renderScoreboard()}
             </View>
         );
+    }
+
+    renderScoreboard = () => {
+        let scoreboard = this.props.scoreboardData.sort(function(a, b) {
+            if (!a.score) {
+                a.score = 0;
+            }
+            if (!b.score) {
+                b.score = 0;
+            }
+            return b.score - a.score
+        });
+        if (this.props.scoreboardData) {
+            return <FlatList
+                        refreshControl={
+                            <RefreshControl
+                                refreshing={this.props.refreshing}
+                                onRefresh={this.onRefresh}
+                            />
+                        }
+                        data={scoreboard}
+                        renderItem={this.renderItem}
+                    />
+        } else {
+            return <View>
+                        <Text>Видимо ещё нет участников :(</Text>
+                        <Text>Стань первым! Начни грабить корованы!</Text>
+                    </View>
+        }
     }
 
     renderItem = ({ item }) => (
         <View style={styles.scorelist}>
             <Text style={styles.name}>{item.name}</Text>
-            <Text style={styles.score}>{item.score}</Text>
+            <Text style={styles.score}>{this.renderScore(item.score)}</Text>
         </View>
     );
+
+    renderScore = (score) => {
+        return score ? score : 0;
+    }
 
     renderActivityIndicator() {
         if (this.props.scoreboardActivityIndicator) {
@@ -74,7 +99,10 @@ class Scoreboard extends PureComponent {
 function mapStateToProps(state, props) {
     return {
         uri: props.navigation.state.params.uri,
-        scoreboardData: state.scoreboardData.scoreboardData,
+        scoreboardData: _.reduce(state.scoreboardData.scoreboardData, (acc, item, key) => {
+            acc.push({id: key,...item});
+            return acc;
+        }, []),
         scoreboardActivityIndicator: state.scoreboardData.scoreboardActivityIndicator,
         refreshing: state.scoreboardData.refreshing,
     };

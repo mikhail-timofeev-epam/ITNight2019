@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { View, TouchableOpacity, Text, StyleSheet, Alert, FlatList } from "react-native";
+import { View, Text, StyleSheet, FlatList } from "react-native";
 import { connect } from "react-redux";
 import actions from "../actions";
 import { MAX_DISTANCE } from "../constants";
@@ -39,7 +39,7 @@ class Main extends Component {
           if (this.props.randomStaff.length === 0) {
             this.props.emptyCartBazarMessage();
           } else {
-            this.props.goToBazar();
+            this.props.goToBazar(this.props.randomStaff);
           }
           break;
         case 'POLICE':
